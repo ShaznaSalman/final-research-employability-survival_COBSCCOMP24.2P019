@@ -1,0 +1,37 @@
+# CPU-only PyTorch wheels
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Data + numerics
+pandas
+numpy
+scikit-learn
+scipy
+
+# Survival analysis
+lifelines
+scikit-survival
+
+# Deep survival (DeepSurv)
+torch
+pycox
+torchtuples
+
+# Explanation
+shap
+
+# API
+fastapi
+uvicorn[standard]
+pydantic
+
+# Frontend
+streamlit
+plotly
+requests
+
+# Reference data + config
+sqlalchemy
+python-dotenv
+
+# Tests
+pytest
