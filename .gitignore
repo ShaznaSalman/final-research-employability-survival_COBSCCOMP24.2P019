@@ -1,0 +1,54 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+
+# Raw data is never committed
+data/raw/*
+!data/raw/.gitkeep
+
+# Large model binaries
+artifacts/*.pkl
+artifacts/*.pt
+
+# Personal research Drive export (not part of the app)
+NIBM-4th year Research-*/
+
+# Respondent-level data derived from data/raw (privacy - regenerate with `python -m core.run_all`)
+data/processed/*
+!data/processed/.gitkeep
+data/reference/*.db
+artifacts/oof_predictions.csv
+artifacts/calibration_table.csv
+artifacts/fairness_report.csv
+artifacts/llm_unparseable.csv
+benchmark/profile_key.csv
+
+# Local tooling
+.claude/
+
+# pycox early-stopping checkpoints (now written to a temp dir)
+weight_checkpoint_*.pt
+
+# Real survey exports from Google Forms/Excel (participant data - never commit)
+New Data/
+
+# Local backups of data/artifacts/benchmark runs (contain models, DBs and respondent-level rows)
+data/backup*/
+
+# More respondent-level outputs (same reason as oof_predictions.csv)
+artifacts/validation_predictions.csv
+benchmark/prompts.csv
+benchmark/responses.csv
+
+# Form technical-test working files (test responses and submission logs)
+test_submissions/
+
+# Thesis drafts, supervisor feedback and reading material (private / third-party copyright)
+Thesis/
+Research paper/
+current thesis.pdf
