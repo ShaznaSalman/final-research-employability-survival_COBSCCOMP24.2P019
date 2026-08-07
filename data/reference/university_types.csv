@@ -1,0 +1,104 @@
+university_name,university_type,institution
+University of Colombo (incl. UCSC),state,University of Colombo
+University of Colombo,state,University of Colombo
+Colombo University,state,University of Colombo
+UOC,state,University of Colombo
+University of Colombo School of Computing,state,University of Colombo
+UCSC,state,University of Colombo
+University of Peradeniya,state,University of Peradeniya
+Peradeniya University,state,University of Peradeniya
+UOP,state,University of Peradeniya
+University of Sri Jayewardenepura,state,University of Sri Jayewardenepura
+University of Sri Jayawardenepura,state,University of Sri Jayewardenepura
+Sri Jayewardenepura University,state,University of Sri Jayewardenepura
+USJ,state,University of Sri Jayewardenepura
+USJP,state,University of Sri Jayewardenepura
+University of Kelaniya,state,University of Kelaniya
+Kelaniya University,state,University of Kelaniya
+UOK,state,University of Kelaniya
+University of Moratuwa,state,University of Moratuwa
+Moratuwa University,state,University of Moratuwa
+UOM,state,University of Moratuwa
+University of Jaffna,state,University of Jaffna
+Jaffna University,state,University of Jaffna
+UOJ,state,University of Jaffna
+University of Ruhuna,state,University of Ruhuna
+Ruhuna University,state,University of Ruhuna
+UOR,state,University of Ruhuna
+The Open University of Sri Lanka,state,The Open University of Sri Lanka
+Open University of Sri Lanka,state,The Open University of Sri Lanka
+Open University,state,The Open University of Sri Lanka
+OUSL,state,The Open University of Sri Lanka
+"Eastern University, Sri Lanka",state,"Eastern University, Sri Lanka"
+Eastern University,state,"Eastern University, Sri Lanka"
+EUSL,state,"Eastern University, Sri Lanka"
+South Eastern University of Sri Lanka,state,South Eastern University of Sri Lanka
+South Eastern University,state,South Eastern University of Sri Lanka
+SEUSL,state,South Eastern University of Sri Lanka
+Rajarata University of Sri Lanka,state,Rajarata University of Sri Lanka
+Rajarata University,state,Rajarata University of Sri Lanka
+RUSL,state,Rajarata University of Sri Lanka
+Sabaragamuwa University of Sri Lanka,state,Sabaragamuwa University of Sri Lanka
+Sabaragamuwa University,state,Sabaragamuwa University of Sri Lanka
+SUSL,state,Sabaragamuwa University of Sri Lanka
+Wayamba University of Sri Lanka,state,Wayamba University of Sri Lanka
+Wayamba University,state,Wayamba University of Sri Lanka
+WUSL,state,Wayamba University of Sri Lanka
+Uva Wellassa University,state,Uva Wellassa University
+UWU,state,Uva Wellassa University
+University of the Visual and Performing Arts,state,University of the Visual and Performing Arts
+UVPA,state,University of the Visual and Performing Arts
+Gampaha Wickramarachchi University of Indigenous Medicine,state,Gampaha Wickramarachchi University of Indigenous Medicine
+GWUIM,state,Gampaha Wickramarachchi University of Indigenous Medicine
+University of Vavuniya,state,University of Vavuniya
+Vavuniya University,state,University of Vavuniya
+General Sir John Kotelawala Defence University (KDU),state,General Sir John Kotelawala Defence University
+General Sir John Kotelawala Defence University,state,General Sir John Kotelawala Defence University
+Kotelawala Defence University,state,General Sir John Kotelawala Defence University
+KDU,state,General Sir John Kotelawala Defence University
+University of Vocational Technology (UNIVOTEC),state,University of Vocational Technology
+University of Vocational Technology,state,University of Vocational Technology
+UNIVOTEC,state,University of Vocational Technology
+Ocean University of Sri Lanka,state,Ocean University of Sri Lanka
+Ocean University,state,Ocean University of Sri Lanka
+Sri Lanka Institute of Information Technology (SLIIT),non_state,Sri Lanka Institute of Information Technology
+Sri Lanka Institute of Information Technology,non_state,Sri Lanka Institute of Information Technology
+SLIIT,non_state,Sri Lanka Institute of Information Technology
+NSBM Green University,non_state,NSBM Green University
+NSBM,non_state,NSBM Green University
+National School of Business Management,non_state,NSBM Green University
+Horizon Campus,non_state,Horizon Campus
+Horizon,non_state,Horizon Campus
+CINEC Campus,non_state,CINEC Campus
+CINEC,non_state,CINEC Campus
+Sri Lanka Technological Campus (SLTC),non_state,Sri Lanka Technological Campus
+Sri Lanka Technological Campus,non_state,Sri Lanka Technological Campus
+SLTC,non_state,Sri Lanka Technological Campus
+KIU,non_state,KIU
+Saegis Campus,non_state,Saegis Campus
+Saegis,non_state,Saegis Campus
+Aquinas College of Higher Studies,non_state,Aquinas College of Higher Studies
+Aquinas,non_state,Aquinas College of Higher Studies
+Informatics Institute of Technology (IIT),foreign_affiliated,Informatics Institute of Technology
+Informatics Institute of Technology,foreign_affiliated,Informatics Institute of Technology
+IIT,foreign_affiliated,Informatics Institute of Technology
+APIIT Sri Lanka,foreign_affiliated,APIIT Sri Lanka
+APIIT,foreign_affiliated,APIIT Sri Lanka
+ICBT Campus,foreign_affiliated,ICBT Campus
+ICBT,foreign_affiliated,ICBT Campus
+National Institute of Business Management (NIBM),foreign_affiliated,National Institute of Business Management
+National Institute of Business Management,foreign_affiliated,National Institute of Business Management
+NIBM,foreign_affiliated,National Institute of Business Management
+ESOFT Metro Campus,foreign_affiliated,ESOFT Metro Campus
+ESOFT,foreign_affiliated,ESOFT Metro Campus
+Java Institute,foreign_affiliated,Java Institute
+Java Institute for Advanced Technology,foreign_affiliated,Java Institute
+BCAS Campus,foreign_affiliated,BCAS Campus
+BCAS,foreign_affiliated,BCAS Campus
+IDM nations campus,foreign_affiliated,IDM Nations Campus
+Lyceum Campus,foreign_affiliated,Lyceum Campus
+Northshore College of Business and Technology,foreign_affiliated,Northshore College of Business and Technology
+SLIATE,state,Sri Lanka Institute of Advanced Technological Education
+BCI campus,non_state,BCI Campus
+Australian College of Business and Technology (ACBT),foreign_affiliated,Australian College of Business and Technology
+Esoft (London Met degree),foreign_affiliated,ESOFT Metro Campus
