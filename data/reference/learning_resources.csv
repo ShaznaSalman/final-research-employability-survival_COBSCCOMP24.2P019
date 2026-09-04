@@ -1,0 +1,40 @@
+skill,title,provider,url
+programming_fundamentals,CS50's Introduction to Computer Science,Harvard University,https://cs50.harvard.edu/x/
+programming_fundamentals,Free coding curriculum,freeCodeCamp,https://www.freecodecamp.org/learn
+oop,Classes and objects (Python tutorial),Python Software Foundation,https://docs.python.org/3/tutorial/classes.html
+oop,Learn Java (object-oriented programming),Oracle dev.java,https://dev.java/learn/
+java,Learn Java,Oracle dev.java,https://dev.java/learn/
+python,The Python Tutorial,Python Software Foundation,https://docs.python.org/3/tutorial/
+python,Scientific Computing with Python,freeCodeCamp,https://www.freecodecamp.org/learn/scientific-computing-with-python/
+javascript,The Modern JavaScript Tutorial,javascript.info,https://javascript.info/
+javascript,Learn web development,MDN Web Docs,https://developer.mozilla.org/en-US/docs/Learn
+sql_databases,Interactive SQL lessons,SQLBolt,https://sqlbolt.com/
+sql_databases,SQL Tutorial,W3Schools,https://www.w3schools.com/sql/
+git,Pro Git book,git-scm.com,https://git-scm.com/book/en/v2
+git,Learn Git Branching (interactive),learngitbranching.js.org,https://learngitbranching.js.org/
+software_testing,The Practical Test Pyramid,Martin Fowler,https://martinfowler.com/articles/practical-test-pyramid.html
+software_testing,ISTQB Certified Tester resources,ISTQB,https://www.istqb.org/
+rest_apis,HTTP documentation,MDN Web Docs,https://developer.mozilla.org/en-US/docs/Web/HTTP
+rest_apis,REST API tutorial,restfulapi.net,https://restfulapi.net/
+web_development,Full-stack curriculum,The Odin Project,https://www.theodinproject.com/
+web_development,Learn web development,MDN Web Docs,https://developer.mozilla.org/en-US/docs/Learn
+cloud_computing,Microsoft Learn training (Azure fundamentals),Microsoft,https://learn.microsoft.com/en-us/training/
+cloud_computing,AWS Skill Builder,Amazon Web Services,https://skillbuilder.aws/
+linux,Linux Journey,linuxjourney.com,https://linuxjourney.com/
+linux,Bash Reference Manual,GNU Project,https://www.gnu.org/software/bash/manual/
+docker,Get started with Docker,Docker,https://docs.docker.com/get-started/
+devops_cicd,GitHub Actions documentation,GitHub,https://docs.github.com/en/actions
+cybersecurity,OWASP Top 10,OWASP Foundation,https://owasp.org/www-project-top-ten/
+cybersecurity,Hands-on security labs,TryHackMe,https://tryhackme.com/
+data_analytics,Kaggle Learn (Python and data courses),Kaggle,https://www.kaggle.com/learn
+ai_ml,Machine Learning Crash Course,Google,https://developers.google.com/machine-learning/crash-course
+ai_ml,Kaggle Learn (machine learning courses),Kaggle,https://www.kaggle.com/learn
+communication,Interpersonal and communication skills,SkillsYouNeed,https://www.skillsyouneed.com/
+teamwork,Interpersonal and teamwork skills,SkillsYouNeed,https://www.skillsyouneed.com/
+problem_solving,Problem solving and decision making,SkillsYouNeed,https://www.skillsyouneed.com/
+critical_thinking,Critical thinking skills,SkillsYouNeed,https://www.skillsyouneed.com/
+adaptability,Personal development skills,SkillsYouNeed,https://www.skillsyouneed.com/
+time_management,Time management skills,SkillsYouNeed,https://www.skillsyouneed.com/
+professionalism,Employability and workplace skills,SkillsYouNeed,https://www.skillsyouneed.com/
+self_learning,Learning How to Learn,Coursera (free to audit),https://www.coursera.org/learn/learning-how-to-learn
+leadership,Leadership skills,SkillsYouNeed,https://www.skillsyouneed.com/
