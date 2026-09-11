@@ -1,0 +1,43 @@
+{
+ "rules": {
+  "programming_fundamentals": "programming fundamentals|programming concepts|programming (?:skills|knowledge|background|languages?)|coding skills|data structures|algorithms",
+  "oop": "\\boop\\b|object[- ]oriented",
+  "java": "\\bjava\\b(?!\\s*script)|spring boot|\\bspring\\b",
+  "python": "\\bpython\\b|django|flask|fastapi",
+  "javascript": "javascript|typescript|\\bjs\\b|react(?:\\.js|js)?\\b|angular|\\bvue|node\\.?js|next\\.?js",
+  "sql_databases": "\\bsql\\b|mysql|postgre|mongodb|database|\\bdbms\\b|\\boracle\\b|nosql",
+  "git": "\\bgit\\b|github|gitlab|version control|bitbucket",
+  "software_testing": "\\btesting\\b|test cases?|\\bqa\\b|quality assurance|selenium|playwright|cypress|postman|unit tests?",
+  "rest_apis": "\\brest(?:ful)?\\b|\\bapis?\\b|graphql|web services?",
+  "web_development": "\\bhtml\\d?\\b|\\bcss\\d?\\b|web development|front[- ]?end|full[- ]?stack|wordpress|tailwind|bootstrap|responsive web",
+  "cloud_computing": "\\bcloud\\b|\\baws\\b|azure|\\bgcp\\b|google cloud",
+  "linux": "linux|unix|\\bbash\\b|shell script|command line",
+  "docker": "docker|kubernetes|containeri[sz]",
+  "devops_cicd": "ci/cd|\\bci\\b|devops|jenkins|github actions",
+  "cybersecurity": "security|owasp|penetration|\\bsoc\\b|siem|vulnerab",
+  "data_analytics": "analytics|power ?bi|tableau|\\bexcel\\b|data analysis|data visuali[sz]ation|dashboards?",
+  "ai_ml": "machine learning|deep learning|\\bllms?\\b|tensorflow|pytorch|\\bnlp\\b|ai/ml|artificial intelligence|generative ai|\\bai (?:tools|models?|engineer|solutions|agents?)\\b",
+  "communication": "communication",
+  "teamwork": "team ?work|team player|collaborat|team environment",
+  "problem_solving": "problem[- ]solving|analytical|troubleshoot",
+  "critical_thinking": "critical thinking",
+  "adaptability": "adaptab|adapt to|adapt quickly|adapt effectively",
+  "time_management": "time management|deadlines|prioriti[sz]",
+  "professionalism": "professionalism|professional attitude|work ethic",
+  "self_learning": "eager(?:ness)? to learn|willing(?:ness)? to learn|quick learner|self[- ]learn|passion for learning|learn new|eagerness",
+  "leadership": "leadership"
+ },
+ "experience_regex": "(\\d+(?:\\.\\d+)?|one|two|three|four|five|six|seven|eight|nine|ten)\\s*(?:\\(\\d+\\))?\\s*\\+?\\s*(?:(?:-|\u2013|to)\\s*(\\d+)\\s*\\+?\\s*)?(years?|yrs?|months?)(?:'|\u2019)?\\s+(?:of\\s+)?(?:\\w+\\s+){0,4}?experience",
+ "number_words": {
+  "one": 1,
+  "two": 2,
+  "three": 3,
+  "four": 4,
+  "five": 5,
+  "six": 6,
+  "seven": 7,
+  "eight": 8,
+  "nine": 9,
+  "ten": 10
+ }
+}
