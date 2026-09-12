@@ -1,0 +1,5 @@
+# OPTIONAL - only for the LLM benchmark API mode (python -m benchmark.run_llm).
+# Install just the provider you use, e.g.  pip install openai
+# Gemini needs nothing extra (it is called over REST with `requests`).
+anthropic
+openai
