@@ -1,0 +1,53 @@
+===== Variant: standard =====
+You are helping with a research study on graduate employment in Sri Lanka.
+
+Below is the profile of a graduate from an IT / computing degree at a Sri Lankan higher education institution.
+"First IT job" means a paid IT role (full-time, part-time, contract, or a paid trainee/intern position taken
+after the degree). Internships that were part of the degree do not count.
+
+Graduate profile:
+{profile}
+
+Question: How many months after completing their degree will this graduate take to find their first IT job?
+Answer with a single whole number of months only. Do not give a range or any explanation.
+
+===== Variant: no_country =====
+You are helping with a research study on graduate employment.
+
+Below is the profile of a graduate from an IT / computing degree at a higher education institution.
+"First IT job" means a paid IT role (full-time, part-time, contract, or a paid trainee/intern position taken
+after the degree). Internships that were part of the degree do not count.
+
+Graduate profile:
+{profile}
+
+Question: How many months after completing their degree will this graduate take to find their first IT job?
+Answer with a single whole number of months only. Do not give a range or any explanation.
+
+===== Variant: local_context =====
+You are helping with a research study on graduate employment in Sri Lanka.
+
+Below is the profile of a graduate from an IT / computing degree at a Sri Lankan higher education institution.
+"First IT job" means a paid IT role (full-time, part-time, contract, or a paid trainee/intern position taken
+after the degree). Internships that were part of the degree do not count.
+
+Context: a graduate tracer study by the University of Kelaniya (2022) reported that its graduates took about 8 months on average to find employment after graduating.
+
+Graduate profile:
+{profile}
+
+Question: How many months after completing their degree will this graduate take to find their first IT job?
+Answer with a single whole number of months only. Do not give a range or any explanation.
+
+===== Variant: range =====
+You are helping with a research study on graduate employment in Sri Lanka.
+
+Below is the profile of a graduate from an IT / computing degree at a Sri Lankan higher education institution.
+"First IT job" means a paid IT role (full-time, part-time, contract, or a paid trainee/intern position taken
+after the degree). Internships that were part of the degree do not count.
+
+Graduate profile:
+{profile}
+
+Question: How many months after completing their degree will this graduate take to find their first IT job?
+Give your single best estimate, followed by a range that you are 80% confident contains the true value, in this exact format: BEST (LOW-HIGH), all in whole months. Do not give any explanation.
