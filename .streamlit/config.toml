@@ -1,0 +1,18 @@
+[theme]
+base = "light"
+primaryColor = "#2a78d6"
+backgroundColor = "#f8f7f4"
+secondaryBackgroundColor = "#efeee9"
+textColor = "#0b0b0b"
+linkColor = "#1c5cab"
+borderColor = "#e4e3df"
+baseRadius = "0.75rem"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
+headingFontWeights = [800, 750, 700, 650, 600, 600]
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
