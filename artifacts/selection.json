@@ -1,0 +1,14 @@
+{
+  "selected": "aft_best",
+  "label": "AFT Log-Normal",
+  "params": {},
+  "uno_c": 0.619,
+  "uno_c_validation": 0.693,
+  "uno_c_test_ci": [
+    0.557,
+    0.683
+  ],
+  "bootstrap_models": 200,
+  "bootstrap_failures": 0,
+  "runtime_min": 1.1
+}

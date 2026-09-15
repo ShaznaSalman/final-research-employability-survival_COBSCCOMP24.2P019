@@ -1,0 +1,164 @@
+{
+  "data": {
+    "is_synthetic": false,
+    "sources": {
+      "graduates": "graduate_responses.csv",
+      "employers": "employer_responses.csv",
+      "job_ads": "job_ads.csv",
+      "university_types": "university_types.csv"
+    },
+    "raw_n": 1175,
+    "modelling_n": 885,
+    "modelling_events": 667,
+    "training_n": 620,
+    "events": 467,
+    "censored": 153,
+    "validation_n": 133,
+    "validation_events": 100,
+    "test_n": 132,
+    "test_events": 100,
+    "final_year_n": 230,
+    "model_parameters": 16,
+    "epv": 29.19,
+    "employers_n": 239,
+    "job_ads_n": 324
+  },
+  "model": {
+    "selected": "aft_best",
+    "label": "AFT Log-Normal",
+    "params": {},
+    "uno_c": 0.619,
+    "uno_c_validation": 0.693,
+    "uno_c_test_ci": [
+      0.557,
+      0.683
+    ],
+    "bootstrap_models": 200,
+    "bootstrap_failures": 0,
+    "runtime_min": 1.1
+  },
+  "feature_sets": {
+    "recommendation": "transformed",
+    "in_use": "extended",
+    "delta_c_cox": {
+      "extended": 0.003,
+      "transformed": 0.011
+    },
+    "win_share_cox": {
+      "extended": 0.66,
+      "transformed": 0.91
+    },
+    "epv": {
+      "core": 46.7,
+      "extended": 29.2,
+      "transformed": 42.5
+    }
+  },
+  "fairness": {
+    "groups": 8,
+    "suppressed": 2,
+    "flags": [
+      "gender: C-index gap of 0.149 between `female` and `male` (bootstrap intervals overlap - consistent with chance).",
+      "gender = `female`: the model under-predicts employment by 6 months by 0.12.",
+      "gender = `male`: the model under-predicts employment by 6 months by 0.19.",
+      "university_type = `foreign_affiliated`: the model under-predicts employment by 6 months by 0.24.",
+      "university_type = `state`: the model under-predicts employment by 6 months by 0.21."
+    ]
+  },
+  "robustness": {
+    "sensitivity": {
+      "selected": "aft_best",
+      "uno_c_range": [
+        0.659,
+        0.707
+      ],
+      "uno_c_main": 0.693,
+      "directions_stable": 16,
+      "features": 16
+    },
+    "temporal": {
+      "cut": "2025-08",
+      "train_n": 322,
+      "test_n": 68,
+      "uno_c": {
+        "cox_ph": 0.723,
+        "cox_elasticnet": 0.705,
+        "deepsurv": 0.727,
+        "aft_best": 0.721
+      }
+    },
+    "clustering": {
+      "institutions": 23,
+      "median_se_ratio": 0.77,
+      "max_se_ratio": 1.26,
+      "significance_changes": 0
+    },
+    "competing": {
+      "n": 635,
+      "events": {
+        "0": 131,
+        "1": 467,
+        "2": 37
+      },
+      "alt_date_missing": 13,
+      "cif_it": {
+        "3": 0.4,
+        "6": 0.637,
+        "12": 0.778,
+        "24": 0.87
+      },
+      "one_minus_km": {
+        "3": 0.405,
+        "6": 0.658,
+        "12": 0.819,
+        "24": 0.924
+      },
+      "cif_other_path": {
+        "3": 0.031,
+        "6": 0.054,
+        "12": 0.065,
+        "24": 0.065
+      }
+    }
+  },
+  "reference_db": {
+    "db": "D:\\EmployabilityPredictor\\data\\reference\\reference.db",
+    "employers": 239,
+    "job_ads": 324,
+    "skills": 26,
+    "peer_groups": 12,
+    "peer_groups_suppressed": 0,
+    "is_synthetic": false
+  },
+  "job_market": {
+    "n_ads": 324,
+    "n_companies": 211,
+    "roles": {
+      "Software engineering": 121,
+      "Quality assurance": 60,
+      "Infrastructure & support": 53,
+      "Business analysis": 38,
+      "UI/UX design": 23,
+      "Data & AI": 20,
+      "Cybersecurity": 9
+    }
+  },
+  "questionnaire": {
+    "repeated": {
+      "Q25 Java ticked": "repeats the model question - keep one",
+      "Q25 Python ticked": "repeats the model question - keep one",
+      "Q25 JavaScript ticked": "repeats the model question - keep one",
+      "Q27 Unfamiliar-problem confidence": "measures something different",
+      "Q32 Explaining to non-technical people": "repeats the model question - keep one",
+      "Q33 Team confidence": "repeats the model question - keep one",
+      "Q34 Group projects (yes)": "measures something different",
+      "Q28 Version control used": "measures something different",
+      "Q28 Testing practices used": "measures something different",
+      "Q28 CI/CD used": "measures something different",
+      "Q28 Number of practices used": "measures something different"
+    }
+  },
+  "benchmark": {
+    "skipped": "The training data changed since the prompts were exported, so recorded responses no longer match the profiles. Run `python -m benchmark.export_prompts --force-template` and collect new responses."
+  }
+}
