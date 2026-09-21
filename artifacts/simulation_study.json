@@ -1,0 +1,395 @@
+{
+ "sample_sizes": [
+  150,
+  300,
+  600,
+  1200
+ ],
+ "reps_per_size": 200,
+ "true_log_hazard_ratios": {
+  "gpa": 0.4,
+  "internship_months": 0.05,
+  "certifications_count": 0.2,
+  "project_count": 0.07,
+  "technical_mean": 0.5,
+  "soft_mean": 0.3,
+  "degree_group[it_is]": -0.2,
+  "degree_group[specialised]": 0.1,
+  "university_type[non_state]": 0.0,
+  "university_type[foreign_affiliated]": 0.0,
+  "gender": 0.0,
+  "has_portfolio": 0.2,
+  "prep_years": 0.08,
+  "hackathon_count": 0.15,
+  "open_source": 0.1,
+  "self_learning_freq": 0.0,
+  "sdlc_familiarity": 0.0
+ },
+ "frailty_variance": 0.3,
+ "by_size": {
+  "150": {
+   "reps": 200,
+   "mean_n_used": 140.435,
+   "mean_events": 85.395,
+   "c_index_mean": 0.7246036806516932,
+   "c_index_sd": 0.032032738192522656,
+   "effects": {
+    "gpa": {
+     "label": "GPA",
+     "true": 0.4,
+     "mean_estimate": 0.7728055300804028,
+     "sd_estimate": 0.3614015880446741,
+     "direction_recovery": 0.995,
+     "power": 0.635
+    },
+    "internship_months": {
+     "label": "Internship months",
+     "true": 0.05,
+     "mean_estimate": 0.03620817211927432,
+     "sd_estimate": 0.0361129369319099,
+     "direction_recovery": 0.835,
+     "power": 0.225,
+     "bias": -0.01379182788072568,
+     "coverage": 0.89
+    },
+    "certifications_count": {
+     "label": "Certifications",
+     "true": 0.2,
+     "mean_estimate": 0.09963618288485314,
+     "sd_estimate": 0.10527379029586241,
+     "direction_recovery": 0.855,
+     "power": 0.24
+    },
+    "project_count": {
+     "label": "Projects",
+     "true": 0.07,
+     "mean_estimate": 0.0713975361038092,
+     "sd_estimate": 0.05297400060985846,
+     "direction_recovery": 0.91,
+     "power": 0.32,
+     "bias": 0.0013975361038091882,
+     "coverage": 0.92
+    },
+    "technical_mean": {
+     "label": "Technical skills (self-rated)",
+     "true": 0.5,
+     "mean_estimate": 0.42691900565301566,
+     "sd_estimate": 0.2597390997713555,
+     "direction_recovery": 0.955,
+     "power": 0.395
+    },
+    "soft_mean": {
+     "label": "Soft skills (self-rated)",
+     "true": 0.3,
+     "mean_estimate": 0.1136545213702106,
+     "sd_estimate": 0.29398715073852805,
+     "direction_recovery": 0.68,
+     "power": 0.09
+    },
+    "degree_group[it_is]": {
+     "label": "Degree: IT/IS vs computing",
+     "true": -0.2,
+     "mean_estimate": -0.1787844593597341,
+     "sd_estimate": 0.3209904352235703,
+     "direction_recovery": 0.69,
+     "power": 0.115
+    },
+    "degree_group[specialised]": {
+     "label": "Degree: specialised vs computing",
+     "true": 0.1,
+     "mean_estimate": 0.10721224971589242,
+     "sd_estimate": 0.3571408989717718,
+     "direction_recovery": 0.63,
+     "power": 0.085
+    },
+    "university_type[non_state]": {
+     "label": "University: non-state vs state",
+     "true": 0.0,
+     "mean_estimate": 0.016972039727280876,
+     "sd_estimate": 0.32717899789214216,
+     "false_positive_rate": 0.1
+    },
+    "university_type[foreign_affiliated]": {
+     "label": "University: foreign-affiliated vs state",
+     "true": 0.0,
+     "mean_estimate": 0.04123260601039291,
+     "sd_estimate": 0.3545162714345989,
+     "false_positive_rate": 0.095
+    }
+   }
+  },
+  "300": {
+   "reps": 200,
+   "mean_n_used": 281.765,
+   "mean_events": 169.46,
+   "c_index_mean": 0.7091609526610196,
+   "c_index_sd": 0.02139385810209579,
+   "effects": {
+    "gpa": {
+     "label": "GPA",
+     "true": 0.4,
+     "mean_estimate": 0.7122063182889145,
+     "sd_estimate": 0.24005256445902476,
+     "direction_recovery": 1.0,
+     "power": 0.855
+    },
+    "internship_months": {
+     "label": "Internship months",
+     "true": 0.05,
+     "mean_estimate": 0.03600124857158565,
+     "sd_estimate": 0.023279753360573634,
+     "direction_recovery": 0.95,
+     "power": 0.415,
+     "bias": -0.01399875142841435,
+     "coverage": 0.88
+    },
+    "certifications_count": {
+     "label": "Certifications",
+     "true": 0.2,
+     "mean_estimate": 0.09236887804836708,
+     "sd_estimate": 0.06576858056736914,
+     "direction_recovery": 0.925,
+     "power": 0.375
+    },
+    "project_count": {
+     "label": "Projects",
+     "true": 0.07,
+     "mean_estimate": 0.06518250211263141,
+     "sd_estimate": 0.03513513587027466,
+     "direction_recovery": 0.965,
+     "power": 0.525,
+     "bias": -0.004817497887368599,
+     "coverage": 0.915
+    },
+    "technical_mean": {
+     "label": "Technical skills (self-rated)",
+     "true": 0.5,
+     "mean_estimate": 0.41344042293068056,
+     "sd_estimate": 0.1644754921452239,
+     "direction_recovery": 0.995,
+     "power": 0.665
+    },
+    "soft_mean": {
+     "label": "Soft skills (self-rated)",
+     "true": 0.3,
+     "mean_estimate": 0.10090426867626,
+     "sd_estimate": 0.16324053634074986,
+     "direction_recovery": 0.75,
+     "power": 0.09
+    },
+    "degree_group[it_is]": {
+     "label": "Degree: IT/IS vs computing",
+     "true": -0.2,
+     "mean_estimate": -0.1636478574155276,
+     "sd_estimate": 0.17586182937806696,
+     "direction_recovery": 0.805,
+     "power": 0.1
+    },
+    "degree_group[specialised]": {
+     "label": "Degree: specialised vs computing",
+     "true": 0.1,
+     "mean_estimate": 0.07282883609096202,
+     "sd_estimate": 0.2195210331631807,
+     "direction_recovery": 0.625,
+     "power": 0.065
+    },
+    "university_type[non_state]": {
+     "label": "University: non-state vs state",
+     "true": 0.0,
+     "mean_estimate": 0.0017910330181063984,
+     "sd_estimate": 0.21953328213420592,
+     "false_positive_rate": 0.075
+    },
+    "university_type[foreign_affiliated]": {
+     "label": "University: foreign-affiliated vs state",
+     "true": 0.0,
+     "mean_estimate": 0.016199043567007815,
+     "sd_estimate": 0.22065160532633493,
+     "false_positive_rate": 0.05
+    }
+   }
+  },
+  "600": {
+   "reps": 200,
+   "mean_n_used": 562.635,
+   "mean_events": 340.21,
+   "c_index_mean": 0.7058965928676944,
+   "c_index_sd": 0.014776961907810134,
+   "effects": {
+    "gpa": {
+     "label": "GPA",
+     "true": 0.4,
+     "mean_estimate": 0.7066803315383098,
+     "sd_estimate": 0.1622362354486491,
+     "direction_recovery": 1.0,
+     "power": 0.99
+    },
+    "internship_months": {
+     "label": "Internship months",
+     "true": 0.05,
+     "mean_estimate": 0.03463956906792204,
+     "sd_estimate": 0.016446872488133927,
+     "direction_recovery": 0.99,
+     "power": 0.62,
+     "bias": -0.015360430932077965,
+     "coverage": 0.79
+    },
+    "certifications_count": {
+     "label": "Certifications",
+     "true": 0.2,
+     "mean_estimate": 0.08546699807835782,
+     "sd_estimate": 0.043467442648812284,
+     "direction_recovery": 0.97,
+     "power": 0.57
+    },
+    "project_count": {
+     "label": "Projects",
+     "true": 0.07,
+     "mean_estimate": 0.06595990711724926,
+     "sd_estimate": 0.026741024947113102,
+     "direction_recovery": 0.98,
+     "power": 0.84,
+     "bias": -0.004040092882750743,
+     "coverage": 0.9
+    },
+    "technical_mean": {
+     "label": "Technical skills (self-rated)",
+     "true": 0.5,
+     "mean_estimate": 0.40530114539612183,
+     "sd_estimate": 0.1269493363039805,
+     "direction_recovery": 1.0,
+     "power": 0.91
+    },
+    "soft_mean": {
+     "label": "Soft skills (self-rated)",
+     "true": 0.3,
+     "mean_estimate": 0.08551588078521295,
+     "sd_estimate": 0.12051270527435418,
+     "direction_recovery": 0.755,
+     "power": 0.125
+    },
+    "degree_group[it_is]": {
+     "label": "Degree: IT/IS vs computing",
+     "true": -0.2,
+     "mean_estimate": -0.14947007353633007,
+     "sd_estimate": 0.12473475687395258,
+     "direction_recovery": 0.885,
+     "power": 0.195
+    },
+    "degree_group[specialised]": {
+     "label": "Degree: specialised vs computing",
+     "true": 0.1,
+     "mean_estimate": 0.06938452338428845,
+     "sd_estimate": 0.1642834699375559,
+     "direction_recovery": 0.68,
+     "power": 0.07
+    },
+    "university_type[non_state]": {
+     "label": "University: non-state vs state",
+     "true": 0.0,
+     "mean_estimate": -0.002762261206831781,
+     "sd_estimate": 0.14340682665836219,
+     "false_positive_rate": 0.04
+    },
+    "university_type[foreign_affiliated]": {
+     "label": "University: foreign-affiliated vs state",
+     "true": 0.0,
+     "mean_estimate": 0.010027554199099724,
+     "sd_estimate": 0.15662199724103465,
+     "false_positive_rate": 0.075
+    }
+   }
+  },
+  "1200": {
+   "reps": 200,
+   "mean_n_used": 1126.135,
+   "mean_events": 681.485,
+   "c_index_mean": 0.7047141930653315,
+   "c_index_sd": 0.011011099444266882,
+   "effects": {
+    "gpa": {
+     "label": "GPA",
+     "true": 0.4,
+     "mean_estimate": 0.7181479075175576,
+     "sd_estimate": 0.11159936349516272,
+     "direction_recovery": 1.0,
+     "power": 1.0
+    },
+    "internship_months": {
+     "label": "Internship months",
+     "true": 0.05,
+     "mean_estimate": 0.03474203615794302,
+     "sd_estimate": 0.011320858241145718,
+     "direction_recovery": 1.0,
+     "power": 0.905,
+     "bias": -0.015257963842056986,
+     "coverage": 0.695
+    },
+    "certifications_count": {
+     "label": "Certifications",
+     "true": 0.2,
+     "mean_estimate": 0.08249470273568026,
+     "sd_estimate": 0.029535657721088824,
+     "direction_recovery": 0.995,
+     "power": 0.81
+    },
+    "project_count": {
+     "label": "Projects",
+     "true": 0.07,
+     "mean_estimate": 0.05903659860250818,
+     "sd_estimate": 0.016734965320577635,
+     "direction_recovery": 1.0,
+     "power": 0.935,
+     "bias": -0.010963401397491829,
+     "coverage": 0.85
+    },
+    "technical_mean": {
+     "label": "Technical skills (self-rated)",
+     "true": 0.5,
+     "mean_estimate": 0.41058384140788007,
+     "sd_estimate": 0.09208109066928942,
+     "direction_recovery": 1.0,
+     "power": 0.995
+    },
+    "soft_mean": {
+     "label": "Soft skills (self-rated)",
+     "true": 0.3,
+     "mean_estimate": 0.08124374855708968,
+     "sd_estimate": 0.08463877033778802,
+     "direction_recovery": 0.84,
+     "power": 0.18
+    },
+    "degree_group[it_is]": {
+     "label": "Degree: IT/IS vs computing",
+     "true": -0.2,
+     "mean_estimate": -0.15681599337927893,
+     "sd_estimate": 0.08985375007046406,
+     "direction_recovery": 0.955,
+     "power": 0.375
+    },
+    "degree_group[specialised]": {
+     "label": "Degree: specialised vs computing",
+     "true": 0.1,
+     "mean_estimate": 0.07125248249823402,
+     "sd_estimate": 0.11293723579026779,
+     "direction_recovery": 0.74,
+     "power": 0.13
+    },
+    "university_type[non_state]": {
+     "label": "University: non-state vs state",
+     "true": 0.0,
+     "mean_estimate": 0.00651262098078439,
+     "sd_estimate": 0.09047392819781183,
+     "false_positive_rate": 0.02
+    },
+    "university_type[foreign_affiliated]": {
+     "label": "University: foreign-affiliated vs state",
+     "true": 0.0,
+     "mean_estimate": 0.013691805088820407,
+     "sd_estimate": 0.10384789502828587,
+     "false_positive_rate": 0.045
+    }
+   }
+  }
+ }
+}
