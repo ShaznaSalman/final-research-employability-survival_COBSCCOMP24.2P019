@@ -1,0 +1,89 @@
+{
+ "folds": 1,
+ "n_validation": 133,
+ "summary": [
+  {
+   "model": "cox_core",
+   "label": "Cox PH (core features)",
+   "uno_c_mean": 0.6675938158424989,
+   "uno_c_sd": 0.031755366915017014,
+   "delta_vs_cox": 0.0,
+   "delta_sd": 0.0,
+   "folds_better": null
+  },
+  {
+   "model": "cox_flexible",
+   "label": "Cox PH + non-linear & interaction terms",
+   "uno_c_mean": 0.6664378907950976,
+   "uno_c_sd": 0.030707584985109757,
+   "delta_vs_cox": -0.0011559250474012517,
+   "delta_sd": 0.011742854847560647,
+   "folds_better": 0.442
+  },
+  {
+   "model": "gbm",
+   "label": "Gradient-boosted Cox",
+   "uno_c_mean": 0.6866883243286399,
+   "uno_c_sd": 0.027601127148396187,
+   "delta_vs_cox": 0.019094508486141026,
+   "delta_sd": 0.0190734815832463,
+   "folds_better": 0.85
+  },
+  {
+   "model": "rsf",
+   "label": "Random survival forest",
+   "uno_c_mean": 0.6771505404544906,
+   "uno_c_sd": 0.02966434381138817,
+   "delta_vs_cox": 0.009556724611991751,
+   "delta_sd": 0.013521016557675876,
+   "folds_better": 0.744
+  },
+  {
+   "model": "deepsurv",
+   "label": "DeepSurv (neural net)",
+   "uno_c_mean": 0.6739185039668315,
+   "uno_c_sd": 0.03125650962800212,
+   "delta_vs_cox": 0.0063246881243326225,
+   "delta_sd": 0.019851120476613048,
+   "folds_better": 0.604
+  },
+  {
+   "model": "deephit",
+   "label": "DeepHit (neural net)",
+   "uno_c_mean": 0.5900992843585446,
+   "uno_c_sd": 0.03272029483626738,
+   "delta_vs_cox": -0.07749453148395424,
+   "delta_sd": 0.031452110387037546,
+   "folds_better": 0.012
+  },
+  {
+   "model": "coxtime",
+   "label": "Cox-Time (neural net)",
+   "uno_c_mean": 0.6736924370334699,
+   "uno_c_sd": 0.03280904251179796,
+   "delta_vs_cox": 0.006098621190971043,
+   "delta_sd": 0.01793571913808447,
+   "folds_better": 0.624
+  },
+  {
+   "model": "nmtlr",
+   "label": "N-MTLR (neural net)",
+   "uno_c_mean": 0.6663214877392214,
+   "uno_c_sd": 0.030874745233044145,
+   "delta_vs_cox": -0.001272328103277487,
+   "delta_sd": 0.022362762056742518,
+   "folds_better": 0.49
+  },
+  {
+   "model": "ensemble",
+   "label": "Ensemble (Cox + GBM + RSF)",
+   "uno_c_mean": 0.682754374401633,
+   "uno_c_sd": 0.02952000661605564,
+   "delta_vs_cox": 0.015160558559134119,
+   "delta_sd": 0.011023762935322754,
+   "folds_better": 0.904
+  }
+ ],
+ "is_synthetic": false,
+ "ceiling": null
+}

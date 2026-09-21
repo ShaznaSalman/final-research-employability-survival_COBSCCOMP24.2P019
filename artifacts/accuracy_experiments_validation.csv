@@ -1,0 +1,10 @@
+model,params,uno_c
+cox_core,"{""penalizer"": 1.0}",0.6675938158424989
+cox_flexible,"{""penalizer"": 0.1}",0.6664378907950976
+gbm,"{""n_estimators"": 250, ""learning_rate"": 0.05, ""max_depth"": 2, ""subsample"": 0.8}",0.6866883243286399
+rsf,"{""n_estimators"": 300, ""min_samples_leaf"": 10, ""max_features"": ""sqrt""}",0.6771505404544906
+deepsurv,"{""width"": 16, ""dropout"": 0.3, ""lr"": 0.001}",0.6739185039668315
+deephit,"{""width"": 32, ""dropout"": 0.3, ""lr"": 0.001}",0.5900992843585446
+coxtime,"{""width"": 32, ""dropout"": 0.3, ""lr"": 0.001}",0.6736924370334699
+nmtlr,"{""width"": 32, ""dropout"": 0.3, ""lr"": 0.001}",0.6663214877392214
+ensemble,{},0.682754374401633
