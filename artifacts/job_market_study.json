@@ -1,0 +1,1148 @@
+{
+ "n_ads": 324,
+ "n_companies": 211,
+ "date_from": "2026-07-12",
+ "date_to": "2026-10-11",
+ "sources": {
+  "other": 274,
+  "topjobs": 42,
+  "linkedin": 8
+ },
+ "roles": {
+  "Software engineering": 121,
+  "Quality assurance": 60,
+  "Infrastructure & support": 53,
+  "Business analysis": 38,
+  "UI/UX design": 23,
+  "Data & AI": 20,
+  "Cybersecurity": 9
+ },
+ "seniority": {
+  "Intern / trainee": 224,
+  "Junior / associate": 100
+ },
+ "monthly": {
+  "2026-07": 40,
+  "2026-08": 83,
+  "2026-09": 117,
+  "2026-10": 84
+ },
+ "prevalence": [
+  {
+   "key": "problem_solving",
+   "label": "Problem Solving",
+   "kind": "soft",
+   "ads": 223,
+   "pct": 68.82716049382717,
+   "ci_low": 63.58760526991185,
+   "ci_high": 73.62548788239096
+  },
+  {
+   "key": "teamwork",
+   "label": "Teamwork",
+   "kind": "soft",
+   "ads": 197,
+   "pct": 60.80246913580247,
+   "ci_low": 55.38974867573254,
+   "ci_high": 65.96202608378547
+  },
+  {
+   "key": "communication",
+   "label": "Communication Skills",
+   "kind": "soft",
+   "ads": 178,
+   "pct": 54.93827160493827,
+   "ci_low": 49.494105845756806,
+   "ci_high": 60.26670547288
+  },
+  {
+   "key": "self_learning",
+   "label": "Self-learning Ability",
+   "kind": "soft",
+   "ads": 168,
+   "pct": 51.851851851851855,
+   "ci_low": 46.42137026642275,
+   "ci_high": 57.23893397806605
+  },
+  {
+   "key": "software_testing",
+   "label": "Software Testing",
+   "kind": "technical",
+   "ads": 143,
+   "pct": 44.135802469135804,
+   "ci_low": 38.8289816787312,
+   "ci_high": 49.580054880387586
+  },
+  {
+   "key": "sql_databases",
+   "label": "SQL / Database Management",
+   "kind": "technical",
+   "ads": 120,
+   "pct": 37.03703703703704,
+   "ci_low": 31.959340660336196,
+   "ci_high": 42.41852962824219
+  },
+  {
+   "key": "rest_apis",
+   "label": "REST APIs",
+   "kind": "technical",
+   "ads": 107,
+   "pct": 33.02469135802469,
+   "ci_low": 28.128748130173854,
+   "ci_high": 38.318462962012134
+  },
+  {
+   "key": "javascript",
+   "label": "JavaScript",
+   "kind": "technical",
+   "ads": 90,
+   "pct": 27.77777777777778,
+   "ci_low": 23.182677969559286,
+   "ci_high": 32.8936710965751
+  },
+  {
+   "key": "git",
+   "label": "Git / GitHub",
+   "kind": "technical",
+   "ads": 85,
+   "pct": 26.234567901234566,
+   "ci_low": 21.74293332960367,
+   "ci_high": 31.283162199456697
+  },
+  {
+   "key": "web_development",
+   "label": "Web Development",
+   "kind": "technical",
+   "ads": 78,
+   "pct": 24.074074074074073,
+   "ci_low": 19.73990425202849,
+   "ci_high": 29.015836325128287
+  },
+  {
+   "key": "cloud_computing",
+   "label": "Cloud Computing",
+   "kind": "technical",
+   "ads": 74,
+   "pct": 22.839506172839506,
+   "ci_low": 18.60235956245887,
+   "ci_high": 27.7131781850387
+  },
+  {
+   "key": "python",
+   "label": "Python",
+   "kind": "technical",
+   "ads": 52,
+   "pct": 16.049382716049383,
+   "ci_low": 12.453918785829117,
+   "ci_high": 20.44050339854285
+  },
+  {
+   "key": "data_analytics",
+   "label": "Data Analytics",
+   "kind": "technical",
+   "ads": 41,
+   "pct": 12.654320987654321,
+   "ci_low": 9.466570064522461,
+   "ci_high": 16.717294338286703
+  },
+  {
+   "key": "ai_ml",
+   "label": "Artificial Intelligence / Machine Learning",
+   "kind": "technical",
+   "ads": 41,
+   "pct": 12.654320987654321,
+   "ci_low": 9.466570064522461,
+   "ci_high": 16.717294338286703
+  },
+  {
+   "key": "cybersecurity",
+   "label": "Cybersecurity Fundamentals",
+   "kind": "technical",
+   "ads": 40,
+   "pct": 12.345679012345679,
+   "ci_low": 9.198706402942966,
+   "ci_high": 16.3751072924514
+  },
+  {
+   "key": "programming_fundamentals",
+   "label": "Programming Fundamentals",
+   "kind": "technical",
+   "ads": 37,
+   "pct": 11.419753086419753,
+   "ci_low": 8.399405132810136,
+   "ci_high": 15.344256440339823
+  },
+  {
+   "key": "devops_cicd",
+   "label": "DevOps / CI-CD",
+   "kind": "technical",
+   "ads": 32,
+   "pct": 9.876543209876543,
+   "ci_low": 7.083084970888814,
+   "ci_high": 13.610323065187144
+  },
+  {
+   "key": "time_management",
+   "label": "Time Management",
+   "kind": "soft",
+   "ads": 31,
+   "pct": 9.567901234567902,
+   "ci_low": 6.822473142774976,
+   "ci_high": 13.26088418588618
+  },
+  {
+   "key": "linux",
+   "label": "Linux / Command Line",
+   "kind": "technical",
+   "ads": 29,
+   "pct": 8.950617283950617,
+   "ci_low": 6.304198496078375,
+   "ci_high": 12.55905741775318
+  },
+  {
+   "key": "adaptability",
+   "label": "Adaptability",
+   "kind": "soft",
+   "ads": 28,
+   "pct": 8.641975308641975,
+   "ci_low": 6.046623549722119,
+   "ci_high": 12.206581656694638
+  },
+  {
+   "key": "java",
+   "label": "Java",
+   "kind": "technical",
+   "ads": 26,
+   "pct": 8.024691358024691,
+   "ci_low": 5.534847034977199,
+   "ci_high": 11.498256756609958
+  },
+  {
+   "key": "docker",
+   "label": "Docker",
+   "kind": "technical",
+   "ads": 26,
+   "pct": 8.024691358024691,
+   "ci_low": 5.534847034977199,
+   "ci_high": 11.498256756609958
+  },
+  {
+   "key": "oop",
+   "label": "Object-Oriented Programming",
+   "kind": "technical",
+   "ads": 15,
+   "pct": 4.62962962962963,
+   "ci_low": 2.8253742909008692,
+   "ci_high": 7.497171719123482
+  },
+  {
+   "key": "critical_thinking",
+   "label": "Critical Thinking",
+   "kind": "soft",
+   "ads": 8,
+   "pct": 2.4691358024691357,
+   "ci_low": 1.2563322739889053,
+   "ci_high": 4.795858784131846
+  },
+  {
+   "key": "professionalism",
+   "label": "Professionalism",
+   "kind": "soft",
+   "ads": 4,
+   "pct": 1.2345679012345678,
+   "ci_low": 0.48111045985326906,
+   "ci_high": 3.1308777686082805
+  },
+  {
+   "key": "leadership",
+   "label": "Leadership Ability",
+   "kind": "soft",
+   "ads": 3,
+   "pct": 0.9259259259259259,
+   "ci_low": 0.31538258867425395,
+   "ci_high": 2.6865549323724953
+  }
+ ],
+ "by_role": {
+  "Software engineering": {
+   "programming_fundamentals": 19.834710743801654,
+   "oop": 11.570247933884298,
+   "java": 14.87603305785124,
+   "python": 19.834710743801654,
+   "javascript": 60.33057851239669,
+   "sql_databases": 59.50413223140496,
+   "git": 46.28099173553719,
+   "software_testing": 38.84297520661157,
+   "rest_apis": 51.2396694214876,
+   "web_development": 45.45454545454545,
+   "cloud_computing": 23.96694214876033,
+   "linux": 4.132231404958678,
+   "docker": 9.090909090909092,
+   "devops_cicd": 6.6115702479338845,
+   "cybersecurity": 7.43801652892562,
+   "data_analytics": 5.785123966942149,
+   "ai_ml": 14.049586776859504,
+   "communication": 39.66942148760331,
+   "teamwork": 66.11570247933885,
+   "problem_solving": 62.8099173553719,
+   "critical_thinking": 0.8264462809917356,
+   "adaptability": 12.396694214876034,
+   "time_management": 9.090909090909092,
+   "professionalism": 0.0,
+   "self_learning": 57.02479338842975,
+   "leadership": 0.0
+  },
+  "Quality assurance": {
+   "programming_fundamentals": 8.333333333333332,
+   "oop": 0.0,
+   "java": 13.333333333333334,
+   "python": 11.666666666666666,
+   "javascript": 13.333333333333334,
+   "sql_databases": 33.33333333333333,
+   "git": 20.0,
+   "software_testing": 98.33333333333333,
+   "rest_apis": 48.333333333333336,
+   "web_development": 6.666666666666667,
+   "cloud_computing": 11.666666666666666,
+   "linux": 0.0,
+   "docker": 0.0,
+   "devops_cicd": 11.666666666666666,
+   "cybersecurity": 3.3333333333333335,
+   "data_analytics": 1.6666666666666667,
+   "ai_ml": 13.333333333333334,
+   "communication": 63.33333333333333,
+   "teamwork": 60.0,
+   "problem_solving": 76.66666666666667,
+   "critical_thinking": 3.3333333333333335,
+   "adaptability": 3.3333333333333335,
+   "time_management": 8.333333333333332,
+   "professionalism": 1.6666666666666667,
+   "self_learning": 58.333333333333336,
+   "leadership": 1.6666666666666667
+  },
+  "Infrastructure & support": {
+   "programming_fundamentals": 5.660377358490567,
+   "oop": 0.0,
+   "java": 0.0,
+   "python": 13.20754716981132,
+   "javascript": 3.7735849056603774,
+   "sql_databases": 24.528301886792452,
+   "git": 20.754716981132077,
+   "software_testing": 16.9811320754717,
+   "rest_apis": 3.7735849056603774,
+   "web_development": 3.7735849056603774,
+   "cloud_computing": 33.9622641509434,
+   "linux": 33.9622641509434,
+   "docker": 20.754716981132077,
+   "devops_cicd": 24.528301886792452,
+   "cybersecurity": 35.84905660377358,
+   "data_analytics": 9.433962264150944,
+   "ai_ml": 0.0,
+   "communication": 66.0377358490566,
+   "teamwork": 45.28301886792453,
+   "problem_solving": 81.13207547169812,
+   "critical_thinking": 0.0,
+   "adaptability": 11.320754716981133,
+   "time_management": 0.0,
+   "professionalism": 1.8867924528301887,
+   "self_learning": 52.83018867924528,
+   "leadership": 1.8867924528301887
+  },
+  "Business analysis": {
+   "programming_fundamentals": 0.0,
+   "oop": 0.0,
+   "java": 0.0,
+   "python": 0.0,
+   "javascript": 0.0,
+   "sql_databases": 5.263157894736842,
+   "git": 2.631578947368421,
+   "software_testing": 47.368421052631575,
+   "rest_apis": 2.631578947368421,
+   "web_development": 0.0,
+   "cloud_computing": 21.052631578947366,
+   "linux": 0.0,
+   "docker": 0.0,
+   "devops_cicd": 2.631578947368421,
+   "cybersecurity": 0.0,
+   "data_analytics": 28.947368421052634,
+   "ai_ml": 5.263157894736842,
+   "communication": 84.21052631578947,
+   "teamwork": 68.42105263157895,
+   "problem_solving": 81.57894736842105,
+   "critical_thinking": 13.157894736842104,
+   "adaptability": 5.263157894736842,
+   "time_management": 26.31578947368421,
+   "professionalism": 2.631578947368421,
+   "self_learning": 47.368421052631575,
+   "leadership": 0.0
+  },
+  "UI/UX design": {
+   "programming_fundamentals": 0.0,
+   "oop": 0.0,
+   "java": 0.0,
+   "python": 0.0,
+   "javascript": 21.73913043478261,
+   "sql_databases": 0.0,
+   "git": 0.0,
+   "software_testing": 17.391304347826086,
+   "rest_apis": 0.0,
+   "web_development": 56.52173913043478,
+   "cloud_computing": 4.3478260869565215,
+   "linux": 0.0,
+   "docker": 0.0,
+   "devops_cicd": 0.0,
+   "cybersecurity": 0.0,
+   "data_analytics": 17.391304347826086,
+   "ai_ml": 4.3478260869565215,
+   "communication": 39.130434782608695,
+   "teamwork": 73.91304347826086,
+   "problem_solving": 17.391304347826086,
+   "critical_thinking": 0.0,
+   "adaptability": 4.3478260869565215,
+   "time_management": 13.043478260869565,
+   "professionalism": 0.0,
+   "self_learning": 34.78260869565217,
+   "leadership": 0.0
+  },
+  "Data & AI": {
+   "programming_fundamentals": 25.0,
+   "oop": 5.0,
+   "java": 0.0,
+   "python": 60.0,
+   "javascript": 10.0,
+   "sql_databases": 60.0,
+   "git": 20.0,
+   "software_testing": 25.0,
+   "rest_apis": 50.0,
+   "web_development": 15.0,
+   "cloud_computing": 30.0,
+   "linux": 15.0,
+   "docker": 15.0,
+   "devops_cicd": 5.0,
+   "cybersecurity": 5.0,
+   "data_analytics": 60.0,
+   "ai_ml": 60.0,
+   "communication": 55.00000000000001,
+   "teamwork": 55.00000000000001,
+   "problem_solving": 85.0,
+   "critical_thinking": 0.0,
+   "adaptability": 10.0,
+   "time_management": 5.0,
+   "professionalism": 0.0,
+   "self_learning": 35.0,
+   "leadership": 5.0
+  },
+  "Cybersecurity": {
+   "programming_fundamentals": 0.0,
+   "oop": 0.0,
+   "java": 0.0,
+   "python": 22.22222222222222,
+   "javascript": 0.0,
+   "sql_databases": 11.11111111111111,
+   "git": 11.11111111111111,
+   "software_testing": 11.11111111111111,
+   "rest_apis": 33.33333333333333,
+   "web_development": 11.11111111111111,
+   "cloud_computing": 55.55555555555556,
+   "linux": 33.33333333333333,
+   "docker": 11.11111111111111,
+   "devops_cicd": 22.22222222222222,
+   "cybersecurity": 100.0,
+   "data_analytics": 11.11111111111111,
+   "ai_ml": 11.11111111111111,
+   "communication": 55.55555555555556,
+   "teamwork": 33.33333333333333,
+   "problem_solving": 66.66666666666666,
+   "critical_thinking": 0.0,
+   "adaptability": 0.0,
+   "time_management": 11.11111111111111,
+   "professionalism": 11.11111111111111,
+   "self_learning": 33.33333333333333,
+   "leadership": 0.0
+  }
+ },
+ "pairs": [
+  {
+   "a": "Docker",
+   "b": "DevOps / CI-CD",
+   "ads": 20,
+   "lift": 7.788461538461539,
+   "phi": 0.6637942210300799
+  },
+  {
+   "a": "Linux / Command Line",
+   "b": "Docker",
+   "ads": 14,
+   "lift": 6.015915119363396,
+   "phi": 0.46453315000242046
+  },
+  {
+   "a": "Linux / Command Line",
+   "b": "DevOps / CI-CD",
+   "ads": 13,
+   "lift": 4.538793103448277,
+   "phi": 0.36730490386667347
+  },
+  {
+   "a": "Cloud Computing",
+   "b": "Docker",
+   "ads": 25,
+   "lift": 4.20997920997921,
+   "phi": 0.5158537798241012
+  },
+  {
+   "a": "Cloud Computing",
+   "b": "DevOps / CI-CD",
+   "ads": 25,
+   "lift": 3.4206081081081083,
+   "phi": 0.4359672866273975
+  },
+  {
+   "a": "Linux / Command Line",
+   "b": "Cybersecurity Fundamentals",
+   "ads": 12,
+   "lift": 3.3517241379310345,
+   "phi": 0.2767229592638919
+  },
+  {
+   "a": "Git / GitHub",
+   "b": "Docker",
+   "ads": 21,
+   "lift": 3.078733031674208,
+   "phi": 0.3661742253768132
+  },
+  {
+   "a": "DevOps / CI-CD",
+   "b": "Cybersecurity Fundamentals",
+   "ads": 12,
+   "lift": 3.0375,
+   "phi": 0.25313488864690287
+  },
+  {
+   "a": "Java",
+   "b": "JavaScript",
+   "ads": 21,
+   "lift": 2.907692307692307,
+   "phi": 0.34946219182871835
+  },
+  {
+   "a": "Python",
+   "b": "Docker",
+   "ads": 12,
+   "lift": 2.8757396449704142,
+   "phi": 0.24225252887699208
+  },
+  {
+   "a": "Data Analytics",
+   "b": "Time Management",
+   "ads": 11,
+   "lift": 2.8040912667191185,
+   "phi": 0.22335940884306268
+  },
+  {
+   "a": "JavaScript",
+   "b": "Web Development",
+   "ads": 60,
+   "lift": 2.769230769230769,
+   "phi": 0.6178421847192412
+  },
+  {
+   "a": "Python",
+   "b": "Artificial Intelligence / Machine Learning",
+   "ads": 18,
+   "lift": 2.7354596622889304,
+   "phi": 0.28882212176718486
+  },
+  {
+   "a": "Cloud Computing",
+   "b": "Linux / Command Line",
+   "ads": 18,
+   "lift": 2.717614165890028,
+   "phi": 0.29299449443478176
+  },
+  {
+   "a": "Object-Oriented Programming",
+   "b": "JavaScript",
+   "ads": 11,
+   "lift": 2.6399999999999997,
+   "phi": 0.22409056101712116
+  },
+  {
+   "a": "Java",
+   "b": "Python",
+   "ads": 11,
+   "lift": 2.636094674556213,
+   "phi": 0.21130228465138282
+  },
+  {
+   "a": "Python",
+   "b": "Linux / Command Line",
+   "ads": 12,
+   "lift": 2.5782493368700266,
+   "phi": 0.21636191978000843
+  },
+  {
+   "a": "Object-Oriented Programming",
+   "b": "SQL / Database Management",
+   "ads": 14,
+   "lift": 2.5200000000000005,
+   "phi": 0.2568535171990918
+  },
+  {
+   "a": "Git / GitHub",
+   "b": "DevOps / CI-CD",
+   "ads": 21,
+   "lift": 2.501470588235294,
+   "phi": 0.2964223221613029
+  },
+  {
+   "a": "Java",
+   "b": "Git / GitHub",
+   "ads": 17,
+   "lift": 2.4923076923076923,
+   "phi": 0.262873877947917
+  },
+  {
+   "a": "Programming Fundamentals",
+   "b": "Python",
+   "ads": 14,
+   "lift": 2.357588357588358,
+   "phi": 0.21313032066811022
+  },
+  {
+   "a": "Python",
+   "b": "DevOps / CI-CD",
+   "ads": 12,
+   "lift": 2.3365384615384617,
+   "phi": 0.19345601798134981
+  },
+  {
+   "a": "Cloud Computing",
+   "b": "Cybersecurity Fundamentals",
+   "ads": 20,
+   "lift": 2.1891891891891895,
+   "phi": 0.2428105952263372
+  },
+  {
+   "a": "Git / GitHub",
+   "b": "REST APIs",
+   "ads": 61,
+   "lift": 2.1730621220450796,
+   "phi": 0.4912398001730987
+  },
+  {
+   "a": "Programming Fundamentals",
+   "b": "Artificial Intelligence / Machine Learning",
+   "ads": 10,
+   "lift": 2.135794330916282,
+   "phi": 0.15522380351221426
+  },
+  {
+   "a": "JavaScript",
+   "b": "Git / GitHub",
+   "ads": 48,
+   "lift": 2.032941176470588,
+   "phi": 0.3820317242367845
+  },
+  {
+   "a": "SQL / Database Management",
+   "b": "REST APIs",
+   "ads": 78,
+   "lift": 1.9682242990654204,
+   "phi": 0.5214510411844412
+  },
+  {
+   "a": "Web Development",
+   "b": "Adaptability",
+   "ads": 13,
+   "lift": 1.9285714285714286,
+   "phi": 0.1608156181991814
+  },
+  {
+   "a": "REST APIs",
+   "b": "Artificial Intelligence / Machine Learning",
+   "ads": 26,
+   "lift": 1.9202188283565074,
+   "phi": 0.24595284330143233
+  },
+  {
+   "a": "Python",
+   "b": "Git / GitHub",
+   "ads": 26,
+   "lift": 1.9058823529411764,
+   "phi": 0.23621068097031944
+  },
+  {
+   "a": "Java",
+   "b": "REST APIs",
+   "ads": 16,
+   "lift": 1.863407620416966,
+   "phi": 0.17908385778016747
+  },
+  {
+   "a": "Git / GitHub",
+   "b": "Artificial Intelligence / Machine Learning",
+   "ads": 20,
+   "lift": 1.8593974175035868,
+   "phi": 0.19507574189976096
+  },
+  {
+   "a": "Git / GitHub",
+   "b": "Web Development",
+   "ads": 38,
+   "lift": 1.8570135746606335,
+   "phi": 0.2877914989225515
+  },
+  {
+   "a": "Git / GitHub",
+   "b": "Linux / Command Line",
+   "ads": 14,
+   "lift": 1.840162271805274,
+   "phi": 0.15709475259292
+  },
+  {
+   "a": "JavaScript",
+   "b": "SQL / Database Management",
+   "ads": 61,
+   "lift": 1.83,
+   "phi": 0.39479074014823007
+  },
+  {
+   "a": "JavaScript",
+   "b": "REST APIs",
+   "ads": 54,
+   "lift": 1.8168224299065419,
+   "phi": 0.35571567468356335
+  },
+  {
+   "a": "Java",
+   "b": "Web Development",
+   "ads": 11,
+   "lift": 1.757396449704142,
+   "phi": 0.12597418425766008
+  },
+  {
+   "a": "SQL / Database Management",
+   "b": "Git / GitHub",
+   "ads": 55,
+   "lift": 1.7470588235294118,
+   "phi": 0.3416967525046249
+  },
+  {
+   "a": "SQL / Database Management",
+   "b": "Web Development",
+   "ads": 50,
+   "lift": 1.7307692307692308,
+   "phi": 0.3155989430582865
+  },
+  {
+   "a": "REST APIs",
+   "b": "DevOps / CI-CD",
+   "ads": 18,
+   "lift": 1.7032710280373828,
+   "phi": 0.16348138634563708
+  }
+ ],
+ "seniority_tests": [
+  {
+   "key": "self_learning",
+   "label": "Self-learning Ability",
+   "intern_pct": 61.160714285714285,
+   "junior_pct": 31.0,
+   "p": 6.312407985711212e-07,
+   "q": 1.641226076284915e-05,
+   "significant": true
+  },
+  {
+   "key": "devops_cicd",
+   "label": "DevOps / CI-CD",
+   "intern_pct": 7.142857142857143,
+   "junior_pct": 16.0,
+   "p": 0.02483421692486454,
+   "q": 0.322844820023239,
+   "significant": false
+  },
+  {
+   "key": "sql_databases",
+   "label": "SQL / Database Management",
+   "intern_pct": 33.482142857142854,
+   "junior_pct": 45.0,
+   "p": 0.061444973122919605,
+   "q": 0.5325231003986366,
+   "significant": false
+  },
+  {
+   "key": "java",
+   "label": "Java",
+   "intern_pct": 6.696428571428571,
+   "junior_pct": 11.0,
+   "p": 0.19118294050115012,
+   "q": 0.750264364520756,
+   "significant": false
+  },
+  {
+   "key": "web_development",
+   "label": "Web Development",
+   "intern_pct": 26.339285714285715,
+   "junior_pct": 19.0,
+   "p": 0.16260937082669985,
+   "q": 0.750264364520756,
+   "significant": false
+  },
+  {
+   "key": "docker",
+   "label": "Docker",
+   "intern_pct": 6.696428571428571,
+   "junior_pct": 11.0,
+   "p": 0.19118294050115012,
+   "q": 0.750264364520756,
+   "significant": false
+  },
+  {
+   "key": "cybersecurity",
+   "label": "Cybersecurity Fundamentals",
+   "intern_pct": 10.714285714285714,
+   "junior_pct": 16.0,
+   "p": 0.20199425198635737,
+   "q": 0.750264364520756,
+   "significant": false
+  },
+  {
+   "key": "cloud_computing",
+   "label": "Cloud Computing",
+   "intern_pct": 20.982142857142858,
+   "junior_pct": 27.0,
+   "p": 0.25305090667710384,
+   "q": 0.8224154467005875,
+   "significant": false
+  },
+  {
+   "key": "professionalism",
+   "label": "Professionalism",
+   "intern_pct": 1.7857142857142858,
+   "junior_pct": 0.0,
+   "p": 0.3156273450430934,
+   "q": 0.911812330124492,
+   "significant": false
+  },
+  {
+   "key": "programming_fundamentals",
+   "label": "Programming Fundamentals",
+   "intern_pct": 10.714285714285714,
+   "junior_pct": 13.0,
+   "p": 0.5729235228447227,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "oop",
+   "label": "Object-Oriented Programming",
+   "intern_pct": 5.357142857142857,
+   "junior_pct": 3.0,
+   "p": 0.5674378687487204,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "python",
+   "label": "Python",
+   "intern_pct": 15.178571428571429,
+   "junior_pct": 18.0,
+   "p": 0.5166240805616248,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "software_testing",
+   "label": "Software Testing",
+   "intern_pct": 42.410714285714285,
+   "junior_pct": 48.0,
+   "p": 0.39684604467870355,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "data_analytics",
+   "label": "Data Analytics",
+   "intern_pct": 11.607142857142858,
+   "junior_pct": 15.0,
+   "p": 0.46938334323818676,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "ai_ml",
+   "label": "Artificial Intelligence / Machine Learning",
+   "intern_pct": 13.392857142857142,
+   "junior_pct": 11.0,
+   "p": 0.5929770361347877,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "communication",
+   "label": "Communication Skills",
+   "intern_pct": 53.57142857142857,
+   "junior_pct": 58.0,
+   "p": 0.47111936625587336,
+   "q": 0.96358768371903,
+   "significant": false
+  },
+  {
+   "key": "javascript",
+   "label": "JavaScript",
+   "intern_pct": 28.125,
+   "junior_pct": 27.0,
+   "p": 0.8936136296687539,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "git",
+   "label": "Git / GitHub",
+   "intern_pct": 26.785714285714285,
+   "junior_pct": 25.0,
+   "p": 0.7856349276933463,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "rest_apis",
+   "label": "REST APIs",
+   "intern_pct": 32.589285714285715,
+   "junior_pct": 34.0,
+   "p": 0.799615414944878,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "linux",
+   "label": "Linux / Command Line",
+   "intern_pct": 8.928571428571429,
+   "junior_pct": 9.0,
+   "p": 1.0,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "teamwork",
+   "label": "Teamwork",
+   "intern_pct": 60.267857142857146,
+   "junior_pct": 62.0,
+   "p": 0.8061681678480265,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "problem_solving",
+   "label": "Problem Solving",
+   "intern_pct": 69.19642857142857,
+   "junior_pct": 68.0,
+   "p": 0.8967926090256475,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "critical_thinking",
+   "label": "Critical Thinking",
+   "intern_pct": 2.6785714285714284,
+   "junior_pct": 2.0,
+   "p": 1.0,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "adaptability",
+   "label": "Adaptability",
+   "intern_pct": 8.928571428571429,
+   "junior_pct": 8.0,
+   "p": 1.0,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "time_management",
+   "label": "Time Management",
+   "intern_pct": 9.375,
+   "junior_pct": 10.0,
+   "p": 0.840418795162281,
+   "q": 1.0,
+   "significant": false
+  },
+  {
+   "key": "leadership",
+   "label": "Leadership Ability",
+   "intern_pct": 0.8928571428571429,
+   "junior_pct": 1.0,
+   "p": 1.0,
+   "q": 1.0,
+   "significant": false
+  }
+ ],
+ "emphasis": {
+  "mean_technical": 3.197530864197531,
+  "mean_soft": 2.5925925925925926,
+  "pct_any_soft": 89.19753086419753,
+  "pct_any_technical": 88.27160493827161,
+  "pct_soft_only": 11.728395061728394,
+  "spearman_tech_soft": 0.07623690322117473
+ },
+ "technologies": [
+  {
+   "name": "Git / GitHub",
+   "ads": 84,
+   "pct": 25.925925925925927
+  },
+  {
+   "name": "JavaScript",
+   "ads": 73,
+   "pct": 22.530864197530864
+  },
+  {
+   "name": "REST APIs",
+   "ads": 57,
+   "pct": 17.59259259259259
+  },
+  {
+   "name": "Python",
+   "ads": 51,
+   "pct": 15.74074074074074
+  },
+  {
+   "name": "HTML/CSS",
+   "ads": 47,
+   "pct": 14.506172839506172
+  },
+  {
+   "name": "React",
+   "ads": 43,
+   "pct": 13.271604938271604
+  },
+  {
+   "name": "Machine learning / AI",
+   "ads": 40,
+   "pct": 12.345679012345679
+  },
+  {
+   "name": "Jira",
+   "ads": 32,
+   "pct": 9.876543209876543
+  },
+  {
+   "name": "Azure",
+   "ads": 31,
+   "pct": 9.567901234567902
+  },
+  {
+   "name": ".NET / C#",
+   "ads": 29,
+   "pct": 8.950617283950617
+  },
+  {
+   "name": "MySQL",
+   "ads": 28,
+   "pct": 8.641975308641975
+  },
+  {
+   "name": "Node.js",
+   "ads": 28,
+   "pct": 8.641975308641975
+  },
+  {
+   "name": "Figma",
+   "ads": 27,
+   "pct": 8.333333333333334
+  },
+  {
+   "name": "Linux",
+   "ads": 26,
+   "pct": 8.024691358024691
+  },
+  {
+   "name": "Docker",
+   "ads": 25,
+   "pct": 7.716049382716049
+  },
+  {
+   "name": "Java",
+   "ads": 24,
+   "pct": 7.407407407407407
+  },
+  {
+   "name": "AWS",
+   "ads": 24,
+   "pct": 7.407407407407407
+  },
+  {
+   "name": "TypeScript",
+   "ads": 23,
+   "pct": 7.098765432098766
+  },
+  {
+   "name": "CI/CD",
+   "ads": 23,
+   "pct": 7.098765432098766
+  },
+  {
+   "name": "Next.js",
+   "ads": 23,
+   "pct": 7.098765432098766
+  },
+  {
+   "name": "Postman",
+   "ads": 22,
+   "pct": 6.790123456790123
+  },
+  {
+   "name": "Excel",
+   "ads": 20,
+   "pct": 6.172839506172839
+  },
+  {
+   "name": "Flutter",
+   "ads": 19,
+   "pct": 5.864197530864198
+  },
+  {
+   "name": "PHP",
+   "ads": 18,
+   "pct": 5.555555555555555
+  },
+  {
+   "name": "PostgreSQL",
+   "ads": 17,
+   "pct": 5.246913580246914
+  },
+  {
+   "name": "Selenium",
+   "ads": 16,
+   "pct": 4.938271604938271
+  },
+  {
+   "name": "MongoDB",
+   "ads": 15,
+   "pct": 4.62962962962963
+  },
+  {
+   "name": "Kubernetes",
+   "ads": 14,
+   "pct": 4.320987654320987
+  },
+  {
+   "name": "Angular",
+   "ads": 14,
+   "pct": 4.320987654320987
+  },
+  {
+   "name": "WordPress",
+   "ads": 13,
+   "pct": 4.012345679012346
+  }
+ ],
+ "notes": [
+  "Real ads from topjobs.lk, ITPro.lk and LinkedIn; skills coded by hand (topjobs flyers) or by fixed keyword rules (others). A skill counts as 'asked for' when the ad mentions it.",
+  "Keyword coding also counts terms in the company's own description, so AI/ML, analytics and cloud are slightly over-counted.",
+  "Role family and intern vs junior/associate are classified from the job title by fixed rules (core/market_study.py).",
+  "Intern vs junior/associate differences use Fisher's exact test with Benjamini-Hochberg correction (q < 0.05)."
+ ]
+}

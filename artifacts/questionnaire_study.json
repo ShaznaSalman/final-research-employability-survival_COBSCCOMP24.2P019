@@ -1,0 +1,5197 @@
+{
+ "is_synthetic": false,
+ "n_graduates": 885,
+ "n_final_year": 230,
+ "n_with_answers": 1115,
+ "n_employers": 239,
+ "repeated": [
+  {
+   "repeat": "Q25 Java ticked",
+   "item": "Q25",
+   "model_question": "Q18 Java rating",
+   "rho": 0.648,
+   "p": 1.0289432489333245e-133,
+   "n": 1115,
+   "ci": [
+    0.612,
+    0.681
+   ],
+   "verdict": "repeats the model question - keep one",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q25 Python ticked",
+   "item": "Q25",
+   "model_question": "Q18 Python rating",
+   "rho": 0.61,
+   "p": 2.1954265418136034e-114,
+   "n": 1115,
+   "ci": [
+    0.571,
+    0.645
+   ],
+   "verdict": "repeats the model question - keep one",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q25 JavaScript ticked",
+   "item": "Q25",
+   "model_question": "Q18 JavaScript rating",
+   "rho": 0.749,
+   "p": 8.440264403998719e-201,
+   "n": 1115,
+   "ci": [
+    0.722,
+    0.773
+   ],
+   "verdict": "repeats the model question - keep one",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q27 Unfamiliar-problem confidence",
+   "item": "Q27",
+   "model_question": "Q19 Problem Solving",
+   "rho": 0.293,
+   "p": 1.6714373647544327e-22,
+   "n": 1066,
+   "ci": [
+    0.237,
+    0.347
+   ],
+   "verdict": "measures something different",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q32 Explaining to non-technical people",
+   "item": "Q32",
+   "model_question": "Q19 Communication",
+   "rho": 0.76,
+   "p": 1.5623459749868285e-202,
+   "n": 1074,
+   "ci": [
+    0.733,
+    0.784
+   ],
+   "verdict": "repeats the model question - keep one",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q33 Team confidence",
+   "item": "Q33",
+   "model_question": "Q19 Teamwork",
+   "rho": 0.691,
+   "p": 1.0788579342741672e-152,
+   "n": 1070,
+   "ci": [
+    0.658,
+    0.721
+   ],
+   "verdict": "repeats the model question - keep one",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q34 Group projects (yes)",
+   "item": "Q34",
+   "model_question": "Q33 Team confidence",
+   "rho": 0.042,
+   "p": 0.1659534546389083,
+   "n": 1070,
+   "ci": [
+    -0.018,
+    0.102
+   ],
+   "verdict": "measures something different",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q28 Version control used",
+   "item": "Q28",
+   "model_question": "Q18 Git / GitHub rating",
+   "rho": 0.237,
+   "p": 6.89095298350561e-15,
+   "n": 1049,
+   "ci": [
+    0.179,
+    0.294
+   ],
+   "verdict": "measures something different",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q28 Testing practices used",
+   "item": "Q28",
+   "model_question": "Q18 Software Testing rating",
+   "rho": 0.185,
+   "p": 1.6530467920768596e-09,
+   "n": 1049,
+   "ci": [
+    0.126,
+    0.243
+   ],
+   "verdict": "measures something different",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q28 CI/CD used",
+   "item": "Q28",
+   "model_question": "Q18 DevOps / CI-CD rating",
+   "rho": 0.197,
+   "p": 1.25549145866658e-10,
+   "n": 1049,
+   "ci": [
+    0.138,
+    0.254
+   ],
+   "verdict": "measures something different",
+   "type": "correlation"
+  },
+  {
+   "repeat": "Q28 Number of practices used",
+   "item": "Q28",
+   "model_question": "Q29 SDLC familiarity",
+   "rho": 0.171,
+   "p": 2.7009977768906295e-08,
+   "n": 1049,
+   "ci": [
+    0.111,
+    0.229
+   ],
+   "verdict": "measures something different",
+   "type": "correlation"
+  }
+ ],
+ "logic": [
+  {
+   "check": "Q11 internship = yes but Q12 = 0 months",
+   "items": "Q11 / Q12",
+   "contradictions": 0,
+   "n": 1115,
+   "pct": 0.0,
+   "ci": [
+    0.0,
+    0.3
+   ],
+   "type": "logic"
+  },
+  {
+   "check": "Q14 no portfolio but Q15 updates it occasionally / frequently",
+   "items": "Q14 / Q15",
+   "contradictions": 1,
+   "n": 1059,
+   "pct": 0.1,
+   "ci": [
+    0.0,
+    0.5
+   ],
+   "type": "logic"
+  },
+  {
+   "check": "Q38 no LinkedIn profile but Q36 searched on LinkedIn",
+   "items": "Q36 / Q38",
+   "contradictions": 1,
+   "n": 915,
+   "pct": 0.1,
+   "ci": [
+    0.0,
+    0.6
+   ],
+   "type": "logic"
+  },
+  {
+   "check": "Q34 no group projects but Q34a gives a number",
+   "items": "Q34 / Q34a",
+   "contradictions": 0,
+   "n": 1115,
+   "pct": 0.0,
+   "ci": [
+    0.0,
+    0.3
+   ],
+   "type": "logic"
+  }
+ ],
+ "graduates_vs_employers": {
+  "likert": [
+   {
+    "question": "Graduates are prepared for industry",
+    "graduate_item": "Q42",
+    "employer_item": "Q14",
+    "n_a": 1059,
+    "n_b": 231,
+    "mean_a": 2.96,
+    "mean_b": 2.9,
+    "median_a": 3.0,
+    "median_b": 3.0,
+    "U": 127164.0,
+    "p": 0.32187105631963187,
+    "rank_biserial": -0.04,
+    "q": 0.42916140842617584,
+    "significant": false
+   },
+   {
+    "question": "Importance of explanations from an AI system",
+    "graduate_item": "Q44",
+    "employer_item": "Q17",
+    "n_a": 1063,
+    "n_b": 229,
+    "mean_a": 4.25,
+    "mean_b": 4.45,
+    "median_a": 4.0,
+    "median_b": 5.0,
+    "U": 105028.0,
+    "p": 0.000382094656427262,
+    "rank_biserial": 0.137,
+    "q": 0.000764189312854524,
+    "significant": true
+   },
+   {
+    "question": "Would use / find useful an AI employability system",
+    "graduate_item": "Q46",
+    "employer_item": "Q16",
+    "n_a": 1065,
+    "n_b": 229,
+    "mean_a": 3.83,
+    "mean_b": 3.83,
+    "median_a": 4.0,
+    "median_b": 4.0,
+    "U": 121140.5,
+    "p": 0.8684654742815924,
+    "rank_biserial": 0.007,
+    "q": 0.8684654742815924,
+    "significant": false
+   },
+   {
+    "question": "English: graduates' proficiency vs employers' importance",
+    "graduate_item": "Q7b",
+    "employer_item": "Q9a",
+    "n_a": 1080,
+    "n_b": 228,
+    "mean_a": 3.38,
+    "mean_b": 4.31,
+    "median_a": 3.0,
+    "median_b": 4.0,
+    "U": 55397.5,
+    "p": 6.981396699642954e-43,
+    "rank_biserial": 0.55,
+    "q": 2.7925586798571815e-42,
+    "significant": true
+   }
+  ],
+  "skill_gaps": [
+   {
+    "label": "Programming",
+    "graduates_pct": 17.7,
+    "n_graduates": 1082,
+    "employers_pct": 29.5,
+    "n_employers": 234,
+    "p": 9.141213824976604e-05,
+    "q": 0.00010447101514258976,
+    "significant": true
+   },
+   {
+    "label": "Database",
+    "graduates_pct": 4.3,
+    "n_graduates": 1082,
+    "employers_pct": 26.5,
+    "n_employers": 234,
+    "p": 3.1612181646399206e-22,
+    "q": 6.322436329279841e-22,
+    "significant": true
+   },
+   {
+    "label": "Cloud",
+    "graduates_pct": 50.8,
+    "n_graduates": 1082,
+    "employers_pct": 50.4,
+    "n_employers": 234,
+    "p": 0.9425615255948527,
+    "q": 0.9425615255948527,
+    "significant": false
+   },
+   {
+    "label": "Cybersecurity",
+    "graduates_pct": 35.8,
+    "n_graduates": 1082,
+    "employers_pct": 21.8,
+    "n_employers": 234,
+    "p": 3.315625442648722e-05,
+    "q": 4.42083392353163e-05,
+    "significant": true
+   },
+   {
+    "label": "DevOps",
+    "graduates_pct": 83.8,
+    "n_graduates": 1082,
+    "employers_pct": 37.6,
+    "n_employers": 234,
+    "p": 4.1036386816147283e-44,
+    "q": 1.6414554726458913e-43,
+    "significant": true
+   },
+   {
+    "label": "AI / ML",
+    "graduates_pct": 34.7,
+    "n_graduates": 1082,
+    "employers_pct": 10.3,
+    "n_employers": 234,
+    "p": 2.54877556682048e-15,
+    "q": 4.078040906912768e-15,
+    "significant": true
+   },
+   {
+    "label": "Communication",
+    "graduates_pct": 26.8,
+    "n_graduates": 1082,
+    "employers_pct": 67.5,
+    "n_employers": 234,
+    "p": 4.544213687582066e-31,
+    "q": 1.211790316688551e-30,
+    "significant": true
+   },
+   {
+    "label": "Problem solving",
+    "graduates_pct": 1.2,
+    "n_graduates": 1082,
+    "employers_pct": 32.9,
+    "n_employers": 234,
+    "p": 3.514412815796275e-49,
+    "q": 2.81153025263702e-48,
+    "significant": true
+   }
+  ],
+  "what_matters": [
+   {
+    "label": "Technical skills",
+    "graduates_pct": 86.1,
+    "n_graduates": 1070,
+    "employers_pct": 78.3,
+    "n_employers": 226,
+    "p": 0.004326981057903574,
+    "q": 0.005192377269484289,
+    "significant": true
+   },
+   {
+    "label": "Internship experience",
+    "graduates_pct": 61.8,
+    "n_graduates": 1070,
+    "employers_pct": 21.7,
+    "n_employers": 226,
+    "p": 1.0415689076033169e-28,
+    "q": 6.249413445619901e-28,
+    "significant": true
+   },
+   {
+    "label": "Projects / portfolio",
+    "graduates_pct": 48.6,
+    "n_graduates": 1070,
+    "employers_pct": 28.8,
+    "n_employers": 226,
+    "p": 4.1891812662838944e-08,
+    "q": 6.283771899425842e-08,
+    "significant": true
+   },
+   {
+    "label": "Certifications",
+    "graduates_pct": 26.1,
+    "n_graduates": 1070,
+    "employers_pct": 3.5,
+    "n_employers": 226,
+    "p": 2.7325156023212833e-17,
+    "q": 8.19754680696385e-17,
+    "significant": true
+   },
+   {
+    "label": "Communication",
+    "graduates_pct": 43.7,
+    "n_graduates": 1070,
+    "employers_pct": 40.3,
+    "n_employers": 226,
+    "p": 0.3751688339917436,
+    "q": 0.3751688339917436,
+    "significant": false
+   },
+   {
+    "label": "Interview preparation",
+    "graduates_pct": 33.1,
+    "n_graduates": 1070,
+    "employers_pct": 58.8,
+    "n_employers": 226,
+    "p": 1.0360214119814517e-12,
+    "q": 2.0720428239629035e-12,
+    "significant": true
+   }
+  ]
+ },
+ "self_perception": {
+  "n": 885,
+  "harrell_c": 0.616,
+  "by_group": {
+   "Found an IT job": {
+    "n": 667,
+    "mean": 3.66,
+    "sd": 0.87,
+    "median": 4.0,
+    "pct_agree": 58.8,
+    "dist": {
+     "1": 4,
+     "2": 56,
+     "3": 215,
+     "4": 281,
+     "5": 111
+    }
+   },
+   "Still searching": {
+    "n": 218,
+    "mean": 2.55,
+    "sd": 0.84,
+    "median": 2.0,
+    "pct_agree": 12.8,
+    "dist": {
+     "1": 17,
+     "2": 94,
+     "3": 79,
+     "4": 26,
+     "5": 2
+    }
+   },
+   "Final-year": {
+    "n": 230,
+    "mean": 3.2,
+    "sd": 0.87,
+    "median": 3.0,
+    "pct_agree": 34.8,
+    "dist": {
+     "1": 5,
+     "2": 39,
+     "3": 106,
+     "4": 66,
+     "5": 14
+    }
+   }
+  },
+  "employed_vs_searching": {
+   "n_a": 667,
+   "n_b": 218,
+   "mean_a": 3.66,
+   "mean_b": 2.55,
+   "median_a": 4.0,
+   "median_b": 2.0,
+   "U": 117105.5,
+   "p": 1.4102277731691594e-45,
+   "rank_biserial": -0.611
+  }
+ },
+ "artifact": {
+  "explanation_importance": {
+   "n": 1063,
+   "mean": 4.25,
+   "sd": 0.77,
+   "median": 4.0,
+   "pct_agree": 83.5,
+   "dist": {
+    "1": 1,
+    "2": 16,
+    "3": 158,
+    "4": 431,
+    "5": 457
+   }
+  },
+  "explanation_types": [
+   {
+    "key": "improvements",
+    "label": "Skills I need to improve",
+    "k": 853,
+    "n": 1061,
+    "pct": 80.4,
+    "ci": [
+     77.9,
+     82.7
+    ]
+   },
+   {
+    "key": "learning_paths",
+    "label": "Recommended learning paths",
+    "k": 594,
+    "n": 1061,
+    "pct": 56.0,
+    "ci": [
+     53.0,
+     58.9
+    ]
+   },
+   {
+    "key": "industry_comparison",
+    "label": "Comparison with industry requirements",
+    "k": 587,
+    "n": 1061,
+    "pct": 55.3,
+    "ci": [
+     52.3,
+     58.3
+    ]
+   },
+   {
+    "key": "strengths",
+    "label": "Skills I am strong in",
+    "k": 386,
+    "n": 1061,
+    "pct": 36.4,
+    "ci": [
+     33.5,
+     39.3
+    ]
+   },
+   {
+    "key": "similar_profiles",
+    "label": "Similar successful graduate profiles",
+    "k": 247,
+    "n": 1061,
+    "pct": 23.3,
+    "ci": [
+     20.8,
+     25.9
+    ]
+   }
+  ],
+  "would_use_system": {
+   "n": 1065,
+   "mean": 3.83,
+   "sd": 0.86,
+   "median": 4.0,
+   "pct_agree": 64.3,
+   "dist": {
+    "1": 1,
+    "2": 57,
+    "3": 322,
+    "4": 422,
+    "5": 263
+   }
+  },
+  "employer_usefulness": {
+   "n": 229,
+   "mean": 3.83,
+   "sd": 0.83,
+   "median": 4.0,
+   "pct_agree": 70.3,
+   "dist": {
+    "1": 2,
+    "2": 12,
+    "3": 54,
+    "4": 116,
+    "5": 45
+   }
+  },
+  "employer_explanation_importance": {
+   "n": 229,
+   "mean": 4.45,
+   "sd": 0.66,
+   "median": 5.0,
+   "pct_agree": 93.9,
+   "dist": {
+    "1": 1,
+    "2": 1,
+    "3": 12,
+    "4": 95,
+    "5": 120
+   }
+  },
+  "employer_outputs": [
+   {
+    "key": "missing_skills",
+    "label": "Missing skills",
+    "k": 156,
+    "n": 230,
+    "pct": 67.8,
+    "ci": [
+     61.5,
+     73.5
+    ]
+   },
+   {
+    "key": "strengths",
+    "label": "Candidate skill strengths",
+    "k": 145,
+    "n": 230,
+    "pct": 63.0,
+    "ci": [
+     56.6,
+     69.0
+    ]
+   },
+   {
+    "key": "training_areas",
+    "label": "Recommended training areas",
+    "k": 118,
+    "n": 230,
+    "pct": 51.3,
+    "ci": [
+     44.9,
+     57.7
+    ]
+   },
+   {
+    "key": "suitability_score",
+    "label": "Industry-suitability score",
+    "k": 94,
+    "n": 230,
+    "pct": 40.9,
+    "ci": [
+     34.7,
+     47.3
+    ]
+   },
+   {
+    "key": "job_roles",
+    "label": "Suitable job roles",
+    "k": 94,
+    "n": 230,
+    "pct": 40.9,
+    "ci": [
+     34.7,
+     47.3
+    ]
+   },
+   {
+    "key": "interview_prep",
+    "label": "Interview preparation guidance",
+    "k": 75,
+    "n": 230,
+    "pct": 32.6,
+    "ci": [
+     26.9,
+     38.9
+    ]
+   }
+  ]
+ },
+ "employer_ranking": [
+  {
+   "factor": "Technical skill depth",
+   "pct_top3": 78.3,
+   "ci": [
+    72.5,
+    83.2
+   ],
+   "pct_first": 37.6,
+   "mean_rank": 1.76,
+   "n": 226
+  },
+  {
+   "factor": "Demonstrated problem-solving ability",
+   "pct_top3": 60.6,
+   "ci": [
+    54.1,
+    66.8
+   ],
+   "pct_first": 22.1,
+   "mean_rank": 1.88,
+   "n": 226
+  },
+  {
+   "factor": "Interview performance",
+   "pct_top3": 58.8,
+   "ci": [
+    52.3,
+    65.1
+   ],
+   "pct_first": 15.5,
+   "mean_rank": 2.11,
+   "n": 226
+  },
+  {
+   "factor": "Communication skills",
+   "pct_top3": 40.3,
+   "ci": [
+    34.1,
+    46.8
+   ],
+   "pct_first": 16.4,
+   "mean_rank": 1.9,
+   "n": 226
+  },
+  {
+   "factor": "Portfolio / project quality",
+   "pct_top3": 28.8,
+   "ci": [
+    23.3,
+    35.0
+   ],
+   "pct_first": 6.2,
+   "mean_rank": 2.25,
+   "n": 226
+  },
+  {
+   "factor": "Internship experience",
+   "pct_top3": 21.7,
+   "ci": [
+    16.8,
+    27.5
+   ],
+   "pct_first": 2.2,
+   "mean_rank": 2.45,
+   "n": 226
+  },
+  {
+   "factor": "Cultural fit",
+   "pct_top3": 5.3,
+   "ci": [
+    3.1,
+    9.1
+   ],
+   "pct_first": 0.0,
+   "mean_rank": 2.75,
+   "n": 226
+  },
+  {
+   "factor": "Professional certifications",
+   "pct_top3": 3.5,
+   "ci": [
+    1.8,
+    6.8
+   ],
+   "pct_first": 0.0,
+   "mean_rank": 2.5,
+   "n": 226
+  }
+ ],
+ "employer_factors": [
+  {
+   "factor": "technical_skills",
+   "label": "Technical skills",
+   "mean": 4.57,
+   "ci": [
+    4.49,
+    4.65
+   ],
+   "pct_4_5": 95.4,
+   "n": 239
+  },
+  {
+   "factor": "interview_performance",
+   "label": "Interview performance",
+   "mean": 4.5,
+   "ci": [
+    4.42,
+    4.58
+   ],
+   "pct_4_5": 95.0,
+   "n": 239
+  },
+  {
+   "factor": "communication",
+   "label": "Communication skills",
+   "mean": 4.34,
+   "ci": [
+    4.25,
+    4.43
+   ],
+   "pct_4_5": 90.0,
+   "n": 239
+  },
+  {
+   "factor": "internship_experience",
+   "label": "Internship experience",
+   "mean": 4.05,
+   "ci": [
+    3.97,
+    4.14
+   ],
+   "pct_4_5": 82.8,
+   "n": 239
+  },
+  {
+   "factor": "personal_projects",
+   "label": "Personal projects",
+   "mean": 4.02,
+   "ci": [
+    3.91,
+    4.12
+   ],
+   "pct_4_5": 73.2,
+   "n": 239
+  },
+  {
+   "factor": "portfolio",
+   "label": "GitHub / portfolio",
+   "mean": 3.66,
+   "ci": [
+    3.54,
+    3.78
+   ],
+   "pct_4_5": 57.7,
+   "n": 239
+  },
+  {
+   "factor": "degree_qualification",
+   "label": "Degree qualification",
+   "mean": 3.6,
+   "ci": [
+    3.47,
+    3.73
+   ],
+   "pct_4_5": 52.7,
+   "n": 239
+  },
+  {
+   "factor": "certifications",
+   "label": "Certifications",
+   "mean": 3.25,
+   "ci": [
+    3.14,
+    3.35
+   ],
+   "pct_4_5": 38.1,
+   "n": 239
+  },
+  {
+   "factor": "gpa",
+   "label": "GPA / academic performance",
+   "mean": 3.21,
+   "ci": [
+    3.07,
+    3.35
+   ],
+   "pct_4_5": 40.6,
+   "n": 239
+  }
+ ],
+ "fast_finders": {
+  "months": 6,
+  "n_fast": 546,
+  "n_other": 236,
+  "rows": [
+   {
+    "key": "has_portfolio",
+    "label": "Had a portfolio (GitHub / website)",
+    "pct_fast": 49.1,
+    "n_fast": 546,
+    "pct_other": 33.1,
+    "n_other": 236,
+    "p": 3.205023244642973e-05,
+    "q": 0.00022435162712500814,
+    "significant": true
+   },
+   {
+    "key": "hackathons",
+    "label": "Took part in a hackathon or competition",
+    "pct_fast": 66.7,
+    "n_fast": 487,
+    "pct_other": 51.8,
+    "n_other": 199,
+    "p": 0.00035460500004253414,
+    "q": 0.0012411175001488695,
+    "significant": true
+   },
+   {
+    "key": "open_source",
+    "label": "Contributed to open source",
+    "pct_fast": 13.2,
+    "n_fast": 546,
+    "pct_other": 11.0,
+    "n_other": 236,
+    "p": 0.4802601715568144,
+    "q": 0.533178439685948,
+    "significant": false
+   },
+   {
+    "key": "self_learning",
+    "label": "Self-learned often during the degree (4-5)",
+    "pct_fast": 42.3,
+    "n_fast": 546,
+    "pct_other": 30.5,
+    "n_other": 236,
+    "p": 0.001834848698950315,
+    "q": 0.004281313630884068,
+    "significant": true
+   },
+   {
+    "key": "early_prep",
+    "label": "Started preparing by 2nd/3rd year",
+    "pct_fast": 52.2,
+    "n_fast": 546,
+    "pct_other": 49.6,
+    "n_other": 236,
+    "p": 0.533178439685948,
+    "q": 0.533178439685948,
+    "significant": false
+   },
+   {
+    "key": "english",
+    "label": "Good English at completion (Q7b 4-5)",
+    "pct_fast": 49.6,
+    "n_fast": 526,
+    "pct_other": 38.3,
+    "n_other": 230,
+    "p": 0.00430340112984524,
+    "q": 0.007530951977229169,
+    "significant": true
+   },
+   {
+    "key": "sdlc",
+    "label": "Knew SDLC practices well at completion (4-5)",
+    "pct_fast": 57.0,
+    "n_fast": 546,
+    "pct_other": 47.9,
+    "n_other": 236,
+    "p": 0.023269972569519036,
+    "q": 0.03257796159732665,
+    "significant": true
+   }
+  ]
+ },
+ "graduate_experience": {
+  "search_platforms_employed": [
+   {
+    "key": "linkedin",
+    "label": "LinkedIn",
+    "k": 468,
+    "n": 620,
+    "pct": 75.5,
+    "ci": [
+     71.9,
+     78.7
+    ]
+   },
+   {
+    "key": "topjobs",
+    "label": "TopJobs",
+    "k": 436,
+    "n": 620,
+    "pct": 70.3,
+    "ci": [
+     66.6,
+     73.8
+    ]
+   },
+   {
+    "key": "company_sites",
+    "label": "Company career websites",
+    "k": 280,
+    "n": 620,
+    "pct": 45.2,
+    "ci": [
+     41.3,
+     49.1
+    ]
+   },
+   {
+    "key": "university_career",
+    "label": "University career services",
+    "k": 102,
+    "n": 620,
+    "pct": 16.5,
+    "ci": [
+     13.7,
+     19.6
+    ]
+   },
+   {
+    "key": "indeed",
+    "label": "Indeed",
+    "k": 71,
+    "n": 620,
+    "pct": 11.5,
+    "ci": [
+     9.2,
+     14.2
+    ]
+   },
+   {
+    "key": "agencies",
+    "label": "Recruitment agencies",
+    "k": 52,
+    "n": 620,
+    "pct": 8.4,
+    "ci": [
+     6.5,
+     10.8
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 2,
+    "n": 620,
+    "pct": 0.3,
+    "ci": [
+     0.1,
+     1.2
+    ]
+   }
+  ],
+  "learning_platforms": [
+   {
+    "key": "youtube",
+    "label": "YouTube technical channels",
+    "k": 871,
+    "n": 1050,
+    "pct": 83.0,
+    "ci": [
+     80.6,
+     85.1
+    ]
+   },
+   {
+    "key": "ai_tools",
+    "label": "AI tools (e.g. ChatGPT, GitHub Copilot)",
+    "k": 612,
+    "n": 1050,
+    "pct": 58.3,
+    "ci": [
+     55.3,
+     61.2
+    ]
+   },
+   {
+    "key": "udemy",
+    "label": "Udemy",
+    "k": 503,
+    "n": 1050,
+    "pct": 47.9,
+    "ci": [
+     44.9,
+     50.9
+    ]
+   },
+   {
+    "key": "coursera",
+    "label": "Coursera",
+    "k": 397,
+    "n": 1050,
+    "pct": 37.8,
+    "ci": [
+     34.9,
+     40.8
+    ]
+   },
+   {
+    "key": "google",
+    "label": "Google Learning",
+    "k": 139,
+    "n": 1050,
+    "pct": 13.2,
+    "ci": [
+     11.3,
+     15.4
+    ]
+   },
+   {
+    "key": "aws_training",
+    "label": "AWS Training",
+    "k": 128,
+    "n": 1050,
+    "pct": 12.2,
+    "ci": [
+     10.3,
+     14.3
+    ]
+   },
+   {
+    "key": "linkedin_learning",
+    "label": "LinkedIn Learning",
+    "k": 123,
+    "n": 1050,
+    "pct": 11.7,
+    "ci": [
+     9.9,
+     13.8
+    ]
+   },
+   {
+    "key": "microsoft_learn",
+    "label": "Microsoft Learn",
+    "k": 118,
+    "n": 1050,
+    "pct": 11.2,
+    "ci": [
+     9.5,
+     13.3
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 10,
+    "n": 1050,
+    "pct": 1.0,
+    "ci": [
+     0.5,
+     1.7
+    ]
+   }
+  ],
+  "learning_strategies": [
+   {
+    "key": "online_courses",
+    "label": "Online courses",
+    "k": 674,
+    "n": 1064,
+    "pct": 63.3,
+    "ci": [
+     60.4,
+     66.2
+    ]
+   },
+   {
+    "key": "ai_tools",
+    "label": "AI tools (e.g. ChatGPT, GitHub Copilot)",
+    "k": 586,
+    "n": 1064,
+    "pct": 55.1,
+    "ci": [
+     52.1,
+     58.0
+    ]
+   },
+   {
+    "key": "practice_projects",
+    "label": "Practice projects",
+    "k": 573,
+    "n": 1064,
+    "pct": 53.9,
+    "ci": [
+     50.8,
+     56.8
+    ]
+   },
+   {
+    "key": "documentation",
+    "label": "Documentation reading",
+    "k": 385,
+    "n": 1064,
+    "pct": 36.2,
+    "ci": [
+     33.4,
+     39.1
+    ]
+   },
+   {
+    "key": "mentors",
+    "label": "Asking mentors",
+    "k": 234,
+    "n": 1064,
+    "pct": 22.0,
+    "ci": [
+     19.6,
+     24.6
+    ]
+   },
+   {
+    "key": "community",
+    "label": "Community discussions",
+    "k": 144,
+    "n": 1064,
+    "pct": 13.5,
+    "ci": [
+     11.6,
+     15.7
+    ]
+   },
+   {
+    "key": "university",
+    "label": "University resources",
+    "k": 103,
+    "n": 1064,
+    "pct": 9.7,
+    "ci": [
+     8.0,
+     11.6
+    ]
+   }
+  ],
+  "cert_areas": [
+   {
+    "key": "data_ai",
+    "label": "Data Science / AI",
+    "k": 155,
+    "n": 645,
+    "pct": 24.0,
+    "ci": [
+     20.9,
+     27.5
+    ]
+   },
+   {
+    "key": "cybersecurity",
+    "label": "Cybersecurity",
+    "k": 138,
+    "n": 645,
+    "pct": 21.4,
+    "ci": [
+     18.4,
+     24.7
+    ]
+   },
+   {
+    "key": "programming",
+    "label": "Programming",
+    "k": 113,
+    "n": 645,
+    "pct": 17.5,
+    "ci": [
+     14.8,
+     20.6
+    ]
+   },
+   {
+    "key": "cloud",
+    "label": "Cloud Computing (AWS / Azure / GCP)",
+    "k": 111,
+    "n": 645,
+    "pct": 17.2,
+    "ci": [
+     14.5,
+     20.3
+    ]
+   },
+   {
+    "key": "networking",
+    "label": "Networking",
+    "k": 97,
+    "n": 645,
+    "pct": 15.0,
+    "ci": [
+     12.5,
+     18.0
+    ]
+   },
+   {
+    "key": "agile_scrum",
+    "label": "Agile / Scrum",
+    "k": 94,
+    "n": 645,
+    "pct": 14.6,
+    "ci": [
+     12.1,
+     17.5
+    ]
+   },
+   {
+    "key": "database",
+    "label": "Database",
+    "k": 81,
+    "n": 645,
+    "pct": 12.6,
+    "ci": [
+     10.2,
+     15.3
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 58,
+    "n": 645,
+    "pct": 9.0,
+    "ci": [
+     7.0,
+     11.4
+    ]
+   }
+  ],
+  "challenges": [
+   {
+    "key": "technical_skills",
+    "label": "Lack of technical skills",
+    "k": 65,
+    "n": 854,
+    "pct": 7.6,
+    "ci": [
+     6.0,
+     9.6
+    ]
+   },
+   {
+    "key": "experience",
+    "label": "Lack of experience",
+    "k": 299,
+    "n": 854,
+    "pct": 35.0,
+    "ci": [
+     31.9,
+     38.3
+    ]
+   },
+   {
+    "key": "confidence",
+    "label": "Lack of confidence",
+    "k": 88,
+    "n": 854,
+    "pct": 10.3,
+    "ci": [
+     8.4,
+     12.5
+    ]
+   },
+   {
+    "key": "industry_knowledge",
+    "label": "Lack of industry knowledge",
+    "k": 67,
+    "n": 854,
+    "pct": 7.8,
+    "ci": [
+     6.2,
+     9.8
+    ]
+   },
+   {
+    "key": "job_opportunities",
+    "label": "Lack of job opportunities",
+    "k": 179,
+    "n": 854,
+    "pct": 21.0,
+    "ci": [
+     18.4,
+     23.8
+    ]
+   },
+   {
+    "key": "interviews",
+    "label": "Interview difficulties",
+    "k": 134,
+    "n": 854,
+    "pct": 15.7,
+    "ci": [
+     13.4,
+     18.3
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 22,
+    "n": 854,
+    "pct": 2.6,
+    "ci": [
+     1.7,
+     3.9
+    ]
+   }
+  ],
+  "lacked_skills": [
+   {
+    "key": "experience",
+    "label": "Experience",
+    "k": 551,
+    "n": 848,
+    "pct": 65.0,
+    "ci": [
+     61.7,
+     68.1
+    ]
+   },
+   {
+    "key": "framework",
+    "label": "Framework knowledge",
+    "k": 295,
+    "n": 848,
+    "pct": 34.8,
+    "ci": [
+     31.7,
+     38.1
+    ]
+   },
+   {
+    "key": "cloud",
+    "label": "Cloud technologies",
+    "k": 177,
+    "n": 848,
+    "pct": 20.9,
+    "ci": [
+     18.3,
+     23.7
+    ]
+   },
+   {
+    "key": "communication",
+    "label": "Communication skills",
+    "k": 174,
+    "n": 848,
+    "pct": 20.5,
+    "ci": [
+     17.9,
+     23.4
+    ]
+   },
+   {
+    "key": "certifications",
+    "label": "Certifications",
+    "k": 131,
+    "n": 848,
+    "pct": 15.4,
+    "ci": [
+     13.2,
+     18.0
+    ]
+   },
+   {
+    "key": "problem_solving",
+    "label": "Problem solving",
+    "k": 124,
+    "n": 848,
+    "pct": 14.6,
+    "ci": [
+     12.4,
+     17.2
+    ]
+   },
+   {
+    "key": "programming_language",
+    "label": "Programming language",
+    "k": 95,
+    "n": 848,
+    "pct": 11.2,
+    "ci": [
+     9.3,
+     13.5
+    ]
+   },
+   {
+    "key": "git",
+    "label": "Git / GitHub",
+    "k": 48,
+    "n": 848,
+    "pct": 5.7,
+    "ci": [
+     4.3,
+     7.4
+    ]
+   },
+   {
+    "key": "database",
+    "label": "Database skills",
+    "k": 9,
+    "n": 848,
+    "pct": 1.1,
+    "ci": [
+     0.6,
+     2.0
+    ]
+   }
+  ],
+  "feedback_areas": [
+   {
+    "key": "technical",
+    "label": "Technical skills",
+    "k": 216,
+    "n": 337,
+    "pct": 64.1,
+    "ci": [
+     58.8,
+     69.0
+    ]
+   },
+   {
+    "key": "experience",
+    "label": "Relevant experience",
+    "k": 129,
+    "n": 337,
+    "pct": 38.3,
+    "ci": [
+     33.2,
+     43.6
+    ]
+   },
+   {
+    "key": "confidence",
+    "label": "Confidence",
+    "k": 120,
+    "n": 337,
+    "pct": 35.6,
+    "ci": [
+     30.7,
+     40.9
+    ]
+   },
+   {
+    "key": "communication",
+    "label": "Communication",
+    "k": 94,
+    "n": 337,
+    "pct": 27.9,
+    "ci": [
+     23.4,
+     32.9
+    ]
+   },
+   {
+    "key": "salary",
+    "label": "Salary expectations",
+    "k": 29,
+    "n": 337,
+    "pct": 8.6,
+    "ci": [
+     6.1,
+     12.1
+    ]
+   },
+   {
+    "key": "cultural_fit",
+    "label": "Cultural fit",
+    "k": 8,
+    "n": 337,
+    "pct": 2.4,
+    "ci": [
+     1.2,
+     4.6
+    ]
+   },
+   {
+    "key": "certifications",
+    "label": "Certifications",
+    "k": 8,
+    "n": 337,
+    "pct": 2.4,
+    "ci": [
+     1.2,
+     4.6
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 1,
+    "n": 337,
+    "pct": 0.3,
+    "ci": [
+     0.1,
+     1.7
+    ]
+   }
+  ],
+  "project_areas": [
+   {
+    "key": "web",
+    "label": "Web applications",
+    "k": 707,
+    "n": 1072,
+    "pct": 66.0,
+    "ci": [
+     63.1,
+     68.7
+    ]
+   },
+   {
+    "key": "mobile",
+    "label": "Mobile applications",
+    "k": 474,
+    "n": 1072,
+    "pct": 44.2,
+    "ci": [
+     41.3,
+     47.2
+    ]
+   },
+   {
+    "key": "data_analytics",
+    "label": "Data analytics",
+    "k": 225,
+    "n": 1072,
+    "pct": 21.0,
+    "ci": [
+     18.7,
+     23.5
+    ]
+   },
+   {
+    "key": "desktop",
+    "label": "Desktop applications",
+    "k": 198,
+    "n": 1072,
+    "pct": 18.5,
+    "ci": [
+     16.3,
+     20.9
+    ]
+   },
+   {
+    "key": "machine_learning",
+    "label": "Machine learning",
+    "k": 184,
+    "n": 1072,
+    "pct": 17.2,
+    "ci": [
+     15.0,
+     19.5
+    ]
+   },
+   {
+    "key": "cybersecurity",
+    "label": "Cybersecurity projects",
+    "k": 131,
+    "n": 1072,
+    "pct": 12.2,
+    "ci": [
+     10.4,
+     14.3
+    ]
+   },
+   {
+    "key": "cloud",
+    "label": "Cloud applications",
+    "k": 77,
+    "n": 1072,
+    "pct": 7.2,
+    "ci": [
+     5.8,
+     8.9
+    ]
+   },
+   {
+    "key": "iot",
+    "label": "IoT projects",
+    "k": 71,
+    "n": 1072,
+    "pct": 6.6,
+    "ci": [
+     5.3,
+     8.3
+    ]
+   }
+  ]
+ },
+ "employer_views": {
+  "future_tech": [
+   {
+    "key": "ai",
+    "label": "Artificial Intelligence",
+    "k": 194,
+    "n": 228,
+    "pct": 85.1,
+    "ci": [
+     79.9,
+     89.1
+    ]
+   },
+   {
+    "key": "cloud",
+    "label": "Cloud Computing",
+    "k": 150,
+    "n": 228,
+    "pct": 65.8,
+    "ci": [
+     59.4,
+     71.6
+    ]
+   },
+   {
+    "key": "cybersecurity",
+    "label": "Cybersecurity",
+    "k": 119,
+    "n": 228,
+    "pct": 52.2,
+    "ci": [
+     45.7,
+     58.6
+    ]
+   },
+   {
+    "key": "ml",
+    "label": "Machine Learning",
+    "k": 101,
+    "n": 228,
+    "pct": 44.3,
+    "ci": [
+     38.0,
+     50.8
+    ]
+   },
+   {
+    "key": "data_engineering",
+    "label": "Data Engineering",
+    "k": 91,
+    "n": 228,
+    "pct": 39.9,
+    "ci": [
+     33.8,
+     46.4
+    ]
+   },
+   {
+    "key": "automation",
+    "label": "Automation",
+    "k": 84,
+    "n": 228,
+    "pct": 36.8,
+    "ci": [
+     30.8,
+     43.3
+    ]
+   },
+   {
+    "key": "devops",
+    "label": "DevOps",
+    "k": 67,
+    "n": 228,
+    "pct": 29.4,
+    "ci": [
+     23.9,
+     35.6
+    ]
+   },
+   {
+    "key": "software_engineering",
+    "label": "Software Engineering",
+    "k": 38,
+    "n": 228,
+    "pct": 16.7,
+    "ci": [
+     12.4,
+     22.0
+    ]
+   },
+   {
+    "key": "iot",
+    "label": "IoT",
+    "k": 13,
+    "n": 228,
+    "pct": 5.7,
+    "ci": [
+     3.4,
+     9.5
+    ]
+   },
+   {
+    "key": "blockchain",
+    "label": "Blockchain",
+    "k": 9,
+    "n": 228,
+    "pct": 3.9,
+    "ci": [
+     2.1,
+     7.3
+    ]
+   }
+  ],
+  "tech_weaknesses": [
+   {
+    "key": "testing",
+    "label": "Testing skills",
+    "k": 143,
+    "n": 234,
+    "pct": 61.1,
+    "ci": [
+     54.7,
+     67.1
+    ]
+   },
+   {
+    "key": "se_practices",
+    "label": "Software engineering practices",
+    "k": 132,
+    "n": 234,
+    "pct": 56.4,
+    "ci": [
+     50.0,
+     62.6
+    ]
+   },
+   {
+    "key": "cloud",
+    "label": "Cloud technologies",
+    "k": 118,
+    "n": 234,
+    "pct": 50.4,
+    "ci": [
+     44.1,
+     56.8
+    ]
+   },
+   {
+    "key": "devops",
+    "label": "DevOps practices",
+    "k": 88,
+    "n": 234,
+    "pct": 37.6,
+    "ci": [
+     31.6,
+     44.0
+    ]
+   },
+   {
+    "key": "programming",
+    "label": "Programming ability",
+    "k": 69,
+    "n": 234,
+    "pct": 29.5,
+    "ci": [
+     24.0,
+     35.6
+    ]
+   },
+   {
+    "key": "database",
+    "label": "Database knowledge",
+    "k": 62,
+    "n": 234,
+    "pct": 26.5,
+    "ci": [
+     21.3,
+     32.5
+    ]
+   },
+   {
+    "key": "cybersecurity",
+    "label": "Cybersecurity knowledge",
+    "k": 51,
+    "n": 234,
+    "pct": 21.8,
+    "ci": [
+     17.0,
+     27.5
+    ]
+   },
+   {
+    "key": "data_analysis",
+    "label": "Data analysis",
+    "k": 26,
+    "n": 234,
+    "pct": 11.1,
+    "ci": [
+     7.7,
+     15.8
+    ]
+   },
+   {
+    "key": "ai_ml",
+    "label": "AI / ML knowledge",
+    "k": 24,
+    "n": 234,
+    "pct": 10.3,
+    "ci": [
+     7.0,
+     14.8
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 23,
+    "n": 234,
+    "pct": 9.8,
+    "ci": [
+     6.6,
+     14.3
+    ]
+   }
+  ],
+  "soft_weaknesses": [
+   {
+    "key": "communication",
+    "label": "Communication",
+    "k": 158,
+    "n": 234,
+    "pct": 67.5,
+    "ci": [
+     61.3,
+     73.2
+    ]
+   },
+   {
+    "key": "confidence",
+    "label": "Confidence",
+    "k": 99,
+    "n": 234,
+    "pct": 42.3,
+    "ci": [
+     36.2,
+     48.7
+    ]
+   },
+   {
+    "key": "problem_solving",
+    "label": "Problem solving",
+    "k": 77,
+    "n": 234,
+    "pct": 32.9,
+    "ci": [
+     27.2,
+     39.2
+    ]
+   },
+   {
+    "key": "time_management",
+    "label": "Time management",
+    "k": 70,
+    "n": 234,
+    "pct": 29.9,
+    "ci": [
+     24.4,
+     36.1
+    ]
+   },
+   {
+    "key": "professional_behaviour",
+    "label": "Professional behaviour",
+    "k": 60,
+    "n": 234,
+    "pct": 25.6,
+    "ci": [
+     20.5,
+     31.6
+    ]
+   },
+   {
+    "key": "adaptability",
+    "label": "Adaptability",
+    "k": 50,
+    "n": 234,
+    "pct": 21.4,
+    "ci": [
+     16.6,
+     27.1
+    ]
+   },
+   {
+    "key": "attitude",
+    "label": "Attitude / lack of interest in the job",
+    "k": 43,
+    "n": 234,
+    "pct": 18.4,
+    "ci": [
+     13.9,
+     23.8
+    ]
+   },
+   {
+    "key": "teamwork",
+    "label": "Teamwork",
+    "k": 34,
+    "n": 234,
+    "pct": 14.5,
+    "ci": [
+     10.6,
+     19.6
+    ]
+   }
+  ],
+  "uni_improvements": [
+   {
+    "key": "practical_dev",
+    "label": "Practical software development",
+    "k": 149,
+    "n": 232,
+    "pct": 64.2,
+    "ci": [
+     57.9,
+     70.1
+    ]
+   },
+   {
+    "key": "industry_projects",
+    "label": "Industry-based projects",
+    "k": 140,
+    "n": 232,
+    "pct": 60.3,
+    "ci": [
+     53.9,
+     66.4
+    ]
+   },
+   {
+    "key": "internships",
+    "label": "Internship opportunities",
+    "k": 119,
+    "n": 232,
+    "pct": 51.3,
+    "ci": [
+     44.9,
+     57.7
+    ]
+   },
+   {
+    "key": "soft_skills",
+    "label": "Soft skills training",
+    "k": 105,
+    "n": 232,
+    "pct": 45.3,
+    "ci": [
+     39.0,
+     51.7
+    ]
+   },
+   {
+    "key": "modern_tech",
+    "label": "Modern technologies",
+    "k": 101,
+    "n": 232,
+    "pct": 43.5,
+    "ci": [
+     37.3,
+     50.0
+    ]
+   },
+   {
+    "key": "career_prep",
+    "label": "Career preparation",
+    "k": 66,
+    "n": 232,
+    "pct": 28.4,
+    "ci": [
+     23.0,
+     34.6
+    ]
+   },
+   {
+    "key": "certifications",
+    "label": "Professional certifications",
+    "k": 36,
+    "n": 232,
+    "pct": 15.5,
+    "ci": [
+     11.4,
+     20.7
+    ]
+   }
+  ],
+  "hiring_challenges": [
+   {
+    "key": "experience",
+    "label": "Lack of practical or internship experience",
+    "k": 129,
+    "n": 232,
+    "pct": 55.6,
+    "ci": [
+     49.2,
+     61.9
+    ]
+   },
+   {
+    "key": "curriculum_gap",
+    "label": "Skill gap between curriculum and industry needs",
+    "k": 114,
+    "n": 232,
+    "pct": 49.1,
+    "ci": [
+     42.8,
+     55.5
+    ]
+   },
+   {
+    "key": "soft_skills",
+    "label": "Weak communication / soft skills",
+    "k": 96,
+    "n": 232,
+    "pct": 41.4,
+    "ci": [
+     35.2,
+     47.8
+    ]
+   },
+   {
+    "key": "tech_skills",
+    "label": "Lack of technical skills",
+    "k": 67,
+    "n": 232,
+    "pct": 28.9,
+    "ci": [
+     23.4,
+     35.0
+    ]
+   },
+   {
+    "key": "attrition",
+    "label": "High early-stage attrition / turnover",
+    "k": 59,
+    "n": 232,
+    "pct": 25.4,
+    "ci": [
+     20.3,
+     31.4
+    ]
+   },
+   {
+    "key": "salary_expectations",
+    "label": "Unrealistic salary expectations",
+    "k": 57,
+    "n": 232,
+    "pct": 24.6,
+    "ci": [
+     19.5,
+     30.5
+    ]
+   },
+   {
+    "key": "long_process",
+    "label": "Long screening or interview process",
+    "k": 15,
+    "n": 232,
+    "pct": 6.5,
+    "ci": [
+     4.0,
+     10.4
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 6,
+    "n": 232,
+    "pct": 2.6,
+    "ci": [
+     1.2,
+     5.5
+    ]
+   }
+  ],
+  "roles_recruited": [
+   {
+    "key": "software_engineer",
+    "label": "Software Engineer",
+    "k": 194,
+    "n": 230,
+    "pct": 84.3,
+    "ci": [
+     79.1,
+     88.5
+    ]
+   },
+   {
+    "key": "qa",
+    "label": "QA Engineer",
+    "k": 145,
+    "n": 230,
+    "pct": 63.0,
+    "ci": [
+     56.6,
+     69.0
+    ]
+   },
+   {
+    "key": "business_analyst",
+    "label": "Business Analyst",
+    "k": 74,
+    "n": 230,
+    "pct": 32.2,
+    "ci": [
+     26.5,
+     38.5
+    ]
+   },
+   {
+    "key": "data_analyst",
+    "label": "Data Analyst",
+    "k": 63,
+    "n": 230,
+    "pct": 27.4,
+    "ci": [
+     22.0,
+     33.5
+    ]
+   },
+   {
+    "key": "ui_ux",
+    "label": "UI / UX Designer",
+    "k": 55,
+    "n": 230,
+    "pct": 23.9,
+    "ci": [
+     18.9,
+     29.8
+    ]
+   },
+   {
+    "key": "devops",
+    "label": "DevOps Engineer",
+    "k": 52,
+    "n": 230,
+    "pct": 22.6,
+    "ci": [
+     17.7,
+     28.4
+    ]
+   },
+   {
+    "key": "cloud",
+    "label": "Cloud Engineer",
+    "k": 50,
+    "n": 230,
+    "pct": 21.7,
+    "ci": [
+     16.9,
+     27.5
+    ]
+   },
+   {
+    "key": "network_admin",
+    "label": "Network / System Administrator",
+    "k": 42,
+    "n": 230,
+    "pct": 18.3,
+    "ci": [
+     13.8,
+     23.8
+    ]
+   },
+   {
+    "key": "cybersecurity",
+    "label": "Cybersecurity Analyst",
+    "k": 37,
+    "n": 230,
+    "pct": 16.1,
+    "ci": [
+     11.9,
+     21.4
+    ]
+   },
+   {
+    "key": "ai_ml_engineer",
+    "label": "AI / ML Engineer",
+    "k": 23,
+    "n": 230,
+    "pct": 10.0,
+    "ci": [
+     6.8,
+     14.6
+    ]
+   },
+   {
+    "key": "data_scientist",
+    "label": "Data Scientist",
+    "k": 19,
+    "n": 230,
+    "pct": 8.3,
+    "ci": [
+     5.4,
+     12.5
+    ]
+   },
+   {
+    "key": "other",
+    "label": "Other",
+    "k": 11,
+    "n": 230,
+    "pct": 4.8,
+    "ci": [
+     2.7,
+     8.4
+    ]
+   }
+  ],
+  "skill_update_freq": [
+   {
+    "key": "more_than_yearly",
+    "label": "More often than once a year",
+    "k": 35,
+    "n": 218,
+    "pct": 16.1,
+    "ci": [
+     11.8,
+     21.5
+    ]
+   },
+   {
+    "key": "1-2_years",
+    "label": "Every 1-2 years",
+    "k": 124,
+    "n": 218,
+    "pct": 56.9,
+    "ci": [
+     50.2,
+     63.3
+    ]
+   },
+   {
+    "key": "3-5_years",
+    "label": "Every 3-5 years",
+    "k": 39,
+    "n": 218,
+    "pct": 17.9,
+    "ci": [
+     13.4,
+     23.5
+    ]
+   },
+   {
+    "key": "rarely",
+    "label": "Rarely",
+    "k": 20,
+    "n": 218,
+    "pct": 9.2,
+    "ci": [
+     6.0,
+     13.7
+    ]
+   }
+  ]
+ },
+ "graduate_items": [
+  {
+   "field": "instruction_medium",
+   "item": "Q7a",
+   "kind": "categorical",
+   "description": "Main medium of instruction in the degree",
+   "answered": 1073,
+   "shares": [
+    {
+     "key": "english",
+     "label": "English",
+     "k": 962,
+     "n": 1073,
+     "pct": 89.7,
+     "ci": [
+      87.7,
+      91.3
+     ]
+    },
+    {
+     "key": "sinhala",
+     "label": "Sinhala",
+     "k": 1,
+     "n": 1073,
+     "pct": 0.1,
+     "ci": [
+      0.0,
+      0.5
+     ]
+    },
+    {
+     "key": "tamil",
+     "label": "Tamil",
+     "k": 0,
+     "n": 1073,
+     "pct": 0.0,
+     "ci": [
+      0.0,
+      0.4
+     ]
+    },
+    {
+     "key": "mixed",
+     "label": "Mixed (English and Sinhala / Tamil)",
+     "k": 110,
+     "n": 1073,
+     "pct": 10.3,
+     "ci": [
+      8.6,
+      12.2
+     ]
+    }
+   ]
+  },
+  {
+   "field": "english_proficiency",
+   "item": "Q7b",
+   "kind": "likert",
+   "description": "English proficiency (speaking and writing) at degree completion (1-5)",
+   "answered": 1080,
+   "summary": {
+    "n": 1080,
+    "mean": 3.38,
+    "sd": 0.92,
+    "median": 3.0,
+    "pct_agree": 46.0,
+    "dist": {
+     "1": 18,
+     "2": 162,
+     "3": 403,
+     "4": 387,
+     "5": 110
+    }
+   }
+  },
+  {
+   "field": "degree_relevance",
+   "item": "Q8",
+   "kind": "likert",
+   "description": "Perceived relevance of the degree to industry (1-5)",
+   "answered": 1083,
+   "summary": {
+    "n": 1083,
+    "mean": 3.11,
+    "sd": 0.96,
+    "median": 3.0,
+    "pct_agree": 33.7,
+    "dist": {
+     "1": 53,
+     "2": 217,
+     "3": 448,
+     "4": 293,
+     "5": 72
+    }
+   }
+  },
+  {
+   "field": "cert_areas",
+   "item": "Q10",
+   "kind": "multi",
+   "description": "Certification areas completed",
+   "answered": 645,
+   "shares": [
+    {
+     "key": "data_ai",
+     "label": "Data Science / AI",
+     "k": 155,
+     "n": 645,
+     "pct": 24.0,
+     "ci": [
+      20.9,
+      27.5
+     ]
+    },
+    {
+     "key": "cybersecurity",
+     "label": "Cybersecurity",
+     "k": 138,
+     "n": 645,
+     "pct": 21.4,
+     "ci": [
+      18.4,
+      24.7
+     ]
+    },
+    {
+     "key": "programming",
+     "label": "Programming",
+     "k": 113,
+     "n": 645,
+     "pct": 17.5,
+     "ci": [
+      14.8,
+      20.6
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud Computing (AWS / Azure / GCP)",
+     "k": 111,
+     "n": 645,
+     "pct": 17.2,
+     "ci": [
+      14.5,
+      20.3
+     ]
+    },
+    {
+     "key": "networking",
+     "label": "Networking",
+     "k": 97,
+     "n": 645,
+     "pct": 15.0,
+     "ci": [
+      12.5,
+      18.0
+     ]
+    },
+    {
+     "key": "agile_scrum",
+     "label": "Agile / Scrum",
+     "k": 94,
+     "n": 645,
+     "pct": 14.6,
+     "ci": [
+      12.1,
+      17.5
+     ]
+    },
+    {
+     "key": "database",
+     "label": "Database",
+     "k": 81,
+     "n": 645,
+     "pct": 12.6,
+     "ci": [
+      10.2,
+      15.3
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 58,
+     "n": 645,
+     "pct": 9.0,
+     "ci": [
+      7.0,
+      11.4
+     ]
+    }
+   ]
+  },
+  {
+   "field": "portfolio_update_freq",
+   "item": "Q15",
+   "kind": "categorical",
+   "description": "How often the technical portfolio is updated",
+   "answered": 1059,
+   "shares": [
+    {
+     "key": "never",
+     "label": "Never",
+     "k": 384,
+     "n": 1059,
+     "pct": 36.3,
+     "ci": [
+      33.4,
+      39.2
+     ]
+    },
+    {
+     "key": "rarely",
+     "label": "Rarely",
+     "k": 325,
+     "n": 1059,
+     "pct": 30.7,
+     "ci": [
+      28.0,
+      33.5
+     ]
+    },
+    {
+     "key": "occasionally",
+     "label": "Occasionally",
+     "k": 234,
+     "n": 1059,
+     "pct": 22.1,
+     "ci": [
+      19.7,
+      24.7
+     ]
+    },
+    {
+     "key": "frequently",
+     "label": "Frequently",
+     "k": 116,
+     "n": 1059,
+     "pct": 11.0,
+     "ci": [
+      9.2,
+      13.0
+     ]
+    }
+   ]
+  },
+  {
+   "field": "learning_platforms",
+   "item": "Q22",
+   "kind": "multi",
+   "description": "Online learning platforms used",
+   "answered": 1050,
+   "shares": [
+    {
+     "key": "youtube",
+     "label": "YouTube technical channels",
+     "k": 871,
+     "n": 1050,
+     "pct": 83.0,
+     "ci": [
+      80.6,
+      85.1
+     ]
+    },
+    {
+     "key": "ai_tools",
+     "label": "AI tools (e.g. ChatGPT, GitHub Copilot)",
+     "k": 612,
+     "n": 1050,
+     "pct": 58.3,
+     "ci": [
+      55.3,
+      61.2
+     ]
+    },
+    {
+     "key": "udemy",
+     "label": "Udemy",
+     "k": 503,
+     "n": 1050,
+     "pct": 47.9,
+     "ci": [
+      44.9,
+      50.9
+     ]
+    },
+    {
+     "key": "coursera",
+     "label": "Coursera",
+     "k": 397,
+     "n": 1050,
+     "pct": 37.8,
+     "ci": [
+      34.9,
+      40.8
+     ]
+    },
+    {
+     "key": "google",
+     "label": "Google Learning",
+     "k": 139,
+     "n": 1050,
+     "pct": 13.2,
+     "ci": [
+      11.3,
+      15.4
+     ]
+    },
+    {
+     "key": "aws_training",
+     "label": "AWS Training",
+     "k": 128,
+     "n": 1050,
+     "pct": 12.2,
+     "ci": [
+      10.3,
+      14.3
+     ]
+    },
+    {
+     "key": "linkedin_learning",
+     "label": "LinkedIn Learning",
+     "k": 123,
+     "n": 1050,
+     "pct": 11.7,
+     "ci": [
+      9.9,
+      13.8
+     ]
+    },
+    {
+     "key": "microsoft_learn",
+     "label": "Microsoft Learn",
+     "k": 118,
+     "n": 1050,
+     "pct": 11.2,
+     "ci": [
+      9.5,
+      13.3
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 10,
+     "n": 1050,
+     "pct": 1.0,
+     "ci": [
+      0.5,
+      1.7
+     ]
+    }
+   ]
+  },
+  {
+   "field": "languages",
+   "item": "Q25",
+   "kind": "multi",
+   "description": "Programming languages used confidently (repeats Q18 Java/Python/JavaScript)",
+   "answered": 1115,
+   "shares": [
+    {
+     "key": "python",
+     "label": "Python",
+     "k": 748,
+     "n": 1115,
+     "pct": 67.1,
+     "ci": [
+      64.3,
+      69.8
+     ]
+    },
+    {
+     "key": "java",
+     "label": "Java",
+     "k": 707,
+     "n": 1115,
+     "pct": 63.4,
+     "ci": [
+      60.5,
+      66.2
+     ]
+    },
+    {
+     "key": "javascript",
+     "label": "JavaScript",
+     "k": 590,
+     "n": 1115,
+     "pct": 52.9,
+     "ci": [
+      50.0,
+      55.8
+     ]
+    },
+    {
+     "key": "c_cpp",
+     "label": "C / C++",
+     "k": 171,
+     "n": 1115,
+     "pct": 15.3,
+     "ci": [
+      13.3,
+      17.6
+     ]
+    },
+    {
+     "key": "php",
+     "label": "PHP",
+     "k": 129,
+     "n": 1115,
+     "pct": 11.6,
+     "ci": [
+      9.8,
+      13.6
+     ]
+    },
+    {
+     "key": "csharp",
+     "label": "C#",
+     "k": 122,
+     "n": 1115,
+     "pct": 10.9,
+     "ci": [
+      9.2,
+      12.9
+     ]
+    },
+    {
+     "key": "kotlin",
+     "label": "Kotlin",
+     "k": 57,
+     "n": 1115,
+     "pct": 5.1,
+     "ci": [
+      4.0,
+      6.6
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 13,
+     "n": 1115,
+     "pct": 1.2,
+     "ci": [
+      0.7,
+      2.0
+     ]
+    }
+   ]
+  },
+  {
+   "field": "project_areas",
+   "item": "Q26",
+   "kind": "multi",
+   "description": "Development areas with completed projects",
+   "answered": 1072,
+   "shares": [
+    {
+     "key": "web",
+     "label": "Web applications",
+     "k": 707,
+     "n": 1072,
+     "pct": 66.0,
+     "ci": [
+      63.1,
+      68.7
+     ]
+    },
+    {
+     "key": "mobile",
+     "label": "Mobile applications",
+     "k": 474,
+     "n": 1072,
+     "pct": 44.2,
+     "ci": [
+      41.3,
+      47.2
+     ]
+    },
+    {
+     "key": "data_analytics",
+     "label": "Data analytics",
+     "k": 225,
+     "n": 1072,
+     "pct": 21.0,
+     "ci": [
+      18.7,
+      23.5
+     ]
+    },
+    {
+     "key": "desktop",
+     "label": "Desktop applications",
+     "k": 198,
+     "n": 1072,
+     "pct": 18.5,
+     "ci": [
+      16.3,
+      20.9
+     ]
+    },
+    {
+     "key": "machine_learning",
+     "label": "Machine learning",
+     "k": 184,
+     "n": 1072,
+     "pct": 17.2,
+     "ci": [
+      15.0,
+      19.5
+     ]
+    },
+    {
+     "key": "cybersecurity",
+     "label": "Cybersecurity projects",
+     "k": 131,
+     "n": 1072,
+     "pct": 12.2,
+     "ci": [
+      10.4,
+      14.3
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud applications",
+     "k": 77,
+     "n": 1072,
+     "pct": 7.2,
+     "ci": [
+      5.8,
+      8.9
+     ]
+    },
+    {
+     "key": "iot",
+     "label": "IoT projects",
+     "k": 71,
+     "n": 1072,
+     "pct": 6.6,
+     "ci": [
+      5.3,
+      8.3
+     ]
+    },
+    {
+     "key": "none",
+     "label": "None",
+     "k": 0,
+     "n": 1072,
+     "pct": 0.0,
+     "ci": [
+      0.0,
+      0.4
+     ]
+    }
+   ]
+  },
+  {
+   "field": "problem_confidence",
+   "item": "Q27",
+   "kind": "likert",
+   "description": "Confidence solving an unfamiliar problem (1-5; repeats Q19 Problem Solving)",
+   "answered": 1066,
+   "summary": {
+    "n": 1066,
+    "mean": 3.41,
+    "sd": 0.95,
+    "median": 3.0,
+    "pct_agree": 47.7,
+    "dist": {
+     "1": 27,
+     "2": 140,
+     "3": 391,
+     "4": 382,
+     "5": 126
+    }
+   }
+  },
+  {
+   "field": "dev_practices",
+   "item": "Q28",
+   "kind": "multi",
+   "description": "Industry practices used (repeats Q18 Git/Testing/DevOps and Q29)",
+   "answered": 1049,
+   "shares": [
+    {
+     "key": "version_control",
+     "label": "Version control (Git)",
+     "k": 867,
+     "n": 1049,
+     "pct": 82.7,
+     "ci": [
+      80.2,
+      84.8
+     ]
+    },
+    {
+     "key": "agile_scrum",
+     "label": "Agile / Scrum",
+     "k": 535,
+     "n": 1049,
+     "pct": 51.0,
+     "ci": [
+      48.0,
+      54.0
+     ]
+    },
+    {
+     "key": "documentation",
+     "label": "Documentation",
+     "k": 505,
+     "n": 1049,
+     "pct": 48.1,
+     "ci": [
+      45.1,
+      51.2
+     ]
+    },
+    {
+     "key": "code_reviews",
+     "label": "Code reviews",
+     "k": 370,
+     "n": 1049,
+     "pct": 35.3,
+     "ci": [
+      32.4,
+      38.2
+     ]
+    },
+    {
+     "key": "testing",
+     "label": "Testing practices",
+     "k": 279,
+     "n": 1049,
+     "pct": 26.6,
+     "ci": [
+      24.0,
+      29.4
+     ]
+    },
+    {
+     "key": "cicd",
+     "label": "CI/CD",
+     "k": 157,
+     "n": 1049,
+     "pct": 15.0,
+     "ci": [
+      12.9,
+      17.3
+     ]
+    },
+    {
+     "key": "none",
+     "label": "None",
+     "k": 0,
+     "n": 1049,
+     "pct": 0.0,
+     "ci": [
+      0.0,
+      0.4
+     ]
+    }
+   ]
+  },
+  {
+   "field": "improvement_areas",
+   "item": "Q30",
+   "kind": "multi",
+   "description": "Areas the graduate believes need improvement",
+   "answered": 1082,
+   "shares": [
+    {
+     "key": "devops",
+     "label": "DevOps",
+     "k": 907,
+     "n": 1082,
+     "pct": 83.8,
+     "ci": [
+      81.5,
+      85.9
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud Computing",
+     "k": 550,
+     "n": 1082,
+     "pct": 50.8,
+     "ci": [
+      47.9,
+      53.8
+     ]
+    },
+    {
+     "key": "cybersecurity",
+     "label": "Cybersecurity",
+     "k": 387,
+     "n": 1082,
+     "pct": 35.8,
+     "ci": [
+      33.0,
+      38.7
+     ]
+    },
+    {
+     "key": "ai_ml",
+     "label": "AI / Machine Learning",
+     "k": 375,
+     "n": 1082,
+     "pct": 34.7,
+     "ci": [
+      31.9,
+      37.5
+     ]
+    },
+    {
+     "key": "interview_skills",
+     "label": "Interview Skills",
+     "k": 370,
+     "n": 1082,
+     "pct": 34.2,
+     "ci": [
+      31.4,
+      37.1
+     ]
+    },
+    {
+     "key": "communication",
+     "label": "Communication",
+     "k": 290,
+     "n": 1082,
+     "pct": 26.8,
+     "ci": [
+      24.2,
+      29.5
+     ]
+    },
+    {
+     "key": "programming",
+     "label": "Programming",
+     "k": 192,
+     "n": 1082,
+     "pct": 17.7,
+     "ci": [
+      15.6,
+      20.1
+     ]
+    },
+    {
+     "key": "professional_experience",
+     "label": "Professional Experience",
+     "k": 172,
+     "n": 1082,
+     "pct": 15.9,
+     "ci": [
+      13.8,
+      18.2
+     ]
+    },
+    {
+     "key": "database",
+     "label": "Database",
+     "k": 47,
+     "n": 1082,
+     "pct": 4.3,
+     "ci": [
+      3.3,
+      5.7
+     ]
+    },
+    {
+     "key": "problem_solving",
+     "label": "Problem Solving",
+     "k": 13,
+     "n": 1082,
+     "pct": 1.2,
+     "ci": [
+      0.7,
+      2.0
+     ]
+    }
+   ]
+  },
+  {
+   "field": "lacked_skills",
+   "item": "Q31",
+   "kind": "multi",
+   "description": "Skills employers or interviewers said were lacking",
+   "answered": 922,
+   "shares": [
+    {
+     "key": "experience",
+     "label": "Experience",
+     "k": 597,
+     "n": 922,
+     "pct": 64.8,
+     "ci": [
+      61.6,
+      67.8
+     ]
+    },
+    {
+     "key": "framework",
+     "label": "Framework knowledge",
+     "k": 324,
+     "n": 922,
+     "pct": 35.1,
+     "ci": [
+      32.1,
+      38.3
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud technologies",
+     "k": 190,
+     "n": 922,
+     "pct": 20.6,
+     "ci": [
+      18.1,
+      23.3
+     ]
+    },
+    {
+     "key": "communication",
+     "label": "Communication skills",
+     "k": 189,
+     "n": 922,
+     "pct": 20.5,
+     "ci": [
+      18.0,
+      23.2
+     ]
+    },
+    {
+     "key": "certifications",
+     "label": "Certifications",
+     "k": 147,
+     "n": 922,
+     "pct": 15.9,
+     "ci": [
+      13.7,
+      18.4
+     ]
+    },
+    {
+     "key": "problem_solving",
+     "label": "Problem solving",
+     "k": 137,
+     "n": 922,
+     "pct": 14.9,
+     "ci": [
+      12.7,
+      17.3
+     ]
+    },
+    {
+     "key": "programming_language",
+     "label": "Programming language",
+     "k": 103,
+     "n": 922,
+     "pct": 11.2,
+     "ci": [
+      9.3,
+      13.4
+     ]
+    },
+    {
+     "key": "git",
+     "label": "Git / GitHub",
+     "k": 53,
+     "n": 922,
+     "pct": 5.7,
+     "ci": [
+      4.4,
+      7.4
+     ]
+    },
+    {
+     "key": "database",
+     "label": "Database skills",
+     "k": 9,
+     "n": 922,
+     "pct": 1.0,
+     "ci": [
+      0.5,
+      1.8
+     ]
+    }
+   ]
+  },
+  {
+   "field": "explain_nontechnical",
+   "item": "Q32",
+   "kind": "likert",
+   "description": "Comfort explaining technical concepts to non-technical people (1-5; repeats Q19 Communication)",
+   "answered": 1074,
+   "summary": {
+    "n": 1074,
+    "mean": 3.14,
+    "sd": 1.04,
+    "median": 3.0,
+    "pct_agree": 37.6,
+    "dist": {
+     "1": 64,
+     "2": 227,
+     "3": 379,
+     "4": 308,
+     "5": 96
+    }
+   }
+  },
+  {
+   "field": "team_confidence",
+   "item": "Q33",
+   "kind": "likert",
+   "description": "Confidence working in a development team (1-5; repeats Q19 Teamwork)",
+   "answered": 1070,
+   "summary": {
+    "n": 1070,
+    "mean": 3.74,
+    "sd": 0.94,
+    "median": 4.0,
+    "pct_agree": 61.1,
+    "dist": {
+     "1": 15,
+     "2": 76,
+     "3": 325,
+     "4": 406,
+     "5": 248
+    }
+   }
+  },
+  {
+   "field": "group_projects",
+   "item": "Q34",
+   "kind": "binary",
+   "description": "Participated in group software projects",
+   "answered": 1115,
+   "shares": [
+    {
+     "key": "no",
+     "label": "no",
+     "k": 73,
+     "n": 1115,
+     "pct": 6.5,
+     "ci": [
+      5.2,
+      8.2
+     ]
+    },
+    {
+     "key": "yes",
+     "label": "yes",
+     "k": 1042,
+     "n": 1115,
+     "pct": 93.5,
+     "ci": [
+      91.8,
+      94.8
+     ]
+    }
+   ]
+  },
+  {
+   "field": "group_project_count",
+   "item": "Q34a",
+   "kind": "categorical",
+   "description": "Number of group software projects (if Q34 = yes)",
+   "answered": 1042,
+   "shares": [
+    {
+     "key": "1-2",
+     "label": "1-2",
+     "k": 307,
+     "n": 1042,
+     "pct": 29.5,
+     "ci": [
+      26.8,
+      32.3
+     ]
+    },
+    {
+     "key": "3-5",
+     "label": "3-5",
+     "k": 521,
+     "n": 1042,
+     "pct": 50.0,
+     "ci": [
+      47.0,
+      53.0
+     ]
+    },
+    {
+     "key": "5+",
+     "label": "More than 5",
+     "k": 214,
+     "n": 1042,
+     "pct": 20.5,
+     "ci": [
+      18.2,
+      23.1
+     ]
+    }
+   ]
+  },
+  {
+   "field": "learning_strategies",
+   "item": "Q35",
+   "kind": "multi",
+   "description": "How a missing skill is usually learned",
+   "answered": 1064,
+   "shares": [
+    {
+     "key": "online_courses",
+     "label": "Online courses",
+     "k": 674,
+     "n": 1064,
+     "pct": 63.3,
+     "ci": [
+      60.4,
+      66.2
+     ]
+    },
+    {
+     "key": "ai_tools",
+     "label": "AI tools (e.g. ChatGPT, GitHub Copilot)",
+     "k": 586,
+     "n": 1064,
+     "pct": 55.1,
+     "ci": [
+      52.1,
+      58.0
+     ]
+    },
+    {
+     "key": "practice_projects",
+     "label": "Practice projects",
+     "k": 573,
+     "n": 1064,
+     "pct": 53.9,
+     "ci": [
+      50.8,
+      56.8
+     ]
+    },
+    {
+     "key": "documentation",
+     "label": "Documentation reading",
+     "k": 385,
+     "n": 1064,
+     "pct": 36.2,
+     "ci": [
+      33.4,
+      39.1
+     ]
+    },
+    {
+     "key": "mentors",
+     "label": "Asking mentors",
+     "k": 234,
+     "n": 1064,
+     "pct": 22.0,
+     "ci": [
+      19.6,
+      24.6
+     ]
+    },
+    {
+     "key": "community",
+     "label": "Community discussions",
+     "k": 144,
+     "n": 1064,
+     "pct": 13.5,
+     "ci": [
+      11.6,
+      15.7
+     ]
+    },
+    {
+     "key": "university",
+     "label": "University resources",
+     "k": 103,
+     "n": 1064,
+     "pct": 9.7,
+     "ci": [
+      8.0,
+      11.6
+     ]
+    }
+   ]
+  },
+  {
+   "field": "job_platforms",
+   "item": "Q36",
+   "kind": "multi",
+   "description": "Platforms used to search for IT employment",
+   "answered": 915,
+   "shares": [
+    {
+     "key": "linkedin",
+     "label": "LinkedIn",
+     "k": 674,
+     "n": 915,
+     "pct": 73.7,
+     "ci": [
+      70.7,
+      76.4
+     ]
+    },
+    {
+     "key": "topjobs",
+     "label": "TopJobs",
+     "k": 639,
+     "n": 915,
+     "pct": 69.8,
+     "ci": [
+      66.8,
+      72.7
+     ]
+    },
+    {
+     "key": "company_sites",
+     "label": "Company career websites",
+     "k": 409,
+     "n": 915,
+     "pct": 44.7,
+     "ci": [
+      41.5,
+      47.9
+     ]
+    },
+    {
+     "key": "university_career",
+     "label": "University career services",
+     "k": 145,
+     "n": 915,
+     "pct": 15.8,
+     "ci": [
+      13.6,
+      18.4
+     ]
+    },
+    {
+     "key": "indeed",
+     "label": "Indeed",
+     "k": 104,
+     "n": 915,
+     "pct": 11.4,
+     "ci": [
+      9.5,
+      13.6
+     ]
+    },
+    {
+     "key": "agencies",
+     "label": "Recruitment agencies",
+     "k": 91,
+     "n": 915,
+     "pct": 9.9,
+     "ci": [
+      8.2,
+      12.1
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 6,
+     "n": 915,
+     "pct": 0.7,
+     "ci": [
+      0.3,
+      1.4
+     ]
+    }
+   ]
+  },
+  {
+   "field": "cv_update_freq",
+   "item": "Q37",
+   "kind": "categorical",
+   "description": "How often the CV is updated",
+   "answered": 1049,
+   "shares": [
+    {
+     "key": "never",
+     "label": "Never",
+     "k": 86,
+     "n": 1049,
+     "pct": 8.2,
+     "ci": [
+      6.7,
+      10.0
+     ]
+    },
+    {
+     "key": "yearly",
+     "label": "Once per year",
+     "k": 252,
+     "n": 1049,
+     "pct": 24.0,
+     "ci": [
+      21.5,
+      26.7
+     ]
+    },
+    {
+     "key": "few_months",
+     "label": "Every few months",
+     "k": 474,
+     "n": 1049,
+     "pct": 45.2,
+     "ci": [
+      42.2,
+      48.2
+     ]
+    },
+    {
+     "key": "every_application",
+     "label": "Before every application",
+     "k": 237,
+     "n": 1049,
+     "pct": 22.6,
+     "ci": [
+      20.2,
+      25.2
+     ]
+    }
+   ]
+  },
+  {
+   "field": "linkedin_profile",
+   "item": "Q38",
+   "kind": "binary",
+   "description": "Has a LinkedIn profile",
+   "answered": 1115,
+   "shares": [
+    {
+     "key": "no",
+     "label": "no",
+     "k": 217,
+     "n": 1115,
+     "pct": 19.5,
+     "ci": [
+      17.2,
+      21.9
+     ]
+    },
+    {
+     "key": "yes",
+     "label": "yes",
+     "k": 898,
+     "n": 1115,
+     "pct": 80.5,
+     "ci": [
+      78.1,
+      82.8
+     ]
+    }
+   ]
+  },
+  {
+   "field": "linkedin_completeness",
+   "item": "Q38a",
+   "kind": "likert",
+   "description": "LinkedIn profile completeness (1-5, if Q38 = yes)",
+   "answered": 861,
+   "summary": {
+    "n": 861,
+    "mean": 3.16,
+    "sd": 0.94,
+    "median": 3.0,
+    "pct_agree": 33.9,
+    "dist": {
+     "1": 27,
+     "2": 174,
+     "3": 368,
+     "4": 221,
+     "5": 71
+    }
+   }
+  },
+  {
+   "field": "interview_feedback",
+   "item": "Q39",
+   "kind": "binary",
+   "description": "Received feedback from employers after interviews",
+   "answered": 953,
+   "shares": [
+    {
+     "key": "no",
+     "label": "no",
+     "k": 577,
+     "n": 953,
+     "pct": 60.5,
+     "ci": [
+      57.4,
+      63.6
+     ]
+    },
+    {
+     "key": "yes",
+     "label": "yes",
+     "k": 376,
+     "n": 953,
+     "pct": 39.5,
+     "ci": [
+      36.4,
+      42.6
+     ]
+    }
+   ]
+  },
+  {
+   "field": "feedback_areas",
+   "item": "Q39a",
+   "kind": "multi",
+   "description": "Areas mentioned in interview feedback (if Q39 = yes)",
+   "answered": 360,
+   "shares": [
+    {
+     "key": "technical",
+     "label": "Technical skills",
+     "k": 233,
+     "n": 360,
+     "pct": 64.7,
+     "ci": [
+      59.7,
+      69.5
+     ]
+    },
+    {
+     "key": "experience",
+     "label": "Relevant experience",
+     "k": 141,
+     "n": 360,
+     "pct": 39.2,
+     "ci": [
+      34.3,
+      44.3
+     ]
+    },
+    {
+     "key": "confidence",
+     "label": "Confidence",
+     "k": 125,
+     "n": 360,
+     "pct": 34.7,
+     "ci": [
+      30.0,
+      39.8
+     ]
+    },
+    {
+     "key": "communication",
+     "label": "Communication",
+     "k": 99,
+     "n": 360,
+     "pct": 27.5,
+     "ci": [
+      23.1,
+      32.3
+     ]
+    },
+    {
+     "key": "salary",
+     "label": "Salary expectations",
+     "k": 31,
+     "n": 360,
+     "pct": 8.6,
+     "ci": [
+      6.1,
+      12.0
+     ]
+    },
+    {
+     "key": "cultural_fit",
+     "label": "Cultural fit",
+     "k": 11,
+     "n": 360,
+     "pct": 3.1,
+     "ci": [
+      1.7,
+      5.4
+     ]
+    },
+    {
+     "key": "certifications",
+     "label": "Certifications",
+     "k": 8,
+     "n": 360,
+     "pct": 2.2,
+     "ci": [
+      1.1,
+      4.3
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 1,
+     "n": 360,
+     "pct": 0.3,
+     "ci": [
+      0.0,
+      1.6
+     ]
+    }
+   ]
+  },
+  {
+   "field": "self_employability",
+   "item": "Q40",
+   "kind": "likert",
+   "description": "Self-perceived employability (1-5)",
+   "answered": 1115,
+   "summary": {
+    "n": 1115,
+    "mean": 3.35,
+    "sd": 0.97,
+    "median": 3.0,
+    "pct_agree": 44.8,
+    "dist": {
+     "1": 26,
+     "2": 189,
+     "3": 400,
+     "4": 373,
+     "5": 127
+    }
+   }
+  },
+  {
+   "field": "believed_factors",
+   "item": "Q41",
+   "kind": "multi",
+   "description": "Factors believed to influence employability most (up to 5)",
+   "answered": 1070,
+   "shares": [
+    {
+     "key": "technical_skills",
+     "label": "Technical skills",
+     "k": 921,
+     "n": 1070,
+     "pct": 86.1,
+     "ci": [
+      83.9,
+      88.0
+     ]
+    },
+    {
+     "key": "internship",
+     "label": "Internship experience",
+     "k": 661,
+     "n": 1070,
+     "pct": 61.8,
+     "ci": [
+      58.8,
+      64.6
+     ]
+    },
+    {
+     "key": "projects",
+     "label": "Personal projects",
+     "k": 520,
+     "n": 1070,
+     "pct": 48.6,
+     "ci": [
+      45.6,
+      51.6
+     ]
+    },
+    {
+     "key": "communication",
+     "label": "Communication skills",
+     "k": 468,
+     "n": 1070,
+     "pct": 43.7,
+     "ci": [
+      40.8,
+      46.7
+     ]
+    },
+    {
+     "key": "interview_prep",
+     "label": "Interview preparation",
+     "k": 354,
+     "n": 1070,
+     "pct": 33.1,
+     "ci": [
+      30.3,
+      36.0
+     ]
+    },
+    {
+     "key": "networking",
+     "label": "Networking",
+     "k": 281,
+     "n": 1070,
+     "pct": 26.3,
+     "ci": [
+      23.7,
+      29.0
+     ]
+    },
+    {
+     "key": "certifications",
+     "label": "Certifications",
+     "k": 279,
+     "n": 1070,
+     "pct": 26.1,
+     "ci": [
+      23.5,
+      28.8
+     ]
+    },
+    {
+     "key": "industry_connections",
+     "label": "Industry connections",
+     "k": 178,
+     "n": 1070,
+     "pct": 16.6,
+     "ci": [
+      14.5,
+      19.0
+     ]
+    },
+    {
+     "key": "degree_class",
+     "label": "Degree classification",
+     "k": 142,
+     "n": 1070,
+     "pct": 13.3,
+     "ci": [
+      11.4,
+      15.4
+     ]
+    },
+    {
+     "key": "university_reputation",
+     "label": "University reputation",
+     "k": 118,
+     "n": 1070,
+     "pct": 11.0,
+     "ci": [
+      9.3,
+      13.0
+     ]
+    }
+   ]
+  },
+  {
+   "field": "university_prepared",
+   "item": "Q42",
+   "kind": "likert",
+   "description": "University prepared me for industry (1-5)",
+   "answered": 1059,
+   "summary": {
+    "n": 1059,
+    "mean": 2.96,
+    "sd": 1.04,
+    "median": 3.0,
+    "pct_agree": 30.2,
+    "dist": {
+     "1": 100,
+     "2": 232,
+     "3": 407,
+     "4": 253,
+     "5": 67
+    }
+   }
+  },
+  {
+   "field": "biggest_challenge",
+   "item": "Q43",
+   "kind": "categorical",
+   "description": "Biggest challenge entering the IT job market",
+   "answered": 923,
+   "shares": [
+    {
+     "key": "technical_skills",
+     "label": "Lack of technical skills",
+     "k": 73,
+     "n": 923,
+     "pct": 7.9,
+     "ci": [
+      6.3,
+      9.8
+     ]
+    },
+    {
+     "key": "experience",
+     "label": "Lack of experience",
+     "k": 325,
+     "n": 923,
+     "pct": 35.2,
+     "ci": [
+      32.2,
+      38.3
+     ]
+    },
+    {
+     "key": "confidence",
+     "label": "Lack of confidence",
+     "k": 93,
+     "n": 923,
+     "pct": 10.1,
+     "ci": [
+      8.3,
+      12.2
+     ]
+    },
+    {
+     "key": "industry_knowledge",
+     "label": "Lack of industry knowledge",
+     "k": 71,
+     "n": 923,
+     "pct": 7.7,
+     "ci": [
+      6.1,
+      9.6
+     ]
+    },
+    {
+     "key": "job_opportunities",
+     "label": "Lack of job opportunities",
+     "k": 194,
+     "n": 923,
+     "pct": 21.0,
+     "ci": [
+      18.5,
+      23.8
+     ]
+    },
+    {
+     "key": "interviews",
+     "label": "Interview difficulties",
+     "k": 144,
+     "n": 923,
+     "pct": 15.6,
+     "ci": [
+      13.4,
+      18.1
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 23,
+     "n": 923,
+     "pct": 2.5,
+     "ci": [
+      1.7,
+      3.7
+     ]
+    }
+   ]
+  },
+  {
+   "field": "explanation_importance",
+   "item": "Q44",
+   "kind": "likert",
+   "description": "Importance of understanding the reasons for a prediction (1-5)",
+   "answered": 1063,
+   "summary": {
+    "n": 1063,
+    "mean": 4.25,
+    "sd": 0.77,
+    "median": 4.0,
+    "pct_agree": 83.5,
+    "dist": {
+     "1": 1,
+     "2": 16,
+     "3": 158,
+     "4": 431,
+     "5": 457
+    }
+   }
+  },
+  {
+   "field": "explanation_types",
+   "item": "Q45",
+   "kind": "multi",
+   "description": "Most useful explanation types",
+   "answered": 1061,
+   "shares": [
+    {
+     "key": "improvements",
+     "label": "Skills I need to improve",
+     "k": 853,
+     "n": 1061,
+     "pct": 80.4,
+     "ci": [
+      77.9,
+      82.7
+     ]
+    },
+    {
+     "key": "learning_paths",
+     "label": "Recommended learning paths",
+     "k": 594,
+     "n": 1061,
+     "pct": 56.0,
+     "ci": [
+      53.0,
+      58.9
+     ]
+    },
+    {
+     "key": "industry_comparison",
+     "label": "Comparison with industry requirements",
+     "k": 587,
+     "n": 1061,
+     "pct": 55.3,
+     "ci": [
+      52.3,
+      58.3
+     ]
+    },
+    {
+     "key": "strengths",
+     "label": "Skills I am strong in",
+     "k": 386,
+     "n": 1061,
+     "pct": 36.4,
+     "ci": [
+      33.5,
+      39.3
+     ]
+    },
+    {
+     "key": "similar_profiles",
+     "label": "Similar successful graduate profiles",
+     "k": 247,
+     "n": 1061,
+     "pct": 23.3,
+     "ci": [
+      20.8,
+      25.9
+     ]
+    }
+   ]
+  },
+  {
+   "field": "would_use_system",
+   "item": "Q46",
+   "kind": "likert",
+   "description": "Would use an AI employability system before applying (1-5)",
+   "answered": 1065,
+   "summary": {
+    "n": 1065,
+    "mean": 3.83,
+    "sd": 0.86,
+    "median": 4.0,
+    "pct_agree": 64.3,
+    "dist": {
+     "1": 1,
+     "2": 57,
+     "3": 322,
+     "4": 422,
+     "5": 263
+    }
+   }
+  },
+  {
+   "field": "comments",
+   "item": "Q47",
+   "kind": "text",
+   "description": "Additional comments (optional)",
+   "answered": 183
+  }
+ ],
+ "employer_items": [
+  {
+   "field": "respondent_role",
+   "item": "Q3",
+   "kind": "categorical",
+   "description": "Respondent's role",
+   "answered": 239,
+   "shares": [
+    {
+     "key": "hr_manager",
+     "label": "HR Manager",
+     "k": 42,
+     "n": 239,
+     "pct": 17.6,
+     "ci": [
+      13.3,
+      22.9
+     ]
+    },
+    {
+     "key": "recruiter",
+     "label": "Recruiter",
+     "k": 51,
+     "n": 239,
+     "pct": 21.3,
+     "ci": [
+      16.6,
+      27.0
+     ]
+    },
+    {
+     "key": "tech_lead",
+     "label": "Technical Lead",
+     "k": 54,
+     "n": 239,
+     "pct": 22.6,
+     "ci": [
+      17.7,
+      28.3
+     ]
+    },
+    {
+     "key": "engineer_hiring",
+     "label": "Software Engineer involved in hiring",
+     "k": 22,
+     "n": 239,
+     "pct": 9.2,
+     "ci": [
+      6.2,
+      13.5
+     ]
+    },
+    {
+     "key": "eng_manager",
+     "label": "Engineering Manager",
+     "k": 30,
+     "n": 239,
+     "pct": 12.6,
+     "ci": [
+      8.9,
+      17.4
+     ]
+    },
+    {
+     "key": "project_manager",
+     "label": "Project Manager",
+     "k": 10,
+     "n": 239,
+     "pct": 4.2,
+     "ci": [
+      2.3,
+      7.5
+     ]
+    },
+    {
+     "key": "cto_cio",
+     "label": "CTO / CIO",
+     "k": 15,
+     "n": 239,
+     "pct": 6.3,
+     "ci": [
+      3.8,
+      10.1
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 15,
+     "n": 239,
+     "pct": 6.3,
+     "ci": [
+      3.8,
+      10.1
+     ]
+    }
+   ]
+  },
+  {
+   "field": "recruit_experience",
+   "item": "Q4",
+   "kind": "categorical",
+   "description": "Years of IT recruitment experience",
+   "answered": 228,
+   "shares": [
+    {
+     "key": "<1",
+     "label": "Less than 1 year",
+     "k": 11,
+     "n": 228,
+     "pct": 4.8,
+     "ci": [
+      2.7,
+      8.4
+     ]
+    },
+    {
+     "key": "1-3",
+     "label": "1-3 years",
+     "k": 63,
+     "n": 228,
+     "pct": 27.6,
+     "ci": [
+      22.2,
+      33.8
+     ]
+    },
+    {
+     "key": "4-6",
+     "label": "4-6 years",
+     "k": 70,
+     "n": 228,
+     "pct": 30.7,
+     "ci": [
+      25.1,
+      37.0
+     ]
+    },
+    {
+     "key": "7-10",
+     "label": "7-10 years",
+     "k": 50,
+     "n": 228,
+     "pct": 21.9,
+     "ci": [
+      17.0,
+      27.7
+     ]
+    },
+    {
+     "key": "10+",
+     "label": "More than 10 years",
+     "k": 34,
+     "n": 228,
+     "pct": 14.9,
+     "ci": [
+      10.9,
+      20.1
+     ]
+    }
+   ]
+  },
+  {
+   "field": "roles_recruited",
+   "item": "Q5",
+   "kind": "multi",
+   "description": "Entry-level IT roles recruited",
+   "answered": 230,
+   "shares": [
+    {
+     "key": "software_engineer",
+     "label": "Software Engineer",
+     "k": 194,
+     "n": 230,
+     "pct": 84.3,
+     "ci": [
+      79.1,
+      88.5
+     ]
+    },
+    {
+     "key": "qa",
+     "label": "QA Engineer",
+     "k": 145,
+     "n": 230,
+     "pct": 63.0,
+     "ci": [
+      56.6,
+      69.0
+     ]
+    },
+    {
+     "key": "business_analyst",
+     "label": "Business Analyst",
+     "k": 74,
+     "n": 230,
+     "pct": 32.2,
+     "ci": [
+      26.5,
+      38.5
+     ]
+    },
+    {
+     "key": "data_analyst",
+     "label": "Data Analyst",
+     "k": 63,
+     "n": 230,
+     "pct": 27.4,
+     "ci": [
+      22.0,
+      33.5
+     ]
+    },
+    {
+     "key": "ui_ux",
+     "label": "UI / UX Designer",
+     "k": 55,
+     "n": 230,
+     "pct": 23.9,
+     "ci": [
+      18.9,
+      29.8
+     ]
+    },
+    {
+     "key": "devops",
+     "label": "DevOps Engineer",
+     "k": 52,
+     "n": 230,
+     "pct": 22.6,
+     "ci": [
+      17.7,
+      28.4
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud Engineer",
+     "k": 50,
+     "n": 230,
+     "pct": 21.7,
+     "ci": [
+      16.9,
+      27.5
+     ]
+    },
+    {
+     "key": "network_admin",
+     "label": "Network / System Administrator",
+     "k": 42,
+     "n": 230,
+     "pct": 18.3,
+     "ci": [
+      13.8,
+      23.8
+     ]
+    },
+    {
+     "key": "cybersecurity",
+     "label": "Cybersecurity Analyst",
+     "k": 37,
+     "n": 230,
+     "pct": 16.1,
+     "ci": [
+      11.9,
+      21.4
+     ]
+    },
+    {
+     "key": "ai_ml_engineer",
+     "label": "AI / ML Engineer",
+     "k": 23,
+     "n": 230,
+     "pct": 10.0,
+     "ci": [
+      6.8,
+      14.6
+     ]
+    },
+    {
+     "key": "data_scientist",
+     "label": "Data Scientist",
+     "k": 19,
+     "n": 230,
+     "pct": 8.3,
+     "ci": [
+      5.4,
+      12.5
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 11,
+     "n": 230,
+     "pct": 4.8,
+     "ci": [
+      2.7,
+      8.4
+     ]
+    }
+   ]
+  },
+  {
+   "field": "annual_hires",
+   "item": "Q6",
+   "kind": "categorical",
+   "description": "Entry-level IT graduates recruited per year",
+   "answered": 222,
+   "shares": [
+    {
+     "key": "0",
+     "label": "None",
+     "k": 0,
+     "n": 222,
+     "pct": 0.0,
+     "ci": [
+      0.0,
+      1.7
+     ]
+    },
+    {
+     "key": "1-5",
+     "label": "1-5",
+     "k": 66,
+     "n": 222,
+     "pct": 29.7,
+     "ci": [
+      24.1,
+      36.0
+     ]
+    },
+    {
+     "key": "6-10",
+     "label": "6-10",
+     "k": 57,
+     "n": 222,
+     "pct": 25.7,
+     "ci": [
+      20.4,
+      31.8
+     ]
+    },
+    {
+     "key": "11-25",
+     "label": "11-25",
+     "k": 62,
+     "n": 222,
+     "pct": 27.9,
+     "ci": [
+      22.4,
+      34.2
+     ]
+    },
+    {
+     "key": "25+",
+     "label": "More than 25",
+     "k": 37,
+     "n": 222,
+     "pct": 16.7,
+     "ci": [
+      12.3,
+      22.1
+     ]
+    }
+   ]
+  },
+  {
+   "field": "emp_english_importance",
+   "item": "Q9a",
+   "kind": "likert",
+   "description": "Importance of English proficiency for entry-level IT graduates (1-5)",
+   "answered": 228,
+   "summary": {
+    "n": 228,
+    "mean": 4.31,
+    "sd": 0.68,
+    "median": 4.0,
+    "pct_agree": 88.6,
+    "dist": {
+     "1": 0,
+     "2": 1,
+     "3": 25,
+     "4": 104,
+     "5": 98
+    }
+   }
+  },
+  {
+   "field": "future_tech",
+   "item": "Q10",
+   "kind": "multi",
+   "description": "Technologies expected to grow in importance (3-5 years)",
+   "answered": 228,
+   "shares": [
+    {
+     "key": "ai",
+     "label": "Artificial Intelligence",
+     "k": 194,
+     "n": 228,
+     "pct": 85.1,
+     "ci": [
+      79.9,
+      89.1
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud Computing",
+     "k": 150,
+     "n": 228,
+     "pct": 65.8,
+     "ci": [
+      59.4,
+      71.6
+     ]
+    },
+    {
+     "key": "cybersecurity",
+     "label": "Cybersecurity",
+     "k": 119,
+     "n": 228,
+     "pct": 52.2,
+     "ci": [
+      45.7,
+      58.6
+     ]
+    },
+    {
+     "key": "ml",
+     "label": "Machine Learning",
+     "k": 101,
+     "n": 228,
+     "pct": 44.3,
+     "ci": [
+      38.0,
+      50.8
+     ]
+    },
+    {
+     "key": "data_engineering",
+     "label": "Data Engineering",
+     "k": 91,
+     "n": 228,
+     "pct": 39.9,
+     "ci": [
+      33.8,
+      46.4
+     ]
+    },
+    {
+     "key": "automation",
+     "label": "Automation",
+     "k": 84,
+     "n": 228,
+     "pct": 36.8,
+     "ci": [
+      30.8,
+      43.3
+     ]
+    },
+    {
+     "key": "devops",
+     "label": "DevOps",
+     "k": 67,
+     "n": 228,
+     "pct": 29.4,
+     "ci": [
+      23.9,
+      35.6
+     ]
+    },
+    {
+     "key": "software_engineering",
+     "label": "Software Engineering",
+     "k": 38,
+     "n": 228,
+     "pct": 16.7,
+     "ci": [
+      12.4,
+      22.0
+     ]
+    },
+    {
+     "key": "iot",
+     "label": "IoT",
+     "k": 13,
+     "n": 228,
+     "pct": 5.7,
+     "ci": [
+      3.4,
+      9.5
+     ]
+    },
+    {
+     "key": "blockchain",
+     "label": "Blockchain",
+     "k": 9,
+     "n": 228,
+     "pct": 3.9,
+     "ci": [
+      2.1,
+      7.3
+     ]
+    }
+   ]
+  },
+  {
+   "field": "skill_update_freq",
+   "item": "Q11",
+   "kind": "categorical",
+   "description": "How often required technical skills are updated",
+   "answered": 218,
+   "shares": [
+    {
+     "key": "more_than_yearly",
+     "label": "More often than once a year",
+     "k": 35,
+     "n": 218,
+     "pct": 16.1,
+     "ci": [
+      11.8,
+      21.5
+     ]
+    },
+    {
+     "key": "1-2_years",
+     "label": "Every 1-2 years",
+     "k": 124,
+     "n": 218,
+     "pct": 56.9,
+     "ci": [
+      50.2,
+      63.3
+     ]
+    },
+    {
+     "key": "3-5_years",
+     "label": "Every 3-5 years",
+     "k": 39,
+     "n": 218,
+     "pct": 17.9,
+     "ci": [
+      13.4,
+      23.5
+     ]
+    },
+    {
+     "key": "rarely",
+     "label": "Rarely",
+     "k": 20,
+     "n": 218,
+     "pct": 9.2,
+     "ci": [
+      6.0,
+      13.7
+     ]
+    }
+   ]
+  },
+  {
+   "field": "tech_weaknesses",
+   "item": "Q12",
+   "kind": "multi",
+   "description": "Technical weaknesses observed in fresh graduates",
+   "answered": 234,
+   "shares": [
+    {
+     "key": "testing",
+     "label": "Testing skills",
+     "k": 143,
+     "n": 234,
+     "pct": 61.1,
+     "ci": [
+      54.7,
+      67.1
+     ]
+    },
+    {
+     "key": "se_practices",
+     "label": "Software engineering practices",
+     "k": 132,
+     "n": 234,
+     "pct": 56.4,
+     "ci": [
+      50.0,
+      62.6
+     ]
+    },
+    {
+     "key": "cloud",
+     "label": "Cloud technologies",
+     "k": 118,
+     "n": 234,
+     "pct": 50.4,
+     "ci": [
+      44.1,
+      56.8
+     ]
+    },
+    {
+     "key": "devops",
+     "label": "DevOps practices",
+     "k": 88,
+     "n": 234,
+     "pct": 37.6,
+     "ci": [
+      31.6,
+      44.0
+     ]
+    },
+    {
+     "key": "programming",
+     "label": "Programming ability",
+     "k": 69,
+     "n": 234,
+     "pct": 29.5,
+     "ci": [
+      24.0,
+      35.6
+     ]
+    },
+    {
+     "key": "database",
+     "label": "Database knowledge",
+     "k": 62,
+     "n": 234,
+     "pct": 26.5,
+     "ci": [
+      21.3,
+      32.5
+     ]
+    },
+    {
+     "key": "cybersecurity",
+     "label": "Cybersecurity knowledge",
+     "k": 51,
+     "n": 234,
+     "pct": 21.8,
+     "ci": [
+      17.0,
+      27.5
+     ]
+    },
+    {
+     "key": "data_analysis",
+     "label": "Data analysis",
+     "k": 26,
+     "n": 234,
+     "pct": 11.1,
+     "ci": [
+      7.7,
+      15.8
+     ]
+    },
+    {
+     "key": "ai_ml",
+     "label": "AI / ML knowledge",
+     "k": 24,
+     "n": 234,
+     "pct": 10.3,
+     "ci": [
+      7.0,
+      14.8
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 23,
+     "n": 234,
+     "pct": 9.8,
+     "ci": [
+      6.6,
+      14.3
+     ]
+    }
+   ]
+  },
+  {
+   "field": "soft_weaknesses",
+   "item": "Q13",
+   "kind": "multi",
+   "description": "Soft-skill weaknesses observed in fresh graduates",
+   "answered": 234,
+   "shares": [
+    {
+     "key": "communication",
+     "label": "Communication",
+     "k": 158,
+     "n": 234,
+     "pct": 67.5,
+     "ci": [
+      61.3,
+      73.2
+     ]
+    },
+    {
+     "key": "confidence",
+     "label": "Confidence",
+     "k": 99,
+     "n": 234,
+     "pct": 42.3,
+     "ci": [
+      36.2,
+      48.7
+     ]
+    },
+    {
+     "key": "problem_solving",
+     "label": "Problem solving",
+     "k": 77,
+     "n": 234,
+     "pct": 32.9,
+     "ci": [
+      27.2,
+      39.2
+     ]
+    },
+    {
+     "key": "time_management",
+     "label": "Time management",
+     "k": 70,
+     "n": 234,
+     "pct": 29.9,
+     "ci": [
+      24.4,
+      36.1
+     ]
+    },
+    {
+     "key": "professional_behaviour",
+     "label": "Professional behaviour",
+     "k": 60,
+     "n": 234,
+     "pct": 25.6,
+     "ci": [
+      20.5,
+      31.6
+     ]
+    },
+    {
+     "key": "adaptability",
+     "label": "Adaptability",
+     "k": 50,
+     "n": 234,
+     "pct": 21.4,
+     "ci": [
+      16.6,
+      27.1
+     ]
+    },
+    {
+     "key": "attitude",
+     "label": "Attitude / lack of interest in the job",
+     "k": 43,
+     "n": 234,
+     "pct": 18.4,
+     "ci": [
+      13.9,
+      23.8
+     ]
+    },
+    {
+     "key": "teamwork",
+     "label": "Teamwork",
+     "k": 34,
+     "n": 234,
+     "pct": 14.5,
+     "ci": [
+      10.6,
+      19.6
+     ]
+    }
+   ]
+  },
+  {
+   "field": "grad_alignment",
+   "item": "Q14",
+   "kind": "likert",
+   "description": "How well graduates meet expectations (1-5)",
+   "answered": 231,
+   "summary": {
+    "n": 231,
+    "mean": 2.9,
+    "sd": 0.83,
+    "median": 3.0,
+    "pct_agree": 22.1,
+    "dist": {
+     "1": 10,
+     "2": 59,
+     "3": 111,
+     "4": 47,
+     "5": 4
+    }
+   }
+  },
+  {
+   "field": "uni_improvements",
+   "item": "Q15",
+   "kind": "multi",
+   "description": "Areas universities should improve",
+   "answered": 232,
+   "shares": [
+    {
+     "key": "practical_dev",
+     "label": "Practical software development",
+     "k": 149,
+     "n": 232,
+     "pct": 64.2,
+     "ci": [
+      57.9,
+      70.1
+     ]
+    },
+    {
+     "key": "industry_projects",
+     "label": "Industry-based projects",
+     "k": 140,
+     "n": 232,
+     "pct": 60.3,
+     "ci": [
+      53.9,
+      66.4
+     ]
+    },
+    {
+     "key": "internships",
+     "label": "Internship opportunities",
+     "k": 119,
+     "n": 232,
+     "pct": 51.3,
+     "ci": [
+      44.9,
+      57.7
+     ]
+    },
+    {
+     "key": "soft_skills",
+     "label": "Soft skills training",
+     "k": 105,
+     "n": 232,
+     "pct": 45.3,
+     "ci": [
+      39.0,
+      51.7
+     ]
+    },
+    {
+     "key": "modern_tech",
+     "label": "Modern technologies",
+     "k": 101,
+     "n": 232,
+     "pct": 43.5,
+     "ci": [
+      37.3,
+      50.0
+     ]
+    },
+    {
+     "key": "career_prep",
+     "label": "Career preparation",
+     "k": 66,
+     "n": 232,
+     "pct": 28.4,
+     "ci": [
+      23.0,
+      34.6
+     ]
+    },
+    {
+     "key": "certifications",
+     "label": "Professional certifications",
+     "k": 36,
+     "n": 232,
+     "pct": 15.5,
+     "ci": [
+      11.4,
+      20.7
+     ]
+    }
+   ]
+  },
+  {
+   "field": "ai_usefulness",
+   "item": "Q16",
+   "kind": "likert",
+   "description": "Usefulness of an AI employability system (1-5)",
+   "answered": 229,
+   "summary": {
+    "n": 229,
+    "mean": 3.83,
+    "sd": 0.83,
+    "median": 4.0,
+    "pct_agree": 70.3,
+    "dist": {
+     "1": 2,
+     "2": 12,
+     "3": 54,
+     "4": 116,
+     "5": 45
+    }
+   }
+  },
+  {
+   "field": "emp_explanation_importance",
+   "item": "Q17",
+   "kind": "likert",
+   "description": "Importance of explanations from an AI system (1-5)",
+   "answered": 229,
+   "summary": {
+    "n": 229,
+    "mean": 4.45,
+    "sd": 0.66,
+    "median": 5.0,
+    "pct_agree": 93.9,
+    "dist": {
+     "1": 1,
+     "2": 1,
+     "3": 12,
+     "4": 95,
+     "5": 120
+    }
+   }
+  },
+  {
+   "field": "ai_outputs",
+   "item": "Q18",
+   "kind": "multi",
+   "description": "Useful AI-generated outputs",
+   "answered": 230,
+   "shares": [
+    {
+     "key": "missing_skills",
+     "label": "Missing skills",
+     "k": 156,
+     "n": 230,
+     "pct": 67.8,
+     "ci": [
+      61.5,
+      73.5
+     ]
+    },
+    {
+     "key": "strengths",
+     "label": "Candidate skill strengths",
+     "k": 145,
+     "n": 230,
+     "pct": 63.0,
+     "ci": [
+      56.6,
+      69.0
+     ]
+    },
+    {
+     "key": "training_areas",
+     "label": "Recommended training areas",
+     "k": 118,
+     "n": 230,
+     "pct": 51.3,
+     "ci": [
+      44.9,
+      57.7
+     ]
+    },
+    {
+     "key": "suitability_score",
+     "label": "Industry-suitability score",
+     "k": 94,
+     "n": 230,
+     "pct": 40.9,
+     "ci": [
+      34.7,
+      47.3
+     ]
+    },
+    {
+     "key": "job_roles",
+     "label": "Suitable job roles",
+     "k": 94,
+     "n": 230,
+     "pct": 40.9,
+     "ci": [
+      34.7,
+      47.3
+     ]
+    },
+    {
+     "key": "interview_prep",
+     "label": "Interview preparation guidance",
+     "k": 75,
+     "n": 230,
+     "pct": 32.6,
+     "ci": [
+      26.9,
+      38.9
+     ]
+    }
+   ]
+  },
+  {
+   "field": "hiring_challenges",
+   "item": "Q19",
+   "kind": "multi",
+   "description": "Biggest challenges when hiring fresh graduates (up to 3)",
+   "answered": 232,
+   "shares": [
+    {
+     "key": "experience",
+     "label": "Lack of practical or internship experience",
+     "k": 129,
+     "n": 232,
+     "pct": 55.6,
+     "ci": [
+      49.2,
+      61.9
+     ]
+    },
+    {
+     "key": "curriculum_gap",
+     "label": "Skill gap between curriculum and industry needs",
+     "k": 114,
+     "n": 232,
+     "pct": 49.1,
+     "ci": [
+      42.8,
+      55.5
+     ]
+    },
+    {
+     "key": "soft_skills",
+     "label": "Weak communication / soft skills",
+     "k": 96,
+     "n": 232,
+     "pct": 41.4,
+     "ci": [
+      35.2,
+      47.8
+     ]
+    },
+    {
+     "key": "tech_skills",
+     "label": "Lack of technical skills",
+     "k": 67,
+     "n": 232,
+     "pct": 28.9,
+     "ci": [
+      23.4,
+      35.0
+     ]
+    },
+    {
+     "key": "attrition",
+     "label": "High early-stage attrition / turnover",
+     "k": 59,
+     "n": 232,
+     "pct": 25.4,
+     "ci": [
+      20.3,
+      31.4
+     ]
+    },
+    {
+     "key": "salary_expectations",
+     "label": "Unrealistic salary expectations",
+     "k": 57,
+     "n": 232,
+     "pct": 24.6,
+     "ci": [
+      19.5,
+      30.5
+     ]
+    },
+    {
+     "key": "long_process",
+     "label": "Long screening or interview process",
+     "k": 15,
+     "n": 232,
+     "pct": 6.5,
+     "ci": [
+      4.0,
+      10.4
+     ]
+    },
+    {
+     "key": "other",
+     "label": "Other",
+     "k": 6,
+     "n": 232,
+     "pct": 2.6,
+     "ci": [
+      1.2,
+      5.5
+     ]
+    }
+   ]
+  },
+  {
+   "field": "emp_comments",
+   "item": "Q21",
+   "kind": "text",
+   "description": "Additional comments (optional)",
+   "answered": 49
+  }
+ ]
+}
