@@ -1,0 +1,640 @@
+{
+  "n_modelling": 885,
+  "km_all": {
+    "employed_by_3m": 0.436,
+    "employed_by_6m": 0.67,
+    "employed_by_12m": 0.809,
+    "employed_by_24m": 0.898,
+    "median_months": 4.0
+  },
+  "km_groups": [
+    {
+      "group": "Internship completed",
+      "p": 0.003345687943954556,
+      "levels": {
+        "no": {
+          "n": 112,
+          "employed_by_3m": 0.3,
+          "employed_by_6m": 0.533,
+          "employed_by_12m": 0.749,
+          "employed_by_24m": 0.837,
+          "median_months": 6.0
+        },
+        "yes": {
+          "n": 508,
+          "employed_by_3m": 0.435,
+          "employed_by_6m": 0.681,
+          "employed_by_12m": 0.811,
+          "employed_by_24m": 0.902,
+          "median_months": 4.0
+        }
+      }
+    },
+    {
+      "group": "Any certification",
+      "p": 0.08413053893651412,
+      "levels": {
+        "1 or more": {
+          "n": 370,
+          "employed_by_3m": 0.442,
+          "employed_by_6m": 0.688,
+          "employed_by_12m": 0.823,
+          "employed_by_24m": 0.899,
+          "median_months": 4.0
+        },
+        "none": {
+          "n": 250,
+          "employed_by_3m": 0.364,
+          "employed_by_6m": 0.603,
+          "employed_by_12m": 0.765,
+          "employed_by_24m": 0.879,
+          "median_months": 5.0
+        }
+      }
+    },
+    {
+      "group": "GPA 3.0 or higher",
+      "p": 5.525213569748412e-07,
+      "levels": {
+        "3.0+": {
+          "n": 411,
+          "employed_by_3m": 0.47,
+          "employed_by_6m": 0.739,
+          "employed_by_12m": 0.85,
+          "employed_by_24m": 0.912,
+          "median_months": 4.0
+        },
+        "below 3.0": {
+          "n": 209,
+          "employed_by_3m": 0.292,
+          "employed_by_6m": 0.481,
+          "employed_by_12m": 0.695,
+          "employed_by_24m": 0.848,
+          "median_months": 7.0
+        }
+      }
+    },
+    {
+      "group": "Portfolio before completion",
+      "p": 0.005860297484129587,
+      "levels": {
+        "no": {
+          "n": 356,
+          "employed_by_3m": 0.361,
+          "employed_by_6m": 0.612,
+          "employed_by_12m": 0.775,
+          "employed_by_24m": 0.883,
+          "median_months": 5.0
+        },
+        "yes": {
+          "n": 264,
+          "employed_by_3m": 0.478,
+          "employed_by_6m": 0.712,
+          "employed_by_12m": 0.833,
+          "employed_by_24m": 0.899,
+          "median_months": 4.0
+        }
+      }
+    },
+    {
+      "group": "Institution type",
+      "p": 0.8370066875810449,
+      "levels": {
+        "foreign_affiliated": {
+          "n": 275,
+          "employed_by_3m": 0.408,
+          "employed_by_6m": 0.673,
+          "employed_by_12m": 0.803,
+          "employed_by_24m": 0.882,
+          "median_months": 4.0
+        },
+        "non_state": {
+          "n": 140,
+          "employed_by_3m": 0.433,
+          "employed_by_6m": 0.616,
+          "employed_by_12m": 0.814,
+          "employed_by_24m": 0.928,
+          "median_months": 5.0
+        },
+        "state": {
+          "n": 205,
+          "employed_by_3m": 0.401,
+          "employed_by_6m": 0.654,
+          "employed_by_12m": 0.786,
+          "employed_by_24m": 0.879,
+          "median_months": 4.0
+        }
+      }
+    },
+    {
+      "group": "Degree group",
+      "p": 0.47022708176050343,
+      "levels": {
+        "computing": {
+          "n": 276,
+          "employed_by_3m": 0.391,
+          "employed_by_6m": 0.632,
+          "employed_by_12m": 0.777,
+          "employed_by_24m": 0.885,
+          "median_months": 5.0
+        },
+        "it_is": {
+          "n": 206,
+          "employed_by_3m": 0.424,
+          "employed_by_6m": 0.666,
+          "employed_by_12m": 0.853,
+          "employed_by_24m": 0.906,
+          "median_months": 5.0
+        },
+        "specialised": {
+          "n": 138,
+          "employed_by_3m": 0.429,
+          "employed_by_6m": 0.685,
+          "employed_by_12m": 0.773,
+          "employed_by_24m": 0.884,
+          "median_months": 4.0
+        }
+      }
+    }
+  ],
+  "time_ratios": {
+    "certifications_count": {
+      "time_ratio": 0.948,
+      "lower": 0.858,
+      "upper": 1.048,
+      "p": 0.3
+    },
+    "degree_group_it_is": {
+      "time_ratio": 0.913,
+      "lower": 0.725,
+      "upper": 1.149,
+      "p": 0.437
+    },
+    "degree_group_specialised": {
+      "time_ratio": 0.898,
+      "lower": 0.69,
+      "upper": 1.168,
+      "p": 0.423
+    },
+    "gpa": {
+      "time_ratio": 0.804,
+      "lower": 0.702,
+      "upper": 0.92,
+      "p": 0.001
+    },
+    "hackathon_count": {
+      "time_ratio": 0.957,
+      "lower": 0.852,
+      "upper": 1.074,
+      "p": 0.453
+    },
+    "has_portfolio": {
+      "time_ratio": 0.949,
+      "lower": 0.848,
+      "upper": 1.062,
+      "p": 0.359
+    },
+    "internship_months": {
+      "time_ratio": 0.844,
+      "lower": 0.761,
+      "upper": 0.936,
+      "p": 0.001
+    },
+    "open_source": {
+      "time_ratio": 1.062,
+      "lower": 0.959,
+      "upper": 1.177,
+      "p": 0.248
+    },
+    "prep_years": {
+      "time_ratio": 1.012,
+      "lower": 0.915,
+      "upper": 1.12,
+      "p": 0.817
+    },
+    "project_count": {
+      "time_ratio": 0.98,
+      "lower": 0.863,
+      "upper": 1.113,
+      "p": 0.756
+    },
+    "sdlc_familiarity": {
+      "time_ratio": 1.038,
+      "lower": 0.915,
+      "upper": 1.177,
+      "p": 0.566
+    },
+    "self_learning_freq": {
+      "time_ratio": 0.999,
+      "lower": 0.882,
+      "upper": 1.132,
+      "p": 0.985
+    },
+    "soft_mean": {
+      "time_ratio": 0.97,
+      "lower": 0.852,
+      "upper": 1.104,
+      "p": 0.643
+    },
+    "technical_mean": {
+      "time_ratio": 0.919,
+      "lower": 0.785,
+      "upper": 1.077,
+      "p": 0.298
+    },
+    "university_type_foreign_affiliated": {
+      "time_ratio": 0.956,
+      "lower": 0.757,
+      "upper": 1.206,
+      "p": 0.703
+    },
+    "university_type_non_state": {
+      "time_ratio": 0.863,
+      "lower": 0.653,
+      "upper": 1.139,
+      "p": 0.298
+    }
+  },
+  "model_checks": {
+    "uno_c": {
+      "train": 0.613,
+      "validation": 0.693,
+      "test": 0.619
+    },
+    "tau": 13.1,
+    "ibs_test_model": 0.167,
+    "ibs_test_km_baseline": 0.164
+  },
+  "institution_transfer": [
+    {
+      "held_out_type": "state",
+      "train_n": 415,
+      "validation_n": 44,
+      "validation_events": 33,
+      "uno_c": 0.702
+    },
+    {
+      "held_out_type": "non_state",
+      "train_n": 480,
+      "validation_n": 30,
+      "validation_events": 22,
+      "uno_c": 0.695
+    },
+    {
+      "held_out_type": "foreign_affiliated",
+      "train_n": 345,
+      "validation_n": 59,
+      "validation_events": 45,
+      "uno_c": 0.658
+    }
+  ],
+  "alignment_summary": {
+    "spearman_rho": 0.386,
+    "p": 0.05151761541390911,
+    "spearman_rho_technical": 0.355,
+    "p_technical": 0.16254205303817737,
+    "n_graduates": 1115,
+    "n_employers": 239,
+    "n_ads": 324
+  },
+  "alignment": [
+    {
+      "skill": "Cloud Computing",
+      "kind": "technical",
+      "graduate_mean": 2.3229,
+      "employer_mean": 3.523,
+      "gap": 1.2001,
+      "rank_biserial": 0.6597,
+      "p": 0.0,
+      "ad_share": 0.2284,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Software Testing",
+      "kind": "technical",
+      "graduate_mean": 2.7238,
+      "employer_mean": 3.9205,
+      "gap": 1.1967,
+      "rank_biserial": 0.6938,
+      "p": 0.0,
+      "ad_share": 0.4414,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "DevOps / CI-CD",
+      "kind": "technical",
+      "graduate_mean": 1.9587,
+      "employer_mean": 3.0753,
+      "gap": 1.1166,
+      "rank_biserial": 0.6266,
+      "p": 0.0,
+      "ad_share": 0.0988,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Docker",
+      "kind": "technical",
+      "graduate_mean": 2.0915,
+      "employer_mean": 3.0209,
+      "gap": 0.9294,
+      "rank_biserial": 0.5297,
+      "p": 0.0,
+      "ad_share": 0.0802,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Cybersecurity Fundamentals",
+      "kind": "technical",
+      "graduate_mean": 2.5408,
+      "employer_mean": 3.4477,
+      "gap": 0.9069,
+      "rank_biserial": 0.5029,
+      "p": 0.0,
+      "ad_share": 0.1235,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Problem Solving",
+      "kind": "soft",
+      "graduate_mean": 3.6583,
+      "employer_mean": 4.5565,
+      "gap": 0.8982,
+      "rank_biserial": 0.5627,
+      "p": 0.0,
+      "ad_share": 0.6883,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Communication Skills",
+      "kind": "soft",
+      "graduate_mean": 3.7327,
+      "employer_mean": 4.569,
+      "gap": 0.8363,
+      "rank_biserial": 0.4979,
+      "p": 0.0,
+      "ad_share": 0.5494,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Git / GitHub",
+      "kind": "technical",
+      "graduate_mean": 3.3121,
+      "employer_mean": 4.0126,
+      "gap": 0.7004,
+      "rank_biserial": 0.4266,
+      "p": 0.0,
+      "ad_share": 0.2623,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "REST APIs",
+      "kind": "technical",
+      "graduate_mean": 3.1327,
+      "employer_mean": 3.8326,
+      "gap": 0.6999,
+      "rank_biserial": 0.4179,
+      "p": 0.0,
+      "ad_share": 0.3302,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Linux / Command Line",
+      "kind": "technical",
+      "graduate_mean": 2.6341,
+      "employer_mean": 3.318,
+      "gap": 0.6839,
+      "rank_biserial": 0.4161,
+      "p": 0.0,
+      "ad_share": 0.0895,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Professionalism",
+      "kind": "soft",
+      "graduate_mean": 3.6852,
+      "employer_mean": 4.364,
+      "gap": 0.6788,
+      "rank_biserial": 0.4248,
+      "p": 0.0,
+      "ad_share": 0.0123,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Self-learning Ability",
+      "kind": "soft",
+      "graduate_mean": 3.6807,
+      "employer_mean": 4.3305,
+      "gap": 0.6498,
+      "rank_biserial": 0.4191,
+      "p": 0.0,
+      "ad_share": 0.5185,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Programming Fundamentals",
+      "kind": "technical",
+      "graduate_mean": 3.8108,
+      "employer_mean": 4.4603,
+      "gap": 0.6495,
+      "rank_biserial": 0.4158,
+      "p": 0.0,
+      "ad_share": 0.1142,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "SQL / Database Management",
+      "kind": "technical",
+      "graduate_mean": 3.6664,
+      "employer_mean": 4.2887,
+      "gap": 0.6223,
+      "rank_biserial": 0.4187,
+      "p": 0.0,
+      "ad_share": 0.3704,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Critical Thinking",
+      "kind": "soft",
+      "graduate_mean": 3.6502,
+      "employer_mean": 4.2385,
+      "gap": 0.5883,
+      "rank_biserial": 0.3719,
+      "p": 0.0,
+      "ad_share": 0.0247,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Artificial Intelligence / Machine Learning",
+      "kind": "technical",
+      "graduate_mean": 2.6081,
+      "employer_mean": 3.1883,
+      "gap": 0.5802,
+      "rank_biserial": 0.3417,
+      "p": 0.0,
+      "ad_share": 0.1265,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Adaptability",
+      "kind": "soft",
+      "graduate_mean": 3.6664,
+      "employer_mean": 4.2385,
+      "gap": 0.5721,
+      "rank_biserial": 0.3541,
+      "p": 0.0,
+      "ad_share": 0.0864,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Object-Oriented Programming",
+      "kind": "technical",
+      "graduate_mean": 3.6179,
+      "employer_mean": 4.1841,
+      "gap": 0.5662,
+      "rank_biserial": 0.3565,
+      "p": 0.0,
+      "ad_share": 0.0463,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Teamwork",
+      "kind": "soft",
+      "graduate_mean": 3.9354,
+      "employer_mean": 4.4979,
+      "gap": 0.5625,
+      "rank_biserial": 0.3674,
+      "p": 0.0,
+      "ad_share": 0.608,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Time Management",
+      "kind": "soft",
+      "graduate_mean": 3.6475,
+      "employer_mean": 4.1506,
+      "gap": 0.5031,
+      "rank_biserial": 0.3166,
+      "p": 0.0,
+      "ad_share": 0.0957,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Data Analytics",
+      "kind": "technical",
+      "graduate_mean": 2.7982,
+      "employer_mean": 3.2594,
+      "gap": 0.4612,
+      "rank_biserial": 0.2772,
+      "p": 0.0,
+      "ad_share": 0.1265,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Java",
+      "kind": "technical",
+      "graduate_mean": 3.2888,
+      "employer_mean": 3.6778,
+      "gap": 0.389,
+      "rank_biserial": 0.2422,
+      "p": 0.0,
+      "ad_share": 0.0802,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "JavaScript",
+      "kind": "technical",
+      "graduate_mean": 3.2565,
+      "employer_mean": 3.6192,
+      "gap": 0.3627,
+      "rank_biserial": 0.2287,
+      "p": 0.0,
+      "ad_share": 0.2778,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0
+    },
+    {
+      "skill": "Web Development",
+      "kind": "technical",
+      "graduate_mean": 3.4978,
+      "employer_mean": 3.6569,
+      "gap": 0.1591,
+      "rank_biserial": 0.1118,
+      "p": 0.0039,
+      "ad_share": 0.2407,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0042
+    },
+    {
+      "skill": "Python",
+      "kind": "technical",
+      "graduate_mean": 3.3668,
+      "employer_mean": 3.5021,
+      "gap": 0.1353,
+      "rank_biserial": 0.0756,
+      "p": 0.0497,
+      "ad_share": 0.1605,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.0517
+    },
+    {
+      "skill": "Leadership Ability",
+      "kind": "soft",
+      "graduate_mean": 3.0951,
+      "employer_mean": 3.0753,
+      "gap": -0.0198,
+      "rank_biserial": -0.0119,
+      "p": 0.7582,
+      "ad_share": 0.0093,
+      "n_grad": 1115,
+      "n_emp": 239,
+      "q": 0.7582
+    }
+  ]
+}
