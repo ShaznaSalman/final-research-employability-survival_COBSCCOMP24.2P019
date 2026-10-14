@@ -44,6 +44,9 @@ data/backup*/
 artifacts/validation_predictions.csv
 benchmark/prompts.csv
 benchmark/responses.csv
+benchmark/LLM_prompts.html
+benchmark/LLM_answers.json
+benchmark/LLM_answer_sheet.xlsx
 
 # Form technical-test working files (test responses and submission logs)
 test_submissions/

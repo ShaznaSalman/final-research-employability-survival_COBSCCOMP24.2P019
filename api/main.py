@@ -225,6 +225,7 @@ def research(request: Request):
               for i, (t, sv) in enumerate(kmf.survival_function_.iloc[:, 0].items())]
     sim = art / "simulation_study.json"
     acc = art / "accuracy_experiments.json"
+    llm = art / "llm_benchmark.json"
     return {"is_synthetic": _synthetic(s), "selected_model": selected,
             "models": _records(art / "model_comparison.csv"),
             "calibration": json.loads(cal.to_json(orient="records")) if not cal.empty else [],
@@ -233,4 +234,5 @@ def research(request: Request):
             "temporal": _records(art / "temporal_validation.csv"),
             "feature_sets": _records(art / "feature_set_comparison.csv"),
             "simulation": json.loads(sim.read_text(encoding="utf-8")) if sim.exists() else None,
-            "accuracy": json.loads(acc.read_text(encoding="utf-8")) if acc.exists() else None}
+            "accuracy": json.loads(acc.read_text(encoding="utf-8")) if acc.exists() else None,
+            "llm_benchmark": json.loads(llm.read_text(encoding="utf-8")) if llm.exists() else None}

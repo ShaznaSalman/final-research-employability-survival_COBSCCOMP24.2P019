@@ -250,6 +250,13 @@ def score(bench: Path = BENCH, artifacts: Path = ARTIFACTS, train_path: Path = T
     md = render(base, selected, info, model_uno, model_harrell, model_cal, model_cal_point, runs, llm_summaries,
                 len(responses), len(answered), unparseable, variant_rows)
     (artifacts / "llm_benchmark.md").write_text(md, encoding="utf-8")
+    headline = [{"llm": x["llm"], "profiles": x["profiles"], "uno_c": round(x["uno_c"], 3),
+                 "model_uno_c": round(x["model_uno_same_profiles"], 3),
+                 "diff": [None if np.isnan(v) else round(v, 3) for v in x["diff"]],
+                 "pct_identical": x["consistency"].get("pct_identical")}
+                for x in llm_summaries if x["variant"] == DEFAULT_VARIANT]
+    (artifacts / "llm_benchmark.json").write_text(json.dumps({"responses_answered": len(answered),
+                                                               "comparisons": headline}, indent=1), encoding="utf-8")
     return {"profiles": len(base), "responses_answered": len(answered), "unparseable": len(unparseable),
             "llms": [s["llm"] for s in llm_summaries], "model_uno_c": round(model_uno, 3),
             "variant_comparisons": len(variant_rows)}
