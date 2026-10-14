@@ -162,7 +162,7 @@ def model_info(request: Request):
         "disclaimer": wording.DISCLAIMER.format(n=info.get("training_n", 0)),
         "synthetic_banner": wording.SYNTHETIC_BANNER if synthetic else None,
         "associational_note": wording.ASSOCIATIONAL_NOTE, "privacy": wording.PRIVACY,
-        "limitations": wording.LIMITATIONS,
+        "limitations": wording.limitations(info),
     }
 
 
