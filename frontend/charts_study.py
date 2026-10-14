@@ -222,15 +222,25 @@ def subgroup_c(rows: list[dict]) -> go.Figure:
     return _layout(fig, 90 + 34 * len(rows))
 
 
-def variant_c(rows: list[dict], label_key: str = "label", c_key: str = "uno_c") -> go.Figure:
-    rows = sorted(rows, key=lambda r: r[c_key])
-    fig = go.Figure(go.Scatter(
-        x=[r[c_key] for r in rows], y=[r[label_key] for r in rows], mode="markers",
-        marker=dict(size=12, color=BLUE, line=dict(color=SURFACE, width=2)),
-        hovertemplate="<b>%{y}</b><br>Uno's C %{x:.3f}<extra></extra>"))
+def variant_c(rows: list[dict], model_labels: dict[str, str], selected: str,
+              label_key: str = "label", c_key: str = "uno_c") -> go.Figure:
+    """One coloured series per model (selected model first), rows ordered by the selected model's C."""
+    models = sorted({r["model"] for r in rows}, key=lambda m: (m != selected, m))
+    order = sorted({r[label_key] for r in rows},
+                   key=lambda v: next((r[c_key] for r in rows if r[label_key] == v and r["model"] == selected), 0))
+    fig = go.Figure()
+    for m, c in zip(models, CATEGORICAL):
+        pts = [r for r in rows if r["model"] == m]
+        name = model_labels.get(m, m) + (" (selected)" if m == selected else "")
+        fig.add_trace(go.Scatter(
+            x=[r[c_key] for r in pts], y=[r[label_key] for r in pts], mode="markers", name=name,
+            marker=dict(size=12, color=c, line=dict(color=SURFACE, width=2)),
+            hovertemplate=f"<b>%{{y}}</b><br>{name}: Uno's C %{{x:.3f}}<extra></extra>"))
     fig.update_xaxes(range=[0.5, 0.8], gridcolor=GRID, zeroline=False, title=_axis_title("Uno's C-index"))
-    fig.update_yaxes(showgrid=False, tickfont=dict(color=INK))
-    return _layout(fig, 90 + 34 * len(rows))
+    fig.update_yaxes(showgrid=False, tickfont=dict(color=INK), categoryorder="array", categoryarray=order)
+    fig = _layout(fig, 130 + 34 * len(order))
+    fig.update_layout(showlegend=True, legend=dict(orientation="h", y=1.02, yanchor="bottom", x=0, xanchor="left"))
+    return fig
 
 
 def power_curves(sim: dict) -> go.Figure:
