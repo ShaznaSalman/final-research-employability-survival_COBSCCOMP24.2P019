@@ -49,6 +49,7 @@ own small synthetic dataset and models, and anything written goes to a temporary
 | Milestones rise over time with 80% ranges and skip months already passed; suggestions use only actionable features, different features each, effort <= 3, at least 1 month sooner, associational wording; nothing suggested at the top of every range; every skill has a free resource and top gaps carry up to 2 | `test_guidance.py` |
 | **Chat assistant**: recognises each question type, turns what-if questions into allowed changes (clipped to valid ranges), repeats the model's own numbers and wording, refuses GPA changes for graduates and off-topic questions, stores nothing and calls no external service; `/chat` returns its schema and rejects empty, over-long or extra fields | `test_chat.py`, `test_api.py::test_chat*` |
 | API rejects invalid / extra fields (e.g. gender) and never stores profiles | `test_api.py::test_invalid_*`, `::test_api_never_stores_profiles` |
+| **SUS scoring** follows Brooke (1996) (0 / 50 / 100 extremes, hand-calculated example); grade and adjective boundaries; t interval; excluded rows (no consent, not eligible, incomplete, duplicate code); straight-lining and acquiescence flags; every comment coded; the real export reproduces the reported mean 76.25 (95% CI 69.53-82.97) | `test_sus_study.py` |
 | **Benchmark scorer handles unparseable responses** | `test_benchmark.py::test_parse_months_unparseable[*]`, `::test_score_with_responses_including_unparseable` |
 | LLM API mode: fills template rows, resumes, appends a second LLM, saves on failure, records refusals, no network in tests | `test_run_llm.py` |
 | Secondary analyses: Q16a leaves the main data unchanged and old exports without it are accepted; competing-outcome rules; cumulative incidences <= 1; careless / heaped detection; Rubin's rules; multiple imputation; earlier-vs-later split; conservative clustering CI never narrower, institutions never named | `test_robustness.py` |
@@ -75,6 +76,7 @@ own small synthetic dataset and models, and anything written goes to a temporary
 | test_robustness.py | 11 |
 | test_run_llm.py | 13 |
 | test_synthetic.py | 8 |
+| test_sus_study.py | 10 |
 
 ## Manual checks (not automated)
 

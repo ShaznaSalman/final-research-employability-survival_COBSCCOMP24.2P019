@@ -168,6 +168,7 @@ Details: `docs/secondary_analyses.md`.
 |---|---|---|
 | `python -m core.market_study` (also in `run_all`) | Skill demand in the real ads, role profiles, skill bundles, interns vs junior roles, named technologies | `job_market_study.md` |
 | `python -m core.survey_study` (also in `run_all`) | Every questionnaire item that is not a model input: repeated questions tested against the model question they repeat, graduates vs employers, self-perceived employability vs outcome, artifact requirements, descriptive results for every item | `questionnaire_study.md` |
+| `python -m core.sus_study` (also in `run_all`) | Usability (RQ4): System Usability Scale scores from the form export in `New Data/Usability (SUS)/`, mean with 95% CI against the benchmark of 68, t and Wilcoxon tests, Cronbach's alpha, grade, item means and coded comments | `sus_study.md` |
 | `python -m core.simulation_study --reps 200` (about 5 min) | Does the analysis recover known effects? Power by sample size, false positives, coverage | `simulation_study.md` |
 | `python -m core.accuracy_experiments` (about 3 min) | Do flexible models (neural networks DeepSurv/DeepHit/Cox-Time/N-MTLR, boosting, forest, ensemble) beat Cox? Accuracy ceiling | `accuracy_experiments.md` |
 | `python -m core.coding_agreement --sample`, hand-code, then `python -m core.coding_agreement` | Agreement (Cohen's kappa) between keyword coding and manual coding of 40 ads | `coding_agreement.md` |
@@ -225,6 +226,7 @@ model, whose candidate list and selection rule were fixed in advance.
 | `core/sensitivity.py` / `temporal.py` / `clustering.py` / `competing.py` | Secondary analyses (see `docs/secondary_analyses.md`) |
 | `core/market_study.py` / `simulation_study.py` / `accuracy_experiments.py` / `coding_agreement.py` | Job-market study, simulation study, accuracy experiments, coding agreement |
 | `core/survey_items.py` / `survey_study.py` / `synthetic_survey.py` | Questionnaire-study items (not model inputs), their analysis, and their synthetic answers |
+| `core/sus_study.py` | Usability evaluation: SUS scoring and analysis (form built by `docs/usability/SUS_Form_Builder.gs`) |
 | `core/wording.py` | **Every user-facing sentence** - edit wording here |
 | `core/chat.py` | Grounded assistant behind `/chat`: answers questions about a profile from the system's own results (no language model, nothing stored) |
 | `core/run_all.py` | The one-command pipeline |
@@ -254,6 +256,7 @@ See `docs/architecture.md` for the component diagram.
 | `artifacts/llm_benchmark.md` | LLM vs survival model |
 | `artifacts/job_market_study.md` | **Real data:** skill demand (with CIs), role profiles, skill bundles, interns vs junior roles, technologies |
 | `artifacts/questionnaire_study.md` | Repeated-question consistency checks, graduates vs employers, self-perception vs outcome, artifact requirements, every item |
+| `artifacts/sus_study.md` | Usability evaluation: SUS mean, 95% CI, tests against 68, item means, usability issues (figure `figures/sus_scores.png`) |
 | `artifacts/simulation_study.md` | Power, false positives and coverage by sample size |
 | `artifacts/accuracy_experiments.md` | Neural, boosting, forest and ensemble models vs Cox, and the accuracy ceiling |
 | `docs/synthetic_data.md` | The synthetic data-generating process and its true effects |
