@@ -107,12 +107,12 @@
    "repeat": "Q28 Version control used",
    "item": "Q28",
    "model_question": "Q18 Git / GitHub rating",
-   "rho": 0.237,
-   "p": 6.89095298350561e-15,
-   "n": 1049,
+   "rho": 0.261,
+   "p": 2.777206589836661e-18,
+   "n": 1081,
    "ci": [
-    0.179,
-    0.294
+    0.204,
+    0.316
    ],
    "verdict": "measures something different",
    "type": "correlation"
@@ -121,12 +121,12 @@
    "repeat": "Q28 Testing practices used",
    "item": "Q28",
    "model_question": "Q18 Software Testing rating",
-   "rho": 0.185,
-   "p": 1.6530467920768596e-09,
-   "n": 1049,
+   "rho": 0.189,
+   "p": 3.395101454832302e-10,
+   "n": 1081,
    "ci": [
-    0.126,
-    0.243
+    0.131,
+    0.246
    ],
    "verdict": "measures something different",
    "type": "correlation"
@@ -135,11 +135,11 @@
    "repeat": "Q28 CI/CD used",
    "item": "Q28",
    "model_question": "Q18 DevOps / CI-CD rating",
-   "rho": 0.197,
-   "p": 1.25549145866658e-10,
-   "n": 1049,
+   "rho": 0.198,
+   "p": 5.333870465426549e-11,
+   "n": 1081,
    "ci": [
-    0.138,
+    0.14,
     0.254
    ],
    "verdict": "measures something different",
@@ -149,12 +149,12 @@
    "repeat": "Q28 Number of practices used",
    "item": "Q28",
    "model_question": "Q29 SDLC familiarity",
-   "rho": 0.171,
-   "p": 2.7009977768906295e-08,
-   "n": 1049,
+   "rho": 0.175,
+   "p": 7.382158968630071e-09,
+   "n": 1081,
    "ci": [
-    0.111,
-    0.229
+    0.116,
+    0.232
    ],
    "verdict": "measures something different",
    "type": "correlation"
@@ -1564,88 +1564,88 @@
     "key": "web",
     "label": "Web applications",
     "k": 707,
-    "n": 1072,
-    "pct": 66.0,
+    "n": 1115,
+    "pct": 63.4,
     "ci": [
-     63.1,
-     68.7
+     60.5,
+     66.2
     ]
    },
    {
     "key": "mobile",
     "label": "Mobile applications",
     "k": 474,
-    "n": 1072,
-    "pct": 44.2,
+    "n": 1115,
+    "pct": 42.5,
     "ci": [
-     41.3,
-     47.2
+     39.6,
+     45.4
     ]
    },
    {
     "key": "data_analytics",
     "label": "Data analytics",
     "k": 225,
-    "n": 1072,
-    "pct": 21.0,
+    "n": 1115,
+    "pct": 20.2,
     "ci": [
-     18.7,
-     23.5
+     17.9,
+     22.6
     ]
    },
    {
     "key": "desktop",
     "label": "Desktop applications",
     "k": 198,
-    "n": 1072,
-    "pct": 18.5,
+    "n": 1115,
+    "pct": 17.8,
     "ci": [
-     16.3,
-     20.9
+     15.6,
+     20.1
     ]
    },
    {
     "key": "machine_learning",
     "label": "Machine learning",
     "k": 184,
-    "n": 1072,
-    "pct": 17.2,
+    "n": 1115,
+    "pct": 16.5,
     "ci": [
-     15.0,
-     19.5
+     14.4,
+     18.8
     ]
    },
    {
     "key": "cybersecurity",
     "label": "Cybersecurity projects",
     "k": 131,
-    "n": 1072,
-    "pct": 12.2,
+    "n": 1115,
+    "pct": 11.7,
     "ci": [
-     10.4,
-     14.3
+     10.0,
+     13.8
     ]
    },
    {
     "key": "cloud",
     "label": "Cloud applications",
     "k": 77,
-    "n": 1072,
-    "pct": 7.2,
+    "n": 1115,
+    "pct": 6.9,
     "ci": [
-     5.8,
-     8.9
+     5.6,
+     8.5
     ]
    },
    {
     "key": "iot",
     "label": "IoT projects",
     "k": 71,
-    "n": 1072,
-    "pct": 6.6,
+    "n": 1115,
+    "pct": 6.4,
     "ci": [
-     5.3,
-     8.3
+     5.1,
+     8.0
     ]
    }
   ]
@@ -2771,105 +2771,105 @@
    "item": "Q26",
    "kind": "multi",
    "description": "Development areas with completed projects",
-   "answered": 1072,
+   "answered": 1115,
    "shares": [
     {
      "key": "web",
      "label": "Web applications",
      "k": 707,
-     "n": 1072,
-     "pct": 66.0,
+     "n": 1115,
+     "pct": 63.4,
      "ci": [
-      63.1,
-      68.7
+      60.5,
+      66.2
      ]
     },
     {
      "key": "mobile",
      "label": "Mobile applications",
      "k": 474,
-     "n": 1072,
-     "pct": 44.2,
+     "n": 1115,
+     "pct": 42.5,
      "ci": [
-      41.3,
-      47.2
+      39.6,
+      45.4
      ]
     },
     {
      "key": "data_analytics",
      "label": "Data analytics",
      "k": 225,
-     "n": 1072,
-     "pct": 21.0,
+     "n": 1115,
+     "pct": 20.2,
      "ci": [
-      18.7,
-      23.5
+      17.9,
+      22.6
      ]
     },
     {
      "key": "desktop",
      "label": "Desktop applications",
      "k": 198,
-     "n": 1072,
-     "pct": 18.5,
+     "n": 1115,
+     "pct": 17.8,
      "ci": [
-      16.3,
-      20.9
+      15.6,
+      20.1
      ]
     },
     {
      "key": "machine_learning",
      "label": "Machine learning",
      "k": 184,
-     "n": 1072,
-     "pct": 17.2,
+     "n": 1115,
+     "pct": 16.5,
      "ci": [
-      15.0,
-      19.5
+      14.4,
+      18.8
      ]
     },
     {
      "key": "cybersecurity",
      "label": "Cybersecurity projects",
      "k": 131,
-     "n": 1072,
-     "pct": 12.2,
+     "n": 1115,
+     "pct": 11.7,
      "ci": [
-      10.4,
-      14.3
+      10.0,
+      13.8
      ]
     },
     {
      "key": "cloud",
      "label": "Cloud applications",
      "k": 77,
-     "n": 1072,
-     "pct": 7.2,
+     "n": 1115,
+     "pct": 6.9,
      "ci": [
-      5.8,
-      8.9
+      5.6,
+      8.5
      ]
     },
     {
      "key": "iot",
      "label": "IoT projects",
      "k": 71,
-     "n": 1072,
-     "pct": 6.6,
+     "n": 1115,
+     "pct": 6.4,
      "ci": [
-      5.3,
-      8.3
+      5.1,
+      8.0
      ]
     },
     {
      "key": "none",
      "label": "None",
-     "k": 0,
-     "n": 1072,
-     "pct": 0.0,
+     "k": 43,
+     "n": 1115,
+     "pct": 3.9,
      "ci": [
-      0.0,
-      0.4
+      2.9,
+      5.2
      ]
     }
    ]
@@ -2900,83 +2900,83 @@
    "item": "Q28",
    "kind": "multi",
    "description": "Industry practices used (repeats Q18 Git/Testing/DevOps and Q29)",
-   "answered": 1049,
+   "answered": 1081,
    "shares": [
     {
      "key": "version_control",
      "label": "Version control (Git)",
      "k": 867,
-     "n": 1049,
-     "pct": 82.7,
+     "n": 1081,
+     "pct": 80.2,
      "ci": [
-      80.2,
-      84.8
+      77.7,
+      82.5
      ]
     },
     {
      "key": "agile_scrum",
      "label": "Agile / Scrum",
      "k": 535,
-     "n": 1049,
-     "pct": 51.0,
+     "n": 1081,
+     "pct": 49.5,
      "ci": [
-      48.0,
-      54.0
+      46.5,
+      52.5
      ]
     },
     {
      "key": "documentation",
      "label": "Documentation",
      "k": 505,
-     "n": 1049,
-     "pct": 48.1,
+     "n": 1081,
+     "pct": 46.7,
      "ci": [
-      45.1,
-      51.2
+      43.8,
+      49.7
      ]
     },
     {
      "key": "code_reviews",
      "label": "Code reviews",
      "k": 370,
-     "n": 1049,
-     "pct": 35.3,
+     "n": 1081,
+     "pct": 34.2,
      "ci": [
-      32.4,
-      38.2
+      31.5,
+      37.1
      ]
     },
     {
      "key": "testing",
      "label": "Testing practices",
      "k": 279,
-     "n": 1049,
-     "pct": 26.6,
+     "n": 1081,
+     "pct": 25.8,
      "ci": [
-      24.0,
-      29.4
+      23.3,
+      28.5
      ]
     },
     {
      "key": "cicd",
      "label": "CI/CD",
      "k": 157,
-     "n": 1049,
-     "pct": 15.0,
+     "n": 1081,
+     "pct": 14.5,
      "ci": [
-      12.9,
-      17.3
+      12.5,
+      16.7
      ]
     },
     {
      "key": "none",
      "label": "None",
-     "k": 0,
-     "n": 1049,
-     "pct": 0.0,
+     "k": 32,
+     "n": 1081,
+     "pct": 3.0,
      "ci": [
-      0.0,
-      0.4
+      2.1,
+      4.1
      ]
     }
    ]
@@ -4397,61 +4397,61 @@
    "item": "Q6",
    "kind": "categorical",
    "description": "Entry-level IT graduates recruited per year",
-   "answered": 222,
+   "answered": 230,
    "shares": [
     {
      "key": "0",
      "label": "None",
-     "k": 0,
-     "n": 222,
-     "pct": 0.0,
+     "k": 8,
+     "n": 230,
+     "pct": 3.5,
      "ci": [
-      0.0,
-      1.7
+      1.8,
+      6.7
      ]
     },
     {
      "key": "1-5",
      "label": "1-5",
      "k": 66,
-     "n": 222,
-     "pct": 29.7,
+     "n": 230,
+     "pct": 28.7,
      "ci": [
-      24.1,
-      36.0
+      23.2,
+      34.9
      ]
     },
     {
      "key": "6-10",
      "label": "6-10",
      "k": 57,
-     "n": 222,
-     "pct": 25.7,
+     "n": 230,
+     "pct": 24.8,
      "ci": [
-      20.4,
-      31.8
+      19.6,
+      30.7
      ]
     },
     {
      "key": "11-25",
      "label": "11-25",
      "k": 62,
-     "n": 222,
-     "pct": 27.9,
+     "n": 230,
+     "pct": 27.0,
      "ci": [
-      22.4,
-      34.2
+      21.6,
+      33.0
      ]
     },
     {
      "key": "25+",
      "label": "More than 25",
      "k": 37,
-     "n": 222,
-     "pct": 16.7,
+     "n": 230,
+     "pct": 16.1,
      "ci": [
-      12.3,
-      22.1
+      11.9,
+      21.4
      ]
     }
    ]
