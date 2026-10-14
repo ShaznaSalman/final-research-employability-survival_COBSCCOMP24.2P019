@@ -15,6 +15,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from core import schema
+
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "New Data" / "Main data"
 RAW_DIR = ROOT / "data" / "raw"
@@ -32,7 +34,7 @@ def convert(source_dir: Path = SOURCE_DIR, raw_dir: Path = RAW_DIR, survey_date:
         matches = sorted(source_dir.glob(f"{prefix}*.xlsx"))
         if len(matches) != 1:
             raise FileNotFoundError(f"Expected one '{prefix}*.xlsx' in {source_dir}, found {len(matches)}")
-        df = pd.read_excel(matches[0], sheet_name=0)
+        df = pd.read_excel(matches[0], sheet_name=0, keep_default_na=False, na_values=schema.SURVEY_NA_VALUES)
         df["Timestamp"] = survey_date
         df.to_csv(raw_dir / name, index=False, encoding="utf-8")
         out[name] = {"source": matches[0].name, "rows": len(df)}

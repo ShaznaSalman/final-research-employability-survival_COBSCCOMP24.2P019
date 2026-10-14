@@ -22,6 +22,11 @@ JOB_BEFORE_GRADUATION_MONTHS = 0.5   # duration assigned when first IT role star
 PREDICTION_HORIZON_MONTHS = 24       # survival curves are reported from 0 to this horizon
 EPV_WARNING_THRESHOLD = 10           # warn if events-per-variable falls below this
 MIN_ITEMS_ANSWERED_FRACTION = 2 / 3  # a skill block mean needs >= this share of its items answered, else missing
+# Cell values read as missing in the survey files. pandas' default list also treats the text "None", "N/A", "n/a" and
+# "NA" as missing, but "None" is a real answer option (Q26, Q28, employer Q6) and "n/a" a real comment, so they are
+# kept as text. Pass with keep_default_na=False.
+SURVEY_NA_VALUES = ["", "#N/A", "#N/A N/A", "#NA", "-1.#IND", "-1.#QNAN", "-NaN", "-nan", "1.#IND", "1.#QNAN",
+                    "<NA>", "NULL", "NaN", "nan", "null"]
 
 # ---------------------------------------------------------------------------
 # Field specification
