@@ -228,8 +228,8 @@ model, whose candidate list and selection rule were fixed in advance.
 | `core/wording.py` | **Every user-facing sentence** - edit wording here |
 | `core/chat.py` | Grounded assistant behind `/chat`: answers questions about a profile from the system's own results (no language model, nothing stored) |
 | `core/run_all.py` | The one-command pipeline |
-| `benchmark/` | LLM prompt export, optional API mode (`run_llm.py`), scoring |
-| `api/` | FastAPI app (thin layer over `core/`), incl. `/job-market` and `/research` study endpoints |
+| `benchmark/` | LLM prompt export, optional API mode (`run_llm.py`), manual Excel answer sheet for free chat apps (`answer_sheet.py`), scoring |
+| `api/` | FastAPI app (thin layer over `core/`), incl. `/chat` (grounded assistant) and the `/job-market` and `/research` study endpoints |
 | `frontend/` | Streamlit app: `app.py` (navigation), `views/` (Home, My prediction, Job market, Research lab), `ui.py` (shared style), `charts.py` / `charts_study.py` (figures) |
 | `data/reference/real/` | Real institution lookup, staged until real survey data is used |
 | `docs/` | Data dictionary, cleaning log, architecture, testing, questionnaires |

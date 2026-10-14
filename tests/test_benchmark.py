@@ -179,3 +179,31 @@ def test_old_responses_without_variant_column_still_score(bench_env):
     out = score.score(bench=bench_env["bench"], artifacts=bench_env["art"], train_path=bench_env["train"],
                       info_path=bench_env["info"])
     assert out["llms"] == ["Old"] and out["responses_answered"] == 20
+
+
+def test_answer_sheet_round_trip(tmp_path):
+    """Manual answer sheet: run 1 for every profile, runs 2-3 for a subset; answers copied, never overwritten."""
+    import openpyxl
+    import pandas as pd
+    from benchmark import answer_sheet
+    prompts = pd.DataFrame({"profile_id": [f"P{i:03d}" for i in range(1, 11)], "variant": "standard",
+                            "prompt_text": [f"prompt {i}" for i in range(1, 11)]})
+    rows = answer_sheet.plan(prompts, repeat=3)
+    assert len(rows) == 10 + 2 * 3 and set(rows.run_number) == {1, 2, 3}
+    prompts.to_csv(tmp_path / "prompts.csv", index=False)
+    resp = pd.DataFrame([{"profile_id": p, "variant": "standard", "run_number": r, "llm_name": "", "model_version": "",
+                          "date": "", "raw_response": ""} for r in (1, 2, 3) for p in prompts.profile_id])
+    resp.loc[0, "raw_response"] = "7"                      # already recorded - must be kept
+    resp.to_csv(tmp_path / "responses.csv", index=False)
+    sheet = tmp_path / "sheet.xlsx"
+    answer_sheet.make(tmp_path, sheet, repeat=3)
+    wb = openpyxl.load_workbook(sheet)
+    wb["Instructions"]["B11"] = "ChatGPT"
+    ws = wb["Answers"]
+    for r in range(2, ws.max_row + 1):
+        ws.cell(r, 5, "5")
+    wb.save(sheet)
+    out = answer_sheet.import_answers(tmp_path, sheet)
+    got = pd.read_csv(tmp_path / "responses.csv", dtype=str)
+    assert out["copied"] == 15 and out["already_recorded_kept"] == 1
+    assert got.loc[0, "raw_response"] == "7" and (got.raw_response.notna()).sum() == 16
