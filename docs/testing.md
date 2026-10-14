@@ -47,6 +47,7 @@ own small synthetic dataset and models, and anything written goes to a temporary
 | Fairness: suppression n < 20, gender never a feature | `test_fairness.py` |
 | **Every API endpoint returns its declared schema** | `test_api.py::test_health`, `::test_predict`, `::test_explain`, `::test_whatif`, `::test_suggestions`, `::test_market_alignment`, `::test_peer_benchmark`, `::test_model_info` |
 | Milestones rise over time with 80% ranges and skip months already passed; suggestions use only actionable features, different features each, effort <= 3, at least 1 month sooner, associational wording; nothing suggested at the top of every range; every skill has a free resource and top gaps carry up to 2 | `test_guidance.py` |
+| **Chat assistant**: recognises each question type, turns what-if questions into allowed changes (clipped to valid ranges), repeats the model's own numbers and wording, refuses GPA changes for graduates and off-topic questions, stores nothing and calls no external service; `/chat` returns its schema and rejects empty, over-long or extra fields | `test_chat.py`, `test_api.py::test_chat*` |
 | API rejects invalid / extra fields (e.g. gender) and never stores profiles | `test_api.py::test_invalid_*`, `::test_api_never_stores_profiles` |
 | **Benchmark scorer handles unparseable responses** | `test_benchmark.py::test_parse_months_unparseable[*]`, `::test_score_with_responses_including_unparseable` |
 | LLM API mode: fills template rows, resumes, appends a second LLM, saves on failure, records refusals, no network in tests | `test_run_llm.py` |
