@@ -16,10 +16,11 @@ import pandas as pd
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 
-from api.schemas import (ExplainResponse, HealthResponse, InsightsRequest, MarketResponse, ModelInfoResponse,
-                         ModelProfile, PeerResponse, PredictionResponse, Profile, SuggestionsResponse, WhatIfRequest,
-                         WhatIfResponse)
+from api.schemas import (ChatRequest, ChatResponse, ExplainResponse, HealthResponse, InsightsRequest,
+                         MarketResponse, ModelInfoResponse, ModelProfile, PeerResponse, PredictionResponse, Profile,
+                         SuggestionsResponse, WhatIfRequest, WhatIfResponse)
 from core import evaluate, insights, predict, wording
+from core.chat import Assistant
 from core.explain import Explainer
 from core.market import ReferenceData
 from core.suggest import suggest
@@ -113,6 +114,14 @@ def suggestions_endpoint(profile: ModelProfile, request: Request):
 @app.post("/market-alignment", response_model=MarketResponse)
 def market_endpoint(profile: Profile, request: Request):
     return _core(request)["reference"].alignment(profile.to_core())
+
+
+@app.post("/chat", response_model=ChatResponse)
+def chat_endpoint(req: ChatRequest, request: Request):
+    """Grounded assistant: answers a question about this profile from the system's own results (no language model).
+    Neither the message nor the profile is stored."""
+    s = _core(request)
+    return Assistant(s["predictor"], s["explainer"], s["reference"]).respond(req.message, req.profile.to_core())
 
 
 @app.post("/insights")
