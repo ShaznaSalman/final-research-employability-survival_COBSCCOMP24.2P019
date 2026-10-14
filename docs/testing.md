@@ -6,7 +6,7 @@ Run everything from the project root (venv active):
 pytest
 ```
 
-216 automated tests, about 2 minutes. No test needs `artifacts/` or `data/` to exist - each builds its
+275 automated tests, about 2 minutes. No test needs `artifacts/` or `data/` to exist - each builds its
 own small synthetic dataset and models, and anything written goes to a temporary folder.
 
 ## Requirement -> test map
@@ -60,9 +60,10 @@ own small synthetic dataset and models, and anything written goes to a temporary
 
 | File | Tests |
 |---|---|
-| test_api.py | 21 |
-| test_benchmark.py | 27 |
-| test_clean.py | 12 |
+| test_api.py | 25 |
+| test_chat.py | 21 |
+| test_benchmark.py | 28 |
+| test_clean.py | 13 |
 | test_conditional_actionable.py | 9 |
 | test_explain_whatif.py | 21 |
 | test_fairness.py | 5 |

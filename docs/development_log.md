@@ -37,7 +37,10 @@ meeting records; do not estimate them.
 | 11 Oct 2026 | Data | Main-study survey data imported: 1,175 graduate and 245 employer responses, collected on a shared Excel sheet (the Timestamp column was added afterwards and is not used as a date). Pilot and technical-test responses kept out. Typed "Other" degree programmes and institutions now mapped | `New Data/Main data/`, `core/import_responses.py`, `core/forms_adapter.py`, `data/reference/university_types.csv` |
 | 11 Oct 2026 | Model | Full pipeline re-run on the real data: 885 modelling graduates (train 620 / validation 133 / test 132). AFT Log-Normal selected on validation (Uno's C 0.693); test set used once: Uno's C 0.619 (95% CI 0.557-0.683). Synthetic-run outputs backed up | `artifacts/`, `data/backup_synthetic_run_2026-10-11/` |
 | 11 Oct 2026 | Data | One reference survey date (6 Oct 2026, end of collection) used for every response - a documented deviation | `docs/deviations.md` |
+| 13 Oct 2026 | App | Grounded chat assistant added (`core/chat.py`, `/chat`, "Ask about your result" on the My prediction page): answers from the system's own results, no language model, nothing stored; 25 tests added (241 in total) | `core/chat.py`, `tests/test_chat.py` |
+| 14 Oct 2026 | Data | Import fix: the answer text "None" (Q26, Q28, employer Q6) and the comment "n/a" were read as blank cells by pandas; they are now kept (`schema.SURVEY_NA_VALUES`). Re-ran import, cleaning and the questionnaire study only: model inputs, split and exclusions byte-for-byte identical, so the model and test result are unchanged; descriptive shares for Q26, Q28 and Q6 moved by up to 3 points | `core/import_responses.py`, `core/clean.py` |
 | 10 Oct 2026 | Process | Git initialised; history organised into feature branches; contribution workflow defined | `CONTRIBUTING.md` |
+| 14 Oct 2026 | Evaluation | Usability evaluation: 12 participants, System Usability Scale scored and analysed (mean 76.25, 95% CI 69.53-82.97, criterion of 68 met) | `core/sus_study.py`, `artifacts/sus_study.md` |
 
 ## Decisions and why
 
@@ -55,10 +58,10 @@ meeting records; do not estimate them.
 ## Use of AI tools
 
 Parts of the code, documentation and dissertation drafting were produced with the assistance of an AI coding
-assistant (Claude Code). Commits it helped produce carry a `Co-Authored-By` trailer. Declare this according to
+assistant (Claude Code). Declare this according to
 the university's policy on AI use.
 
 ## Still to do
 
 See the planned branches in `CONTRIBUTING.md`: questionnaire logic fixes, pilot study, real survey import, results
-on real data, usability study, LLM benchmark re-run, Chapters 4-6 and appendices. Done on 11 Oct 2026: real survey import and results on real data. Still open: LLM benchmark re-run on the real profiles (`python -m benchmark.export_prompts --force-template`), usability study, Chapters 4-6.
+on real data, usability study, LLM benchmark re-run, Chapters 4-6 and appendices. Done on 11 Oct 2026: real survey import and results on real data. Still open: LLM benchmark re-run on the real profiles (`python -m benchmark.export_prompts --force-template`), usability study, Chapters 4-6. Done on 14 Oct 2026: LLM benchmark (ChatGPT GPT-5.6) and usability study (SUS, 12 participants).

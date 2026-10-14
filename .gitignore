@@ -56,3 +56,6 @@ test_submissions/
 Thesis/
 Research paper/
 current thesis.pdf
+
+# Evidence pack for the supervisor (contains participant responses - never publish)
+proof/
