@@ -17,10 +17,10 @@ Each item that asks about a model question again is correlated with it (Spearman
 | Q32 Explaining to non-technical people | Q19 Communication | 0.76 (0.733 to 0.784) | 1074 | repeats the model question - keep one |
 | Q33 Team confidence | Q19 Teamwork | 0.691 (0.658 to 0.721) | 1070 | repeats the model question - keep one |
 | Q34 Group projects (yes) | Q33 Team confidence | 0.042 (-0.018 to 0.102) | 1070 | measures something different |
-| Q28 Version control used | Q18 Git / GitHub rating | 0.237 (0.179 to 0.294) | 1049 | measures something different |
-| Q28 Testing practices used | Q18 Software Testing rating | 0.185 (0.126 to 0.243) | 1049 | measures something different |
-| Q28 CI/CD used | Q18 DevOps / CI-CD rating | 0.197 (0.138 to 0.254) | 1049 | measures something different |
-| Q28 Number of practices used | Q29 SDLC familiarity | 0.171 (0.111 to 0.229) | 1049 | measures something different |
+| Q28 Version control used | Q18 Git / GitHub rating | 0.261 (0.204 to 0.316) | 1081 | measures something different |
+| Q28 Testing practices used | Q18 Software Testing rating | 0.189 (0.131 to 0.246) | 1081 | measures something different |
+| Q28 CI/CD used | Q18 DevOps / CI-CD rating | 0.198 (0.14 to 0.254) | 1081 | measures something different |
+| Q28 Number of practices used | Q29 SDLC familiarity | 0.175 (0.116 to 0.232) | 1081 | measures something different |
 
 **Logic checks** (answers that contradict each other):
 
@@ -157,14 +157,14 @@ YouTube technical channels 83.0%; AI tools (e.g. ChatGPT, GitHub Copilot) 58.3%;
 **Q25 Programming languages used confidently (repeats Q18 Java/Python/JavaScript)** (answered: 1115)
 Python 67.1%; Java 63.4%; JavaScript 52.9%; C / C++ 15.3%; PHP 11.6%; C# 10.9%; Kotlin 5.1%; Other 1.2%
 
-**Q26 Development areas with completed projects** (answered: 1072)
-Web applications 66.0%; Mobile applications 44.2%; Data analytics 21.0%; Desktop applications 18.5%; Machine learning 17.2%; Cybersecurity projects 12.2%; Cloud applications 7.2%; IoT projects 6.6%; None 0.0%
+**Q26 Development areas with completed projects** (answered: 1115)
+Web applications 63.4%; Mobile applications 42.5%; Data analytics 20.2%; Desktop applications 17.8%; Machine learning 16.5%; Cybersecurity projects 11.7%; Cloud applications 6.9%; IoT projects 6.4%; None 3.9%
 
 **Q27 Confidence solving an unfamiliar problem (1-5; repeats Q19 Problem Solving)** (answered: 1066)
 Mean 3.41 (SD 0.95), median 3.0, 47.7% rated 4-5.
 
-**Q28 Industry practices used (repeats Q18 Git/Testing/DevOps and Q29)** (answered: 1049)
-Version control (Git) 82.7%; Agile / Scrum 51.0%; Documentation 48.1%; Code reviews 35.3%; Testing practices 26.6%; CI/CD 15.0%; None 0.0%
+**Q28 Industry practices used (repeats Q18 Git/Testing/DevOps and Q29)** (answered: 1081)
+Version control (Git) 80.2%; Agile / Scrum 49.5%; Documentation 46.7%; Code reviews 34.2%; Testing practices 25.8%; CI/CD 14.5%; None 3.0%
 
 **Q30 Areas the graduate believes need improvement** (answered: 1082)
 DevOps 83.8%; Cloud Computing 50.8%; Cybersecurity 35.8%; AI / Machine Learning 34.7%; Interview Skills 34.2%; Communication 26.8%; Programming 17.7%; Professional Experience 15.9%; Database 4.3%; Problem Solving 1.2%
@@ -240,8 +240,8 @@ Less than 1 year 4.8%; 1-3 years 27.6%; 4-6 years 30.7%; 7-10 years 21.9%; More 
 **Q5 Entry-level IT roles recruited** (answered: 230)
 Software Engineer 84.3%; QA Engineer 63.0%; Business Analyst 32.2%; Data Analyst 27.4%; UI / UX Designer 23.9%; DevOps Engineer 22.6%; Cloud Engineer 21.7%; Network / System Administrator 18.3%; Cybersecurity Analyst 16.1%; AI / ML Engineer 10.0%; Data Scientist 8.3%; Other 4.8%
 
-**Q6 Entry-level IT graduates recruited per year** (answered: 222)
-None 0.0%; 1-5 29.7%; 6-10 25.7%; 11-25 27.9%; More than 25 16.7%
+**Q6 Entry-level IT graduates recruited per year** (answered: 230)
+None 3.5%; 1-5 28.7%; 6-10 24.8%; 11-25 27.0%; More than 25 16.1%
 
 **Q9a Importance of English proficiency for entry-level IT graduates (1-5)** (answered: 228)
 Mean 4.31 (SD 0.68), median 4.0, 88.6% rated 4-5.

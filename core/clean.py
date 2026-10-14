@@ -497,9 +497,10 @@ def run(raw_dir: Path = RAW_DIR, reference_dir: Path = REFERENCE_DIR, processed_
                for k in ("graduates", "employers", "job_ads", "university_types")}
     audit = Audit(source=sources["graduates"][0].name, is_synthetic=sources["graduates"][1])
 
-    train, final_year = clean_graduates(pd.read_csv(sources["graduates"][0]),
+    survey_csv = {"keep_default_na": False, "na_values": schema.SURVEY_NA_VALUES}   # keep "None" answers
+    train, final_year = clean_graduates(pd.read_csv(sources["graduates"][0], **survey_csv),
                                         load_university_lookup(sources["university_types"][0]), audit)
-    employers, emp_info = clean_employers(pd.read_csv(sources["employers"][0]))
+    employers, emp_info = clean_employers(pd.read_csv(sources["employers"][0], **survey_csv))
     job_ads, ads_info = clean_job_ads(pd.read_csv(sources["job_ads"][0]))
 
     train.to_csv(processed_dir / "graduates_train.csv", index=False)

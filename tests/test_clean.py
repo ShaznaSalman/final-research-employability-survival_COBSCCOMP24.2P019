@@ -198,3 +198,19 @@ def test_ambiguous_dates_follow_day_first_default():
     parsed = forms_adapter.parse_month(pd.Series(["03/04/2026", "05/06/2025"]))
     assert list(parsed) == (["2026-04", "2025-06"] if forms_adapter.DEFAULT_DAYFIRST else ["2026-03", "2025-05"])
     assert list(forms_adapter.parse_month(pd.Series(["10/25/2026"]))) == ["2026-10"]   # month-first detected
+
+
+def test_none_answers_are_kept_as_answers(tmp_path):
+    """'None' is a real answer option (Q26, Q28, employer Q6): it must not be read as a blank cell."""
+    import pandas as pd
+    from core import import_responses
+    src = tmp_path / "src"
+    src.mkdir()
+    for prefix in import_responses.FILES:
+        pd.DataFrame({"Timestamp": ["x", "y"], "Q26. Areas": ["None", None], "Q21. Comments": ["n/a", ""]}) \
+            .to_excel(src / f"{prefix} test.xlsx", index=False)
+    import_responses.convert(src, tmp_path, "2026-10-06 00:00:00")
+    from core import schema
+    out = pd.read_csv(tmp_path / "graduate_responses.csv", keep_default_na=False, na_values=schema.SURVEY_NA_VALUES)
+    assert out["Q26. Areas"].tolist()[0] == "None" and pd.isna(out["Q26. Areas"].tolist()[1])
+    assert out["Q21. Comments"].tolist()[0] == "n/a"
