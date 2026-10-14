@@ -17,7 +17,8 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
 
 from api.schemas import (ExplainResponse, HealthResponse, InsightsRequest, MarketResponse, ModelInfoResponse,
-                         PeerResponse, PredictionResponse, Profile, SuggestionsResponse, WhatIfRequest, WhatIfResponse)
+                         ModelProfile, PeerResponse, PredictionResponse, Profile, SuggestionsResponse, WhatIfRequest,
+                         WhatIfResponse)
 from core import evaluate, insights, predict, wording
 from core.explain import Explainer
 from core.market import ReferenceData
@@ -74,7 +75,7 @@ def health(request: Request):
 
 
 @app.post("/predict", response_model=PredictionResponse)
-def predict_endpoint(profile: Profile, request: Request):
+def predict_endpoint(profile: ModelProfile, request: Request):
     s = _core(request)
     try:
         return {**s["predictor"].predict(profile.to_core()), "is_synthetic": _synthetic(s)}
@@ -83,7 +84,7 @@ def predict_endpoint(profile: Profile, request: Request):
 
 
 @app.post("/explain", response_model=ExplainResponse)
-def explain_endpoint(profile: Profile, request: Request):
+def explain_endpoint(profile: ModelProfile, request: Request):
     out = _core(request)["explainer"].explain(profile.to_core())
     out["global_effects"] = out.pop("global")
     return out
@@ -102,7 +103,7 @@ def whatif_endpoint(body: WhatIfRequest, request: Request):
 
 
 @app.post("/suggestions", response_model=SuggestionsResponse)
-def suggestions_endpoint(profile: Profile, request: Request):
+def suggestions_endpoint(profile: ModelProfile, request: Request):
     try:
         return suggest(_core(request)["predictor"], profile.to_core())
     except ValueError as e:
@@ -124,7 +125,7 @@ def insights_endpoint(req: InsightsRequest, request: Request):
 
 
 @app.post("/peer-benchmark", response_model=PeerResponse)
-def peers_endpoint(profile: Profile, request: Request):
+def peers_endpoint(profile: ModelProfile, request: Request):
     return _core(request)["reference"].peer_benchmark(profile.to_core())
 
 

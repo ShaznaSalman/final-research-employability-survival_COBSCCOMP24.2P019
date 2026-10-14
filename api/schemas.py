@@ -64,9 +64,26 @@ class Profile(_ProfileBase):
         return self.model_dump(exclude_none=True)
 
 
+class ModelProfile(Profile):
+    """A profile sent to the model (predict, explain, what-if, suggestions, peer comparison): the core inputs
+    must be present; anything else may be left out (it is imputed)."""
+
+    @model_validator(mode="after")
+    def _core_inputs_present(self):
+        need = {"GPA or degree class": (self.gpa, self.degree_class),
+                "type of institution": (self.university_type,), "degree programme": (self.degree_type,),
+                "number of certifications": (self.certifications_count,),
+                "internship months (or internship_completed)": (self.internship_months, self.internship_completed),
+                "number of projects": (self.project_count,)}
+        missing = [label for label, alternatives in need.items() if all(v is None for v in alternatives)]
+        if missing:
+            raise ValueError("please give " + ", ".join(missing))
+        return self
+
+
 class WhatIfRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    profile: Profile
+    profile: ModelProfile
     changes: dict[str, float] = Field(..., description="Actionable features only: "
                                                        + ", ".join(schema.ACTIONABLE_FEATURES))
 
