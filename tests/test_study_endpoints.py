@@ -23,6 +23,16 @@ def test_research_endpoint_shapes(client):
     assert j["llm_benchmark"] is None or "comparisons" in j["llm_benchmark"]
 
 
+def test_sensitivity_chart_has_one_series_per_model():
+    from frontend import charts_study
+    rows = [{"variant": v, "label": v, "model": m, "uno_c": c}
+            for v, m, c in [("main", "cox_ph", 0.66), ("main", "aft_best", 0.69),
+                            ("strict", "cox_ph", 0.68), ("strict", "aft_best", 0.67)]]
+    fig = charts_study.variant_c(rows, {"cox_ph": "Cox PH", "aft_best": "AFT"}, "aft_best")
+    assert [t.name for t in fig.data] == ["AFT (selected)", "Cox PH"] and fig.layout.showlegend
+    assert list(fig.layout.yaxis.categoryarray) == ["strict", "main"]     # ordered by the selected model's C
+
+
 def test_job_market_endpoint(client):
     r = client.get("/job-market")
     assert r.status_code == 200

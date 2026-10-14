@@ -132,18 +132,32 @@ with tabs[4]:
 with tabs[5]:
     ui.section("Robustness", "Do the results survive different data decisions, and a model trained on earlier cohorts "
                              "tested on later ones?", data_tag)
-    c1, c2 = st.columns(2, gap="large")
+    c1, c2 = st.columns([0.45, 0.55], gap="large")
     with c1:
         st.markdown("**Sensitivity to cleaning decisions**")
         if r["sensitivity"]:
-            st.plotly_chart(cs.variant_c(r["sensitivity"]), config=ui.PLOT, key="sens")
+            sens = r["sensitivity"]
+            main = {s["model"]: s for s in sens if s["variant"] == "main"}
+            same = {s["variant"] for s in sens if s["variant"] != "main" and all(
+                    o["n"] == main[o["model"]]["n"] and o["uno_c"] == main[o["model"]]["uno_c"]
+                    for o in sens if o["variant"] == s["variant"] and o["model"] in main)}
+            sens = [dict(s, label=s["label"] + " *") if s["variant"] in same else s for s in sens]
+            labels = {m["model"]: m["label"] for m in r["models"]}
+            labels[r["selected_model"]] = info["selected_model_label"]
+            st.plotly_chart(cs.variant_c(sens, labels, r["selected_model"]), config=ui.PLOT, key="sens")
+            if same:
+                st.caption("\\* Same graduates as the main analysis (e.g. no model input was missing, so complete cases "
+                           "= everyone), so the result is identical by construction.")
     with c2:
         st.markdown("**Temporal validation (train early cohorts, test later)**")
         if r["temporal"]:
             t = pd.DataFrame(r["temporal"])
             st.dataframe(t[["model", "uno_c", "uno_c_cv", "ibs", "max_abs_cal_error"]]
-                         .rename(columns={"model": "Model", "uno_c": "C (later cohort)", "uno_c_cv": "C (whole validation set)",
-                                          "ibs": "IBS", "max_abs_cal_error": "Max cal. error"}).round(3), hide_index=True)
+                         .rename(columns={"model": "Model", "uno_c": "C later", "uno_c_cv": "C all valid.",
+                                          "ibs": "IBS", "max_abs_cal_error": "Max cal. err"}).round(3),
+                         hide_index=True, use_container_width=True)
+            st.caption("C later: trained on earlier cohorts, tested on the latest one. C all valid.: the whole "
+                       "validation set. Max cal. err: largest gap between predicted and observed share employed.")
 
 with tabs[6]:
     sim = r.get("simulation")
