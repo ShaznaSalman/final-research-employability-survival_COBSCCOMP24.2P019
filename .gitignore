@@ -42,6 +42,7 @@ data/backup*/
 
 # More respondent-level outputs (same reason as oof_predictions.csv)
 artifacts/validation_predictions.csv
+artifacts/sus_scores.csv
 benchmark/prompts.csv
 benchmark/responses.csv
 benchmark/LLM_prompts.html

@@ -7,6 +7,7 @@
 Steps: data dictionary -> clean (+ fixed train/validation/test split) -> fit on train, compare on validation,
        select, final fit on train, ONE evaluation on the locked test set, bootstrap -> fairness
        -> reference.db (market + peers) -> job-market study -> questionnaire study -> LLM benchmark (export prompts if none yet, then score)
+       -> usability study (SUS, if the form export is present)
 """
 from __future__ import annotations
 
@@ -100,11 +101,21 @@ def run(make_synthetic: bool = False, quick: bool = False) -> dict:
 
     summary["benchmark"] = _step("LLM benchmark (score recorded responses)", benchmark)
 
+    def usability():
+        from core import sus_study
+        if not sus_study.SOURCE.exists():
+            print(f"    SKIPPED: no SUS export at {sus_study.SOURCE.relative_to(ROOT)}")
+            return {"skipped": "no SUS export"}
+        return sus_study.run()["summary"]
+
+    summary["usability"] = _step("Usability evaluation (System Usability Scale)", usability)
+
     print("\nAll artifacts regenerated:")
     for p in ("docs/data_dictionary.md", "docs/data_cleaning_log.md", "artifacts/model_comparison.md",
               "artifacts/feature_set_comparison.md", "artifacts/fairness_report.md", "artifacts/llm_benchmark.md",
               "artifacts/sensitivity.md", "artifacts/temporal_validation.md", "artifacts/institution_clustering.md",
               "artifacts/competing_risks.md", "artifacts/job_market_study.md", "artifacts/questionnaire_study.md", "artifacts/thesis_results.md",
+              "artifacts/sus_study.md",
               "artifacts/figures/",
               "artifacts/final_model.pkl", "artifacts/bootstrap_models.pkl", "data/reference/reference.db"):
         print(f"  - {p}")

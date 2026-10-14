@@ -1,0 +1,425 @@
+{
+ "source": "New Data/Usability (SUS)/SUS_evaluations.csv",
+ "checks": {
+  "rows": 12,
+  "consent_all_four": 12,
+  "eligible": 12,
+  "valid_code": 12,
+  "complete_1_to_5": 12,
+  "duplicate_codes": [],
+  "straight_lined": [],
+  "acquiescent": [],
+  "excluded": [],
+  "analysed": 12,
+  "first_session": "2026-10-14 11:04:00",
+  "last_session": "2026-10-14 16:48:00",
+  "session_dates": [
+   "2026-10-14"
+  ]
+ },
+ "summary": {
+  "n": 12,
+  "mean": 76.25,
+  "sd": 10.58,
+  "se": 3.05,
+  "median": 73.75,
+  "q1": 70.0,
+  "q3": 82.5,
+  "min": 60.0,
+  "max": 92.5,
+  "t_crit": 2.201,
+  "ci_low": 69.53,
+  "ci_high": 82.97,
+  "boot_ci_low": 70.42,
+  "boot_ci_high": 82.08,
+  "benchmark": 68.0,
+  "t": 2.701,
+  "df": 11,
+  "p_two_sided": 0.020609967249400528,
+  "p_one_sided": 0.010304983624700264,
+  "wilcoxon_w": 12.0,
+  "wilcoxon_p": 0.0341796875,
+  "cohens_d": 0.78,
+  "at_or_above_benchmark": 10,
+  "share_at_or_above": 0.833,
+  "share_ci": [
+   0.552,
+   0.953
+  ],
+  "grade": "B",
+  "adjective": "Good",
+  "percentile_approx": 75,
+  "criterion_met": true,
+  "ci_above_benchmark": true
+ },
+ "alpha": 0.895,
+ "items": [
+  {
+   "item": "SUS1",
+   "text": "I think that I would like to use this system frequently.",
+   "tone": "positive",
+   "mean_answer": 4.17,
+   "sd": 0.39,
+   "mean_contribution": 3.17
+  },
+  {
+   "item": "SUS2",
+   "text": "I found the system unnecessarily complex.",
+   "tone": "negative",
+   "mean_answer": 1.92,
+   "sd": 0.67,
+   "mean_contribution": 3.08
+  },
+  {
+   "item": "SUS3",
+   "text": "I thought the system was easy to use.",
+   "tone": "positive",
+   "mean_answer": 4.08,
+   "sd": 0.67,
+   "mean_contribution": 3.08
+  },
+  {
+   "item": "SUS4",
+   "text": "I think that I would need the support of a technical person to be able to use this system.",
+   "tone": "negative",
+   "mean_answer": 1.67,
+   "sd": 0.49,
+   "mean_contribution": 3.33
+  },
+  {
+   "item": "SUS5",
+   "text": "I found the various functions in this system were well integrated.",
+   "tone": "positive",
+   "mean_answer": 3.75,
+   "sd": 0.62,
+   "mean_contribution": 2.75
+  },
+  {
+   "item": "SUS6",
+   "text": "I thought there was too much inconsistency in this system.",
+   "tone": "negative",
+   "mean_answer": 2.0,
+   "sd": 0.6,
+   "mean_contribution": 3.0
+  },
+  {
+   "item": "SUS7",
+   "text": "I would imagine that most people would learn to use this system very quickly.",
+   "tone": "positive",
+   "mean_answer": 4.25,
+   "sd": 0.62,
+   "mean_contribution": 3.25
+  },
+  {
+   "item": "SUS8",
+   "text": "I found the system very cumbersome to use.",
+   "tone": "negative",
+   "mean_answer": 2.0,
+   "sd": 0.43,
+   "mean_contribution": 3.0
+  },
+  {
+   "item": "SUS9",
+   "text": "I felt very confident using the system.",
+   "tone": "positive",
+   "mean_answer": 4.0,
+   "sd": 0.6,
+   "mean_contribution": 3.0
+  },
+  {
+   "item": "SUS10",
+   "text": "I needed to learn a lot of things before I could get going with this system.",
+   "tone": "negative",
+   "mean_answer": 2.17,
+   "sd": 0.72,
+   "mean_contribution": 2.83
+  }
+ ],
+ "scores": {
+  "P01": 80.0,
+  "P02": 92.5,
+  "P03": 62.5,
+  "P04": 75.0,
+  "P05": 72.5,
+  "P06": 60.0,
+  "P07": 90.0,
+  "P08": 70.0,
+  "P09": 70.0,
+  "P10": 90.0,
+  "P11": 72.5,
+  "P12": 80.0
+ },
+ "participants": {
+  "B1": {
+   "Final-year undergraduate": 6,
+   "Graduated, still looking for my first IT job": 3,
+   "Graduated, already working in IT": 2,
+   "Graduated, working outside IT": 1
+  },
+  "B2": {
+   "Software Engineering": 4,
+   "Information Technology": 3,
+   "Computer Science": 3,
+   "Information Systems": 1,
+   "Other computing degree": 1
+  },
+  "B3": {
+   "Foreign-affiliated institute": 6,
+   "Non-state institute": 4,
+   "State university": 2
+  },
+  "B4": {
+   "Weekly or more": 5,
+   "Monthly": 4,
+   "A few times a year": 2,
+   "Never": 1
+  },
+  "C1": {
+   "My own details": 7,
+   "The example profile card": 3,
+   "A mix of both": 2
+  }
+ },
+ "subgroups": {
+  "C1": {
+   "label": "Profile entered in the tasks",
+   "rows": [
+    {
+     "group": "A mix of both",
+     "n": 2,
+     "mean": 72.5,
+     "min": 72.5,
+     "max": 72.5
+    },
+    {
+     "group": "My own details",
+     "n": 7,
+     "mean": 82.5,
+     "min": 70.0,
+     "max": 92.5
+    },
+    {
+     "group": "The example profile card",
+     "n": 3,
+     "mean": 64.17,
+     "min": 60.0,
+     "max": 70.0
+    }
+   ]
+  },
+  "B1": {
+   "label": "Background",
+   "rows": [
+    {
+     "group": "Final-year undergraduate",
+     "n": 6,
+     "mean": 74.58,
+     "min": 62.5,
+     "max": 90.0
+    },
+    {
+     "group": "Graduated, already working in IT",
+     "n": 2,
+     "mean": 77.5,
+     "min": 75.0,
+     "max": 80.0
+    },
+    {
+     "group": "Graduated, still looking for my first IT job",
+     "n": 3,
+     "mean": 84.17,
+     "min": 70.0,
+     "max": 92.5
+    },
+    {
+     "group": "Graduated, working outside IT",
+     "n": 1,
+     "mean": 60.0,
+     "min": 60.0,
+     "max": 60.0
+    }
+   ]
+  },
+  "B3": {
+   "label": "Type of institution",
+   "rows": [
+    {
+     "group": "Foreign-affiliated institute",
+     "n": 6,
+     "mean": 77.92,
+     "min": 62.5,
+     "max": 90.0
+    },
+    {
+     "group": "Non-state institute",
+     "n": 4,
+     "mean": 73.75,
+     "min": 60.0,
+     "max": 92.5
+    },
+    {
+     "group": "State university",
+     "n": 2,
+     "mean": 76.25,
+     "min": 72.5,
+     "max": 80.0
+    }
+   ]
+  },
+  "B4": {
+   "label": "Use of career or job-search sites",
+   "rows": [
+    {
+     "group": "A few times a year",
+     "n": 2,
+     "mean": 66.25,
+     "min": 62.5,
+     "max": 70.0
+    },
+    {
+     "group": "Monthly",
+     "n": 4,
+     "mean": 74.38,
+     "min": 70.0,
+     "max": 80.0
+    },
+    {
+     "group": "Never",
+     "n": 1,
+     "mean": 60.0,
+     "min": 60.0,
+     "max": 60.0
+    },
+    {
+     "group": "Weekly or more",
+     "n": 5,
+     "mean": 85.0,
+     "min": 72.5,
+     "max": 92.5
+    }
+   ]
+  },
+  "experience_spearman": {
+   "rho": 0.839,
+   "p": 0.0006449159748005532,
+   "n": 12
+  },
+  "own_vs_example": {
+   "n_own": 7,
+   "n_example": 3,
+   "u": 20.5,
+   "p": 0.028873628200576276
+  }
+ },
+ "issues": {
+  "themes": [
+   {
+    "theme": "Too much on one page / main result not obvious",
+    "n": 3,
+    "participants": [
+     "P03",
+     "P06",
+     "P08"
+    ]
+   },
+   {
+    "theme": "Terms and charts need explaining (onboarding)",
+    "n": 3,
+    "participants": [
+     "P01",
+     "P06",
+     "P11"
+    ]
+   },
+   {
+    "theme": "Navigation and consistency between pages",
+    "n": 2,
+    "participants": [
+     "P05",
+     "P09"
+    ]
+   },
+   {
+    "theme": "Trust in and currency of the numbers",
+    "n": 2,
+    "participants": [
+     "P08",
+     "P12"
+    ]
+   },
+   {
+    "theme": "No problem reported",
+    "n": 2,
+    "participants": [
+     "P02",
+     "P10"
+    ]
+   },
+   {
+    "theme": "Chart readability",
+    "n": 1,
+    "participants": [
+     "P04"
+    ]
+   },
+   {
+    "theme": "Mobile layout",
+    "n": 1,
+    "participants": [
+     "P07"
+    ]
+   },
+   {
+    "theme": "Feature request",
+    "n": 1,
+    "participants": [
+     "P02"
+    ]
+   }
+  ],
+  "uncoded": []
+ },
+ "useful": {
+  "themes": [
+   {
+    "theme": "Skill gaps and in-demand skills (job market)",
+    "n": 6,
+    "participants": [
+     "P02",
+     "P03",
+     "P05",
+     "P06",
+     "P10",
+     "P11"
+    ]
+   },
+   {
+    "theme": "Suggestions and overall presentation",
+    "n": 4,
+    "participants": [
+     "P07",
+     "P08",
+     "P09",
+     "P12"
+    ]
+   },
+   {
+    "theme": "What-if sliders",
+    "n": 2,
+    "participants": [
+     "P01",
+     "P10"
+    ]
+   },
+   {
+    "theme": "Chat assistant",
+    "n": 2,
+    "participants": [
+     "P04",
+     "P12"
+    ]
+   }
+  ],
+  "uncoded": []
+ }
+}
