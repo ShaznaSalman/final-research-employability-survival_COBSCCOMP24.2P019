@@ -112,6 +112,21 @@ def test_invalid_whatif_rejected_with_message(base_url, changes):
     assert r.status_code == 422 and r.json()["detail"]
 
 
+@pytest.mark.parametrize("field", ["gpa", "degree_type", "university_type", "certifications_count",
+                                   "internship_months", "project_count"])
+@pytest.mark.parametrize("endpoint", ["/predict", "/explain", "/peer-benchmark"])
+def test_missing_core_input_rejected_in_plain_words(base_url, endpoint, field):
+    r = requests.post(f"{base_url}{endpoint}", json={k: v for k, v in QUICK_PROFILE.items() if k != field})
+    assert r.status_code == 422 and "please give" in r.json()["detail"][0]["msg"]
+
+
+@pytest.mark.parametrize("swap", [{"gpa": None, "degree_class": "first"},
+                                  {"internship_months": None, "internship_completed": "no"}])
+def test_core_input_alternatives_accepted(base_url, swap):
+    payload = {k: v for k, v in {**QUICK_PROFILE, **swap}.items() if v is not None}
+    assert requests.post(f"{base_url}/explain", json=payload).status_code == 200
+
+
 def test_api_never_stores_profiles():
     """The API source contains no file, database or logging writes."""
     src = (Path(__file__).resolve().parents[1] / "api" / "main.py").read_text(encoding="utf-8")
