@@ -20,6 +20,7 @@ def test_research_endpoint_shapes(client):
     assert j["models"] and any(m["model"] == j["selected_model"] for m in j["models"])
     assert all(0 <= p["employed"] <= 1 for p in j["km"])
     assert {c["horizon"] for c in j["calibration"]} <= {3, 6, 12}
+    assert j["llm_benchmark"] is None or "comparisons" in j["llm_benchmark"]
 
 
 def test_job_market_endpoint(client):

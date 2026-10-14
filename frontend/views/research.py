@@ -246,6 +246,12 @@ with tabs[8]:
                     f"- Confidence labels come from 200 bootstrap refits: High if the typical time moves by at most "
                     f"{info['confidence_thresholds_months']['High']:g} months, Medium up to "
                     f"{info['confidence_thresholds_months']['Medium']:g}, otherwise Low.")
+        for b in (r.get("llm_benchmark") or {}).get("comparisons", []):
+            d = b["diff"]
+            st.caption(f"Compared with a general-purpose chatbot: given the same {b['profiles']} test graduates, "
+                       f"{b['llm']} reached Uno's C {b['uno_c']:.3f} against {b['model_uno_c']:.3f} for this model"
+                       + (f" (difference {d[0]:+.3f}, 95% CI {d[1]:+.3f} to {d[2]:+.3f})" if d[0] is not None else "")
+                       + ".")
     with c2:
         st.markdown("**Limitations**")
         st.markdown("\n".join(f"- {x}" for x in info["limitations"]))
