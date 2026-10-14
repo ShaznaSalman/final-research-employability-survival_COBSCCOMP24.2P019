@@ -38,3 +38,22 @@ def test_benjamini_hochberg_is_monotone_and_bounded():
     q = market_study.bh([0.01, 0.04, 0.03, 0.5])
     assert all(0 <= x <= 1 for x in q)
     assert q[0] <= q[2] <= q[1] <= q[3]
+
+
+def test_coding_agreement_skips_uncoded_ads(tmp_path, monkeypatch):
+    """An ad whose row is left blank (link no longer opens) is skipped, not counted as 'no skills'."""
+    import pandas as pd
+    from core import coding_agreement, schema
+    keys = [s.key for s in schema.SKILL_VOCABULARY]
+    pd.DataFrame({"ad_id": ["A1", "A2", "A3"], "title": "t", "company": "c", "date": "2026-10-01", "source": "x",
+                  "skills": ["python;sql_databases", "communication", "python"]}).to_csv(tmp_path / "job_ads.csv", index=False)
+    hand = pd.DataFrame({"ad_id": ["A1", "A2", "A3"], "title": "t", "company": "c", "url": "u"})
+    for k in keys:
+        hand[k] = [1 if k in ("python", "sql_databases") else 0, 1 if k == "communication" else 0, None]
+    hand.to_csv(tmp_path / "sample.csv", index=False)
+    monkeypatch.setattr(coding_agreement, "RAW", tmp_path)
+    monkeypatch.setattr(coding_agreement, "OUT", tmp_path / "out.md")
+    coding_agreement.compare(tmp_path / "sample.csv")
+    report = (tmp_path / "out.md").read_text(encoding="utf-8")
+    assert "2 randomly sampled" in report and "1 left uncoded" in report and "A3" in report
+    assert "Pooled Cohen's kappa: **1.00**" in report

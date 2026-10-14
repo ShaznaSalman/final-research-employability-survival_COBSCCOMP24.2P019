@@ -47,6 +47,9 @@ def compare(sample: Path = SAMPLE) -> str:
     keys = [s.key for s in schema.SKILL_VOCABULARY]
     if hand[keys].isna().all().all():
         raise SystemExit(f"{sample} has no hand coding yet - fill in the skill columns first.")
+    uncoded = hand[keys].isna().all(axis=1)          # ad could not be opened: leave its row blank, it is skipped
+    skipped = hand.loc[uncoded, "ad_id"].tolist()
+    hand = hand[~uncoded].reset_index(drop=True)
     auto = pd.read_csv(RAW / "job_ads.csv").set_index("ad_id")["skills"].fillna("")
     from core.clean import _skill_token
     coded = {aid: {_skill_token(t) for t in auto[aid].split(";") if t.strip()} for aid in hand["ad_id"]}
@@ -60,8 +63,12 @@ def compare(sample: Path = SAMPLE) -> str:
     H, A = np.concatenate(all_h), np.concatenate(all_a)
     tp, fp, fn = int(((H == 1) & (A == 1)).sum()), int(((H == 0) & (A == 1)).sum()), int(((H == 1) & (A == 0)).sum())
     lines = ["# Coding agreement: keyword rules vs hand coding", "",
-             f"{len(hand)} randomly sampled keyword-coded ads, hand-coded blind to the keyword result.", "",
-             f"- Pooled Cohen's kappa: **{kappa(H, A):.2f}** (0.61-0.80 substantial, > 0.80 almost perfect; Landis & Koch 1977)",
+             f"{len(hand)} randomly sampled keyword-coded ads, hand-coded blind to the keyword result"
+             + (f"; {len(skipped)} left uncoded by the coder, for example because the advert could no longer be opened "
+                  f"({', '.join(skipped)})."
+                if skipped else "."), "",
+             f"- Pooled Cohen's kappa: **{kappa(H, A):.2f}** (conventionally, 0.61-0.80 is substantial and above 0.80 "
+             f"almost perfect agreement; the pre-set target was at least 0.60)",
              f"- Keyword precision {tp / max(tp + fp, 1):.2f}, recall {tp / max(tp + fn, 1):.2f}",
              "", "| Skill | Hand | Keyword | Agreement | Kappa |", "|---|---|---|---|---|"]
     lines += [f"| {l} | {h} | {a} | {p:.0f}% | {'-' if np.isnan(k) else f'{k:.2f}'} |" for l, h, a, p, k in rows]
