@@ -157,3 +157,17 @@ def test_predict_has_milestones_and_market_has_resources(base_url):
     assert [m["months"] for m in pred["milestones"]] == [3, 6, 12, 24]
     gaps = requests.post(f"{base_url}/market-alignment", json=QUICK_PROFILE).json()["top_gaps"]
     assert all("resources" in g for g in gaps)
+
+
+def test_chat(base_url):
+    body = _check(requests.post(f"{base_url}/chat", json={"profile": QUICK_PROFILE, "message": "Which skills should "
+                                                                                                  "I learn?"}),
+                  schemas.ChatResponse)
+    assert body["intent"] == "skills" and body["reply"] and body["follow_ups"]
+
+
+@pytest.mark.parametrize("payload", [{"profile": QUICK_PROFILE, "message": ""},
+                                     {"profile": QUICK_PROFILE, "message": "x" * 501},
+                                     {"profile": QUICK_PROFILE, "message": "hi", "history": []}])
+def test_chat_rejects_invalid_requests(base_url, payload):
+    assert requests.post(f"{base_url}/chat", json=payload).status_code == 422

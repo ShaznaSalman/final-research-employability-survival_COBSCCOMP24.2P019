@@ -241,6 +241,33 @@ with right:
 
 
 # ---------------------------------------------------------------------------
+# Ask about your result (grounded assistant - no language model, nothing stored)
+# ---------------------------------------------------------------------------
+CHAT_STARTERS = ["Why is my estimate like this?", "What if I do a 6-month internship?",
+                 "Which skills should I learn?", "Can I trust this estimate?"]
+ui.section("Ask about your result", "Answers come only from this system's own results, using your current profile - "
+           "it is not a general chatbot. Nothing you type is stored.")
+with st.container(border=True):
+    history = st.session_state.setdefault("chat_history", [])
+    for role, text in history[-12:]:
+        with st.chat_message(role):
+            st.markdown(text)
+    asked = None
+    for col, q in zip(st.columns(len(CHAT_STARTERS)), CHAT_STARTERS):
+        if col.button(q, key=f"chat_starter_{q}", use_container_width=True):
+            asked = q
+    typed = st.chat_input("Ask about your estimate, e.g. \"What if I get two certifications?\"", key="chat_input")
+    asked = typed or asked
+    if asked:
+        answer, err = call("/chat", {"profile": profile, "message": asked})
+        history += [("user", asked), ("assistant", err or answer["reply"])]
+        st.rerun()
+    if history and st.button("Clear chat", key="chat_clear"):
+        st.session_state["chat_history"] = []
+        st.rerun()
+
+
+# ---------------------------------------------------------------------------
 # Compared to employers / peers
 # ---------------------------------------------------------------------------
 ui.section("How your profile compares")

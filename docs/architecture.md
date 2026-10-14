@@ -39,7 +39,7 @@ flowchart LR
         WD["wording.py"]
     end
 
-    API["api/ - FastAPI<br/>/predict /explain /whatif /suggestions<br/>/market-alignment /peer-benchmark<br/>/model-info /health"]
+    API["api/ - FastAPI<br/>/predict /explain /whatif /suggestions<br/>/market-alignment /peer-benchmark<br/>/model-info /health /chat"]
     FE["frontend/ - Streamlit<br/>single screen"]
 
     SYN -. "writes *_SYNTHETIC" .-> RAW
@@ -96,5 +96,6 @@ flowchart LR
 - `core/wording.py` - every user-facing sentence, associational and jargon-free.
 
 **Serving**
+- `core/chat.py` - grounded assistant: matches a question to a fixed set of intents and answers from the prediction, explanation, what-if, suggestion, market, peer and evaluation outputs; no language model, nothing stored.
 - `api/` - FastAPI; Pydantic schemas generated from `core/schema.py`; no logic, no storage, no auth.
 - `frontend/` - Streamlit single screen; calls the API only; never caches profiles.

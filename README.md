@@ -226,6 +226,7 @@ model, whose candidate list and selection rule were fixed in advance.
 | `core/market_study.py` / `simulation_study.py` / `accuracy_experiments.py` / `coding_agreement.py` | Job-market study, simulation study, accuracy experiments, coding agreement |
 | `core/survey_items.py` / `survey_study.py` / `synthetic_survey.py` | Questionnaire-study items (not model inputs), their analysis, and their synthetic answers |
 | `core/wording.py` | **Every user-facing sentence** - edit wording here |
+| `core/chat.py` | Grounded assistant behind `/chat`: answers questions about a profile from the system's own results (no language model, nothing stored) |
 | `core/run_all.py` | The one-command pipeline |
 | `benchmark/` | LLM prompt export, optional API mode (`run_llm.py`), scoring |
 | `api/` | FastAPI app (thin layer over `core/`), incl. `/job-market` and `/research` study endpoints |

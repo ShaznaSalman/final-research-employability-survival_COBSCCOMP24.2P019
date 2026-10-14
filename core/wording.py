@@ -227,8 +227,8 @@ ASSOCIATIONAL_NOTE = ("All explanations describe patterns in past graduates' dat
 PRIVACY = ("Nothing you enter is stored. Your profile is used only to calculate the results on this page and is "
            "discarded as soon as the page is closed. There are no accounts and no tracking.")
 LIMITATIONS = [
-    "The data come from a survey of a few hundred graduates, so estimates carry real uncertainty - see the "
-    "confidence label and ranges.",
+    "The model learned from {n_train} of the {n_modelling} graduates who answered the survey (the rest were kept "
+    "aside to test it), so estimates carry real uncertainty - see the confidence label and ranges.",
     "Skill levels are self-rated, and graduates rated them looking back to when they completed their degree.",
     "Respondents chose to take part, so they may not represent every Sri Lankan IT graduate.",
     "Follow-up ends at 24 months; times beyond that are reported as 'more than 24 months', not estimated.",
@@ -236,6 +236,14 @@ LIMITATIONS = [
     "The model was checked for similar accuracy across gender and university type, but small groups limit "
     "what that check can detect.",
 ]
+
+
+
+def limitations(info: dict) -> list[str]:
+    """LIMITATIONS with the sample sizes of the data actually used."""
+    n = {"n_train": info.get("training_n", "the"), "n_modelling": info.get("modelling_n", info.get("training_n", ""))}
+    return [s.format(**n) for s in LIMITATIONS]
+
 
 # ---------------------------------------------------------------------------
 # Frontend input labels

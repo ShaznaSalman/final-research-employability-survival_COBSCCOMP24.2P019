@@ -98,6 +98,19 @@ class Extras(BaseModel):
     early_prep: Optional[bool] = Field(None, description="Started preparing for IT jobs by the 2nd/3rd year")
 
 
+class ChatRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    profile: Profile
+    message: str = Field(..., min_length=1, max_length=500, description="The graduate's question")
+
+
+class ChatResponse(BaseModel):
+    intent: str = Field(..., description="Which kind of question was recognised")
+    reply: str = Field(..., description="Answer assembled from the system's own results (Markdown)")
+    sources: list[str] = Field(..., description="Which parts of the system the answer used")
+    follow_ups: list[str] = Field(..., description="Suggested next questions")
+
+
 class InsightsRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     profile: Profile
