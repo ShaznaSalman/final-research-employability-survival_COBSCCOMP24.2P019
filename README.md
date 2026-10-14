@@ -95,7 +95,7 @@ It opens at http://localhost:8501 with four pages (top navigation): **Home**, **
 pytest
 ```
 
-216 tests, about 2 minutes. See `docs/testing.md` for the
+275 tests, about 2 minutes. See `docs/testing.md` for the
 requirement-to-test map.
 
 ---
