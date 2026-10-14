@@ -1,0 +1,17 @@
+{
+ "responses_answered": 192,
+ "comparisons": [
+  {
+   "llm": "ChatGPT GPT-5.6",
+   "profiles": 132,
+   "uno_c": 0.539,
+   "model_uno_c": 0.619,
+   "diff": [
+    0.081,
+    0.03,
+    0.131
+   ],
+   "pct_identical": 3.3
+  }
+ ]
+}
