@@ -171,6 +171,13 @@ Details: `docs/secondary_analyses.md`.
 | `python -m core.sus_study` (also in `run_all`) | Usability (RQ4): System Usability Scale scores from the form export in `New Data/Usability (SUS)/`, mean with 95% CI against the benchmark of 68, t and Wilcoxon tests, Cronbach's alpha, grade, item means and coded comments | `sus_study.md` |
 | `python -m core.simulation_study --reps 200` (about 5 min) | Does the analysis recover known effects? Power by sample size, false positives, coverage | `simulation_study.md` |
 | `python -m core.accuracy_experiments` (about 3 min) | Do flexible models (neural networks DeepSurv/DeepHit/Cox-Time/N-MTLR, boosting, forest, ensemble) beat Cox? Accuracy ceiling | `accuracy_experiments.md` |
+| `python -m core.learning_curve` (about 1 min) | Would more respondents improve discrimination? Selected model fitted on 25-100% of the training set, scored on validation | `learning_curve.md` |
+| `python -m core.error_analysis` | Where does the selected model go wrong? Predicted vs actual time on the validation set, by search length, and the worst-predicted tenth vs the rest | `error_analysis.md` |
+| `python -m core.deepsurv_curves` | How DeepSurv trained: training and early-stopping hold-out loss by epoch | `deepsurv_curves.md`, `figures/deepsurv_loss.png` |
+| `python -m core.tuning_results` | Every tuning configuration with its validation Uno's C; checks the chosen settings match the main analysis | `tuning_results.md` |
+| `python -m core.time_dependent_metrics` | Supplementary: time-dependent AUC at 3/6/12 months for every candidate, and the Brier score over time vs Kaplan-Meier (validation set) | `time_dependent_metrics.md`, `figures/brier_over_time.png` |
+| `python -m core.eda_figures` | Exploratory figures (training set): predictor correlation heatmap, distribution of the skill ratings, scree plots with parallel analysis | `eda_figures.md`, `figures/eda_*.png` |
+| `python -m core.evaluation_figures` | Evaluation figures: Kaplan-Meier with numbers at risk, AFT distribution fit, labelled Schoenfeld plot, fairness and robustness charts (drawn from the existing reports; the test set is not re-evaluated) | `evaluation_figures.md`, `figures/{km_at_risk,aft_fit,schoenfeld_labelled,fairness,robustness}.png` |
 | `python -m core.coding_agreement --sample`, hand-code, then `python -m core.coding_agreement` | Agreement (Cohen's kappa) between keyword coding and manual coding of 40 ads | `coding_agreement.md` |
 
 The exploratory analyses (simulation, accuracy experiments) are report-only: they never change the selected
