@@ -5,10 +5,13 @@ An honest record of how this project was developed. Dates come from the metadata
 Where a date is not recorded it is marked **[date to confirm]** - fill these in from your own notes or supervisor
 meeting records; do not estimate them.
 
-> **Version control:** the project was developed locally and placed under git on **10 October 2026**. The initial
-> history (80 commits on 13 feature branches) was created that day to organise the existing code into reviewable
-> units; commit dates are the real dates on which the commits were made. All later work follows the branch and
-> pull-request workflow in `CONTRIBUTING.md`.
+> **Version control:** software development started on **4 August 2026** and was done locally; the project was
+> placed under git in October 2026. The history for the earlier work (the commits dated 4 August - 27 September
+> 2026, on 13 feature branches) was created afterwards to organise the existing code into reviewable units. Their
+> dates were assigned to show the order and period of development; they are **not** the actual times the commits
+> were made, and some of those commits contain files as they stood later (for example, the results on the real
+> survey data, produced on 11 October 2026). Use the dated documents in the timeline below, not commit dates, as
+> evidence of when work was done. All later work follows the branch and pull-request workflow in `CONTRIBUTING.md`.
 
 ## Timeline
 
@@ -21,7 +24,7 @@ meeting records; do not estimate them.
 | 5 Jun 2026 | Instruments | Original graduate and employer questionnaires | `5.Questionnare/3.Original Graduate_Questionnaire.docx`, `6.Original Employer_Questionnaire.docx` |
 | 7 Aug 2026 | Instruments | Revised questionnaires and Evidence & Justification Matrices | `1.Revised-Graduate...docx`, `4.Revised-Employer...docx`, `2.` and `5.` matrices |
 | 31 Aug 2026 | Planning | Research summary / quick reference | `3.Final Research - Dissertation/2. Important Points/Research_Summary_QuickReference.docx` |
-| [date to confirm] | Software | Core pipeline built: schema, Google Forms adapter, cleaning and outcome construction, survival models (Cox PH, Elastic Net Cox, AFT, DeepSurv), nested cross-validation, prediction with bootstrap uncertainty, explanations, what-if, FastAPI service, Streamlit app, LLM benchmark | Code in `core/`, `api/`, `frontend/`, `benchmark/` |
+| From 4 Aug 2026 | Software | Development started; core pipeline built: schema, Google Forms adapter, cleaning and outcome construction, survival models (Cox PH, Elastic Net Cox, AFT, DeepSurv), nested cross-validation, prediction with bootstrap uncertainty, explanations, what-if, FastAPI service, Streamlit app, LLM benchmark | Code in `core/`, `api/`, `frontend/`, `benchmark/` |
 | 8 Oct 2026 | Dissertation | Chapters 1-3 revised for the survival-analysis approach | `1. Chapters - Revised (survival analysis)/Chapter 1-3 (revised).docx` |
 | 9 Oct 2026 | Data | Synthetic development data enlarged (390 graduate rows, 280 employers) and made more realistic; fictional institution and company names; labelled synthetic throughout | `core/synthetic.py`, `docs/synthetic_data.md` |
 | 9 Oct 2026 | App | Institution dropdown (real Sri Lankan institutions grouped by type) | `core/wording.py`, `frontend/views/predict.py` |
