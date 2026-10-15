@@ -1,0 +1,6 @@
+# Optional: to open or re-run notebooks/research_walkthrough.ipynb (install on top of requirements.txt)
+jupyter==1.1.1
+notebook==7.6.3
+nbconvert==7.17.2
+nbformat==5.11.1
+ipykernel==7.4.0
