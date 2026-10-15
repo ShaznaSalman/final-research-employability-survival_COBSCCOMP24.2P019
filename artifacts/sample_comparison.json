@@ -1,14 +1,5 @@
 [
  {
-  "measure": "female_share_pct",
-  "sample": 35.1,
-  "n": 838,
-  "published": 30.3,
-  "difference": 4.8,
-  "definition": "women among graduates who gave female or male",
-  "source": "ICTA (2019): women among Bachelor's-level ICT workforce"
- },
- {
   "measure": "mean_months_after_completion",
   "sample": 5.0,
   "n": 550,

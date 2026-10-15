@@ -14,7 +14,7 @@
  *     (each participant's score, then n, mean, 95% CI, SD, median, minimum, maximum and the benchmark of 68).
  *
  * RULES THAT KEEP THE SUS VALID (do not edit these parts of the form)
- *  - The ten statements, their order and the 1-5 scale are the standard SUS (Brooke, 1996), word for word as in
+ *  - The ten statements, their order and the 1-5 scale are the standard SUS (originally developed by Brooke), word for word as in
  *    Appendix L.3. Do not reword, reorder, translate or add questions between them.
  *  - Question titles start with their code (SUS1. ... SUS10.). Do not rename them: the scoring matches on them.
  *  - No names or emails are collected. The participant code (P01, P02 ...) links the form to your task sheet.

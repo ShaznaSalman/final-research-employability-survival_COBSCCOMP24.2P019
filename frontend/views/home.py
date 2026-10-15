@@ -13,7 +13,7 @@ except APIError as e:
     st.stop()
 market = ui.fetch("/job-market") or {}
 
-ui.hero("Sri Lanka · IT graduate employability",
+ui.hero("Home · Sri Lankan IT graduates",
         "How long until your first IT job - and what moves it?",
         "A survival-analysis decision-support system for Sri Lankan IT graduates. It estimates time to a first IT job, "
         "explains what helps and what holds a profile back, and compares a graduate's skills with what employers "

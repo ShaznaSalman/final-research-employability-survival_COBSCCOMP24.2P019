@@ -6,12 +6,11 @@ All modelling graduates (descriptive). The published figures describe other popu
 
 | Measure | Sample | n | Published | Difference | Published source | Sample definition |
 |---|---|---|---|---|---|---|
-| Women (%) | 35.1 | 838 | 30.3 | +4.8 | ICTA (2019): women among Bachelor's-level ICT workforce | women among graduates who gave female or male |
 | Mean months to first job | 5 | 550 | 8 | -3.0 | Univ. of Kelaniya (2022): Faculty of Computing & Technology | mean months to the first IT job, graduates employed after completion (no minimum follow-up; recent cohorts' long searches are not yet observed) |
 | Employed graduates hired by completion (%) | 17.5 | 667 | 18.1 | -0.6 | Univ. of Kelaniya (2022): found work before/while studying | share of employed graduates whose IT job began at or before completion |
 | In an IT job at the survey (%) | 75.4 | 885 | 60.5 | +14.9 | Univ. of Kelaniya (2022): all-faculty rate; IT expected higher | share in an IT job at the survey |
 | Median months (Kaplan-Meier) | 4 | 885 | - | - | - | Kaplan-Meier median months to the first IT job (accounts for graduates still searching) |
 
-Close to the published figures (within 5 percentage points): women (%); employed graduates hired by completion (%).
+Close to the published figures (within 5 percentage points): employed graduates hired by completion (%).
 
 The sample found IT work sooner and more often than the published all-faculty figures. Part of this is real (IT graduates are expected to do better than all disciplines) and part is likely selection: a voluntary survey shared through personal and university networks tends to reach graduates who found work, and recent cohorts' long searches are not yet observed. This supports reading the results for this non-probability sample, not for all Sri Lankan IT graduates.

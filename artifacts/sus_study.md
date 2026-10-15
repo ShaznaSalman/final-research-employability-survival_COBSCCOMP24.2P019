@@ -21,7 +21,7 @@ Source: `New Data/Usability (SUS)/SUS_evaluations.csv` (Google Forms responses, 
 
 ## Scoring
 
-Brooke (1996): odd-numbered (positive) items contribute answer - 1, even-numbered (negative) items 5 - answer; the ten contributions (0-4 each) are summed and multiplied by 2.5, giving 0-100.
+Standard SUS procedure (Hyzy et al., 2022): odd-numbered (positive) items contribute answer - 1, even-numbered (negative) items 5 - answer; the ten contributions (0-4 each) are summed and multiplied by 2.5, giving 0-100.
 
 ## Result against the pre-set criterion (mean SUS of at least 68)
 
@@ -38,9 +38,8 @@ Brooke (1996): odd-numbered (positive) items contribute answer - 1, even-numbere
 | Wilcoxon signed-rank test against 68 | W = 12, p = 0.034 |
 | Effect size (mean - 68) / SD | d = 0.78 |
 | Participants scoring 68 or more | 10 of 12 (83%, Wilson 95% CI 55% to 95%) |
-| Curved grade (Lewis & Sauro, 2018) | B |
-| Adjective (Bangor et al., 2009) | Good |
-| Approximate percentile (normal, mean 68, SD 12.5) | 75th |
+| Approximate percentile (normal, mean 68, SD 12.5; Hyzy et al., 2022) | 75th |
+| Mean across 114 digital health apps (Hyzy et al., 2022), for comparison | 76.64 |
 | Internal consistency (Cronbach's alpha, 10 scored items) | 0.90 |
 
 **Criterion met**: the mean is 76.25 and the lower end of the 95% interval (69.53) is above 68.
@@ -147,7 +146,4 @@ Task-by-task completion and time per task were not part of the questionnaire; th
 
 ## References
 
-- Bangor, A., Kortum, P., & Miller, J. (2009). Determining what individual SUS scores mean: Adding an adjective rating scale. Journal of Usability Studies, 4(3), 114-123.
-- Brooke, J. (1996). SUS: A 'quick and dirty' usability scale. In P. W. Jordan et al. (Eds.), Usability evaluation in industry (pp. 189-194). Taylor & Francis.
 - Hyzy, M., et al. (2022). System Usability Scale benchmarking for digital health apps: Meta-analysis. JMIR mHealth and uHealth, 10(8), e37290.
-- Lewis, J. R., & Sauro, J. (2018). Item benchmarks for the System Usability Scale. Journal of Usability Studies, 13(3), 158-167.
