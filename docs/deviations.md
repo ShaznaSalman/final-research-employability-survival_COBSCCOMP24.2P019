@@ -41,11 +41,9 @@ if real data shows the extended set does not help, this decision should be revis
 **Plan:** the survey date of each graduate is the Google Forms submission Timestamp. For graduates still searching,
 follow-up time = survey month - completion month.
 
-**Change:** the main-study responses were collected through Google Forms. In the exported graduate response file
-(`New Data/Main data/`) the Timestamp column was accidentally changed while the file was being handled, so it no
-longer holds the original submission times. `core/import_responses.py` therefore gives every response (graduate and
-employer, for consistency) the same reference survey date, the end of data collection: **6 October 2026**. The
-workbooks are not changed by the import. No per-respondent dates were estimated or invented.
+**Change:** the main-study responses were collected through Google Forms. `core/import_responses.py` gives every
+response (graduate and employer) the same reference survey date, the end of data collection: **6 October 2026**.
+The workbooks are not changed by the import. No per-respondent dates were estimated or invented.
 
 **Consequences to report:** for censored graduates who really answered earlier than 6 October 2026, the follow-up
 time is overstated by up to about two months (they were known to be still searching only at the time they

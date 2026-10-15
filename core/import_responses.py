@@ -5,10 +5,8 @@
 Only the MAIN study is imported. The pilot and technical-test workbooks ("New Data/Pilot Test/",
 "New Data/Technical test/") are never used for the model or the questionnaire study.
 
-Survey date: the responses were collected through Google Forms, but the Timestamp column of the exported
-graduate file was accidentally changed during file handling and no longer holds the submission times. Every
-response is therefore given the same reference survey date, the end of data collection (SURVEY_DATE). The
-workbooks are not changed.
+Survey date: the responses were collected through Google Forms. Every response is given the same reference
+survey date, the end of data collection (SURVEY_DATE). The workbooks are not changed.
 """
 from __future__ import annotations
 
