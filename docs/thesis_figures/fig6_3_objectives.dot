@@ -1,0 +1,20 @@
+digraph G {
+  rankdir=LR; nodesep=0.25; ranksep=0.45; bgcolor="white"; dpi=200;
+  node [shape=box, style="rounded,filled", fontname="Times New Roman,", fontsize=16, penwidth=1.6, margin="0.18,0.08"];
+  edge [color="#888888", penwidth=1.4, arrowsize=0.8];
+  o1 [label="O1 / RQ1\nFactors associated with\ntime to employment", fillcolor="#EDF4FD", color="#2A78D6"];
+  r1 [label="885 graduates; GPA (TR 0.80) and internship\n(TR 0.84) linked with a shorter search;\ninstitution and degree type not", fillcolor="white", color="#888888", width=4.6];
+  s1 [label="Achieved", fillcolor="#E8F4EA", color="#2E7D32", width=2.2];
+  o2 [label="O2 / RQ2\nAlignment with employers\nand job advertisements", fillcolor="#EDF4FD", color="#2A78D6"];
+  r2 [label="239 employers, 324 ads; graduates below\nemployers on 25 of 26 skills; ad coding\nagreed with an independent coder (kappa 0.83)", fillcolor="white", color="#888888", width=4.6];
+  s2 [label="Achieved", fillcolor="#E8F4EA", color="#2E7D32", width=2.2];
+  o3 [label="O3 / RQ3\nCompare survival models\nand predictive accuracy", fillcolor="#EDF4FD", color="#2A78D6"];
+  r3 [label="7 models; AFT Log-Normal selected\n(validation C 0.693, test C 0.619);\nneural models not better; calibration weak", fillcolor="white", color="#888888", width=4.6];
+  s3 [label="Achieved, with a\ncalibration limitation", fillcolor="#FFF6E0", color="#B26A00", width=2.2];
+  o4 [label="O4 / RQ4\nPrototype, usability and\nLLM benchmark", fillcolor="#EDF4FD", color="#2A78D6"];
+  r4 [label="4-page web app with chat; 275 tests pass;\nSUS 76.3 (95% CI 69.5-83.0, n = 12);\nC 0.619 vs ChatGPT 0.539", fillcolor="white", color="#888888", width=4.6];
+  s4 [label="Achieved\n(small usability sample)", fillcolor="#E8F4EA", color="#2E7D32", width=2.2];
+  o1 -> r1 -> s1; o2 -> r2 -> s2; o3 -> r3 -> s3; o4 -> r4 -> s4;
+  {rank=same; o1; o2; o3; o4} {rank=same; r1; r2; r3; r4} {rank=same; s1; s2; s3; s4}
+  o1 -> o2 -> o3 -> o4 [style=invis]; r1 -> r2 -> r3 -> r4 [style=invis]; s1 -> s2 -> s3 -> s4 [style=invis];
+}
