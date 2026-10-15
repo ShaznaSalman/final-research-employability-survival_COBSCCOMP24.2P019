@@ -2,18 +2,45 @@
 blue = you / your profile, orange = employers / the changed profile, aqua = job ads. Thin marks, quiet grid."""
 from __future__ import annotations
 
+import json
+
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"
-INK, MUTED, GRID, TRACK, SURFACE = "#0b0b0b", "#52514e", "#e4e3df", "#f0efec", "#fcfcfb"
+from frontend import ui
+
+BLUE, ORANGE, AQUA = "#3b66e0", "#e8590c", "#0f9d8a"
+INK, MUTED, GRID, TRACK, SURFACE = "#15203a", "#5a6682", "#e3e8f1", "#eef1f7", "#ffffff"
 FONT = dict(family="Inter, Segoe UI, sans-serif", size=13, color=INK)
+
+# Light literal -> dark literal. Figures are built with the light palette, then recoloured in _layout() when the
+# Streamlit theme is dark, so every chart (including colours written inline in charts_study.py) follows the theme.
+DARK = {
+    BLUE: "#7da2ff", ORANGE: "#ff922b", AQUA: "#2dd4bf", INK: "#e8ecf5", MUTED: "#9da9c2", GRID: "#26324d",
+    TRACK: "#1e2c4a", SURFACE: "#172033",
+    "#cfdcfb": "#2a4580", "#9db6f5": "#4a70c9", "#6c8eee": "#5f8ae0", "#22408f": "#c5d6ff",   # blue ramp, reversed in dark
+    "rgba(59,102,224,0.14)": "rgba(125,162,255,0.2)", "#5b4bc4": "#b3a6ff", "#9aa4b8": "#6b7893",
+    "rgba(59,102,224,0.28)": "rgba(125,162,255,0.32)", "rgba(232,89,12,0.20)": "rgba(255,146,43,0.24)",
+}
+
+
+def _recolor_for_dark(fig: go.Figure) -> None:
+    """Swap the light palette for the dark one in place (callers keep using the same figure object)."""
+    text = fig.to_json()
+    for light, dark in DARK.items():
+        text = text.replace(f'"{light}"', f'"{dark}"')
+    new = go.Figure(json.loads(text))
+    for old_trace, new_trace in zip(fig.data, new.data):
+        old_trace.update(new_trace.to_plotly_json())
+    fig.layout.update(new.layout.to_plotly_json())
 
 
 def _layout(fig: go.Figure, height: int, **kw) -> go.Figure:
     layout = dict(height=height, margin=dict(l=8, r=8, t=8, b=8), paper_bgcolor="rgba(0,0,0,0)",
                   plot_bgcolor="rgba(0,0,0,0)", font=FONT, showlegend=False, hoverlabel=dict(font=FONT))
     fig.update_layout(**{**layout, **kw})
+    if ui.is_dark():
+        _recolor_for_dark(fig)
     return fig
 
 
@@ -77,7 +104,7 @@ def skill_gap(skills: list[dict], top_n: int = 10) -> go.Figure:
     rows = sorted([s for s in skills if s["demand"] is not None], key=lambda s: -s["demand"])[:top_n][::-1]
     names = [s["label"] for s in rows]
     fig = make_subplots(rows=1, cols=2, shared_yaxes=True, column_widths=[0.62, 0.38], horizontal_spacing=0.04,
-                        subplot_titles=("Rating out of 5", "Share of job ads"))
+                        subplot_titles=("Rating (1-5)", "% of job ads"))
     for s in rows:
         vals = [v for v in (s["your_rating"], s["employer_importance"]) if v is not None]
         if len(vals) == 2:
@@ -124,3 +151,68 @@ def peer_medians(groups: list[dict], horizon: int) -> go.Figure:
                      title=dict(text="Months until half had found work", font=dict(color=MUTED, size=12)))
     fig.update_yaxes(showgrid=False, tickfont=dict(color=INK))
     return _layout(fig, 80 + 42 * len(shown))
+
+
+def job_donut(milestone: dict) -> go.Figure:
+    """Donut gauge: share of graduates with a profile like yours who had found an IT job by one milestone month."""
+    pct = float(milestone["employed_pct"])
+    fig = go.Figure(go.Pie(
+        labels=["Found an IT job", "Still looking"], values=[pct, max(0.0, 100 - pct)], hole=0.72, sort=False,
+        direction="clockwise", pull=[0.03, 0], textinfo="none", showlegend=False,
+        marker=dict(colors=[AQUA, TRACK], line=dict(color=SURFACE, width=3)),
+        hovertemplate="%{label}: %{value:.0f}%<extra></extra>"))
+    fig.add_annotation(text=f"<b>{pct:.0f}%</b>", x=0.5, y=0.56, showarrow=False, font=dict(size=38, color=INK))
+    fig.add_annotation(text=f"by {milestone['months']} months", x=0.5, y=0.36, showarrow=False,
+                       font=dict(size=13, color=MUTED))
+    return _layout(fig, 280, margin=dict(l=8, r=8, t=8, b=8))
+
+
+def _wrap(label: str, width: int = 13) -> str:
+    words, lines, line = label.replace(" / ", "/ ").split(), [], ""
+    for w in words:
+        if line and len(line) + 1 + len(w) > width:
+            lines.append(line)
+            line = w
+        else:
+            line = f"{line} {w}".strip()
+    return "<br>".join(lines + [line])
+
+
+def skill_radar(skills: list[dict], top_n: int = 8) -> go.Figure:
+    """Radar of your 1-5 rating against the importance employers give, for the most requested skills."""
+    rows = [s for s in sorted((s for s in skills if s["demand"] is not None), key=lambda s: -s["demand"])
+            if s["your_rating"] is not None and s["employer_importance"] is not None][:top_n]
+    names = [_wrap(s["label"]) for s in rows]
+    fig = go.Figure()
+    for key, label, color, fill in (("employer_importance", "Employers", ORANGE, "rgba(232,89,12,0.20)"),
+                                    ("your_rating", "You", BLUE, "rgba(59,102,224,0.28)")):
+        vals = [s[key] for s in rows]
+        fig.add_trace(go.Scatterpolar(
+            r=vals + vals[:1], theta=names + names[:1], name=label, fill="toself", fillcolor=fill,
+            line=dict(color=color, width=2.5), marker=dict(size=7, color=color),
+            hovertemplate="%{theta}: %{r:.1f} / 5<extra>" + label + "</extra>"))
+    fig.update_layout(polar=dict(
+        bgcolor="rgba(0,0,0,0)",
+        radialaxis=dict(range=[0, 5], tickvals=[1, 2, 3, 4, 5], gridcolor=GRID, linecolor=GRID,
+                        tickfont=dict(color=MUTED, size=10)),
+        angularaxis=dict(gridcolor=GRID, linecolor=GRID, tickfont=dict(color=INK, size=11))))
+    return _layout(fig, 380, showlegend=True, margin=dict(l=84, r=84, t=30, b=34),
+                   legend=dict(orientation="h", yanchor="top", y=-0.02, x=0.5, xanchor="center", font=dict(color=INK)))
+
+
+def gap_bars(skills: list[dict], top_n: int = 5) -> go.Figure | None:
+    """Horizontal bars for the skills where employers rate importance above your own rating (None if there are none)."""
+    rows = [dict(s, gap=s["employer_importance"] - s["your_rating"]) for s in skills
+            if s["employer_importance"] is not None and s["your_rating"] is not None
+            and s["employer_importance"] - s["your_rating"] > 0.05]
+    rows = sorted(rows, key=lambda r: -r["gap"])[:top_n][::-1]
+    if not rows:
+        return None
+    fig = go.Figure(go.Bar(
+        x=[r["gap"] for r in rows], y=[r["label"] for r in rows], orientation="h",
+        marker=dict(color=ORANGE, cornerradius=6), text=[f"+{r['gap']:.1f}" for r in rows], textposition="outside",
+        textfont=dict(color=INK, size=12), customdata=[[r["your_rating"], r["employer_importance"]] for r in rows],
+        hovertemplate="<b>%{y}</b><br>You: %{customdata[0]:.1f} · Employers: %{customdata[1]:.1f}<extra></extra>"))
+    fig.update_xaxes(range=[0, max(r["gap"] for r in rows) * 1.3], showgrid=False, showticklabels=False, zeroline=False)
+    fig.update_yaxes(showgrid=False, tickfont=dict(color=INK))
+    return _layout(fig, 70 + 44 * len(rows), bargap=0.35)

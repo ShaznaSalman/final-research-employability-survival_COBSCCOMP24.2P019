@@ -9,8 +9,8 @@ import plotly.graph_objects as go
 
 from frontend.charts import AQUA, BLUE, GRID, INK, MUTED, ORANGE, SURFACE, _layout
 
-VIOLET = "#4a3aa7"
-SEQ = ["#f0efec", "#cde2fb", "#86b6ef", "#3987e5", "#1c5cab", "#0d366b"]      # one-hue ramp (blue), light -> dark
+VIOLET = "#5b4bc4"
+SEQ = ["#eef1f7", "#cfdcfb", "#9db6f5", "#6c8eee", "#3b66e0", "#22408f"]      # one-hue ramp (blue), light -> dark
 KIND_COLOR = {"technical": BLUE, "soft": ORANGE}
 CATEGORICAL = [BLUE, ORANGE, AQUA, "#eda100", "#e87ba4", "#008300", VIOLET, "#e34948"]   # fixed order, never cycled
 
@@ -89,7 +89,7 @@ def skill_network(prevalence: list[dict], pairs: list[dict], min_lift: float = 1
     for p in edges:
         (x0, y0), (x1, y1) = pos[p["a"]], pos[p["b"]]
         fig.add_trace(go.Scatter(x=[x0, x1], y=[y0, y1], mode="lines", hoverinfo="skip", showlegend=False,
-                                 line=dict(color="#9ec5f4", width=1 + 10 * p["phi"])))
+                                 line=dict(color="#9db6f5", width=1 + 10 * p["phi"])))
     fig.add_trace(go.Scatter(
         x=[(pos[p["a"]][0] + pos[p["b"]][0]) / 2 for p in edges], y=[(pos[p["a"]][1] + pos[p["b"]][1]) / 2 for p in edges],
         mode="markers", marker=dict(size=16, color="rgba(0,0,0,0)"), showlegend=False,
@@ -145,7 +145,7 @@ def model_cindex(models: list[dict], selected: str) -> go.Figure:
         chosen = m["model"] == selected
         fig.add_trace(go.Scatter(
             x=[m["uno_c_mean"]], y=[m["label"] + ("  ✓ selected" if chosen else "")], mode="markers",
-            marker=dict(size=14 if chosen else 11, color=BLUE if chosen else "#86b6ef", line=dict(color=SURFACE, width=2)),
+            marker=dict(size=14 if chosen else 11, color=BLUE if chosen else "#9db6f5", line=dict(color=SURFACE, width=2)),
             error_x=dict(type="data", array=[m["uno_c_sd"]], color=MUTED, thickness=1.2, width=5),
             hovertemplate=f"<b>{m['label']}</b><br>Uno's C {m['uno_c_mean']:.3f} ± {m['uno_c_sd']:.3f}<br>"
                           f"Integrated Brier score {m['ibs_mean']:.3f}<extra></extra>"))
@@ -179,7 +179,7 @@ def forest(hr: list[dict]) -> go.Figure:
     fig.add_vline(x=1, line=dict(color=MUTED, width=1, dash="dot"))
     for r in rows:
         sig = r["lo"] > 1 or r["hi"] < 1
-        color = (BLUE if r["hr"] > 1 else ORANGE) if sig else "#b5b4af"
+        color = (BLUE if r["hr"] > 1 else ORANGE) if sig else "#9aa4b8"
         fig.add_trace(go.Scatter(
             x=[r["hr"]], y=[r["label"][:1].upper() + r["label"][1:]], mode="markers",
             marker=dict(size=12, color=color, symbol="square", line=dict(color=SURFACE, width=2)),
@@ -197,7 +197,7 @@ def km_curve(km: list[dict], horizon: int) -> go.Figure:
     t = [p["t"] for p in km]
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=t + t[::-1], y=[p["hi"] for p in km] + [p["lo"] for p in km][::-1], fill="toself",
-                             fillcolor="rgba(42,120,214,0.14)", line=dict(width=0), hoverinfo="skip"))
+                             fillcolor="rgba(59,102,224,0.14)", line=dict(width=0), hoverinfo="skip"))
     fig.add_trace(go.Scatter(x=t, y=[p["employed"] for p in km], mode="lines", line=dict(color=BLUE, width=2.5, shape="hv"),
                              hovertemplate="by %{x:.1f} months: %{y:.0%} had an IT job<extra></extra>"))
     fig.update_xaxes(range=[0, horizon], dtick=3, gridcolor=GRID, zeroline=False, title=_axis_title("Months after graduating"))
@@ -277,7 +277,7 @@ def accuracy_ladder(summary: list[dict], ceiling: dict | None) -> go.Figure:
         main = s["model"] == "cox_core"
         fig.add_trace(go.Scatter(
             x=[s["uno_c_mean"]], y=[s["label"]], mode="markers",
-            marker=dict(size=13, color=BLUE if main else "#86b6ef", line=dict(color=SURFACE, width=2)),
+            marker=dict(size=13, color=BLUE if main else "#9db6f5", line=dict(color=SURFACE, width=2)),
             error_x=dict(type="data", array=[s["uno_c_sd"]], color=MUTED, thickness=1.2, width=5),
             hovertemplate=f"<b>{s['label']}</b><br>Uno's C {s['uno_c_mean']:.3f} ± {s['uno_c_sd']:.3f}"
                           + ("" if main else f"<br>vs Cox PH {s['delta_vs_cox']:+.3f}") + "<extra></extra>"))
@@ -294,7 +294,7 @@ def repeat_rho(rows: list[dict], strong: float = 0.5, moderate: float = 0.3) -> 
     """Spearman correlation of each repeat item with the model question it repeats, with 95% CI."""
     rows = [r for r in rows if r["rho"] is not None][::-1]
     y = [f"{r['repeat']}  vs  {r['model_question']}" for r in rows]
-    color = [BLUE if abs(r["rho"]) >= strong else ("#86b6ef" if abs(r["rho"]) >= moderate else MUTED) for r in rows]
+    color = [BLUE if abs(r["rho"]) >= strong else ("#9db6f5" if abs(r["rho"]) >= moderate else MUTED) for r in rows]
     fig = go.Figure()
     for x, lab in ((moderate, "partly overlaps"), (strong, "repeats")):
         fig.add_vline(x=x, line=dict(color=MUTED, width=1, dash="dot"))
