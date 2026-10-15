@@ -40,7 +40,10 @@ MAHALANOBIS_P = 0.001
 N_IMPUTATIONS = 20
 LIKERT = list(schema.TECH_COLUMNS + schema.SOFT_COLUMNS)
 RAW_INPUTS = ["gpa", "degree_type", "university_type", "certifications_count", "internship_months",
-              "project_count", *LIKERT]
+              "project_count", *LIKERT,
+              # extended-set inputs (Q14, Q20, Q21, Q23, Q24, Q29), used when present in the data
+              "has_portfolio", "prep_start", "self_learning_freq", "hackathon_count", "open_source",
+              "sdlc_familiarity"]
 
 
 # ---------------------------------------------------------------------------
@@ -73,7 +76,7 @@ def careless(df: pd.DataFrame) -> pd.Series:
 
 
 def incomplete(df: pd.DataFrame) -> pd.Series:
-    return df[RAW_INPUTS].isna().any(axis=1)
+    return df[[c for c in RAW_INPUTS if c in df]].isna().any(axis=1)
 
 
 VARIANTS = {

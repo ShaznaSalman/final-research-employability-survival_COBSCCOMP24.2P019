@@ -9,5 +9,5 @@ no_heaped,Excluding 'round number' job-start times,cox_ph,502,349,108,0.68131134
 no_heaped,Excluding 'round number' job-start times,aft_best,502,349,108,0.7073770197390455,0.030758841597348575,0.1820379310080168
 no_careless,Excluding straight-liners and erratic responders,cox_ph,620,467,132,0.6662606554053668,0.030228964804169773,0.17567085257631487
 no_careless,Excluding straight-liners and erratic responders,aft_best,620,467,132,0.6915534168528583,0.029345103748549015,0.17271264335652226
-complete_case,Complete cases only (no imputation),cox_ph,620,467,133,0.6670691448350565,0.03162818735065668,0.17871887992351668
-complete_case,Complete cases only (no imputation),aft_best,620,467,133,0.6928906987491287,0.0286240448272717,0.17144615963402055
+complete_case,Complete cases only (no imputation),cox_ph,548,409,117,0.673969196682568,0.03279360749714447,0.17266353868713336
+complete_case,Complete cases only (no imputation),aft_best,548,409,117,0.6956810894717924,0.029647219595232675,0.16580695431613385
