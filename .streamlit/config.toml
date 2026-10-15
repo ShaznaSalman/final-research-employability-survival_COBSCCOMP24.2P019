@@ -1,15 +1,27 @@
+# JobSpark theme: shared type and shape here, light and dark palettes below.
+# Streamlit adds a light/dark switch to its settings menu when both palettes exist; frontend/ui.py reads the
+# active theme to pick matching custom-CSS tokens and chart colours (keep the two in step).
 [theme]
-base = "light"
-primaryColor = "#2a78d6"
-backgroundColor = "#f8f7f4"
-secondaryBackgroundColor = "#efeee9"
-textColor = "#0b0b0b"
-linkColor = "#1c5cab"
-borderColor = "#e4e3df"
 baseRadius = "0.75rem"
-font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
-headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
-headingFontWeights = [800, 750, 700, 650, 600, 600]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap, sans-serif"
+headingFont = "Plus Jakarta Sans:https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap, sans-serif"
+headingFontWeights = [800, 750, 700, 700, 600, 600]
+
+[theme.light]
+primaryColor = "#3b66e0"
+backgroundColor = "#f5f7fb"
+secondaryBackgroundColor = "#edf1f9"
+textColor = "#15203a"
+linkColor = "#2547b0"
+borderColor = "#e3e8f1"
+
+[theme.dark]
+primaryColor = "#7da2ff"
+backgroundColor = "#0f1624"
+secondaryBackgroundColor = "#172033"
+textColor = "#e8ecf5"
+linkColor = "#a9c1ff"
+borderColor = "#26324d"
 
 [browser]
 gatherUsageStats = false

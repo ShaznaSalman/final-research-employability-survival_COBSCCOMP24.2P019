@@ -11,7 +11,7 @@ from frontend.api_client import APIError
 try:
     info = ui.model_info()
 except APIError as e:
-    st.error(str(e))
+    ui.error_card(str(e), "Check that the API is running (uvicorn api.main:app --port 8000), then reload.")
     st.stop()
 r = ui.fetch("/research")
 if not r:
@@ -45,6 +45,7 @@ tabs = st.tabs([":material/leaderboard: Models", ":material/target: Calibration"
                 ":material/casino: Simulation study", ":material/quiz: Questionnaire", ":material/description: About"])
 
 with tabs[0]:
+    ui.in_short(f"{len(r['models'])} survival models were compared on a validation set and <b>{info['selected_model_label']}</b> was chosen. A higher {ui.term('c-index')} means the model ranks who finds work sooner more accurately; 0.5 is guessing.")
     ui.section("Model comparison", "Discrimination of each candidate on the validation set (fitted on the training "
                                    "set; no graduate is reused). Bars show a bootstrap interval over the validation "
                                    f"graduates. Selected: <b>{info['selected_model_label']}</b> - "
@@ -89,6 +90,7 @@ with tabs[0]:
                                       "delta_c": "Change", "win_share": "Better in (share of resamples)"}).round(3), hide_index=True)
 
 with tabs[1]:
+    ui.in_short(f"{ui.term('calibration')} asks whether a predicted 60% chance really happens about 60% of the time. Points close to the dotted line mean the predictions can be taken at face value.")
     ui.section("Calibration", "Graduates are split into thirds by predicted chance of employment; each point compares "
                               "the predicted share with the share that actually found work. On the dotted line = "
                               "perfectly calibrated.", data_tag)
@@ -101,6 +103,7 @@ with tabs[1]:
         st.markdown("\n".join(f"- {x}" for x in info["plain_metrics"]))
 
 with tabs[2]:
+    ui.in_short(f"Each dot is a {ui.term('hazard ratio', 'hazard ratio')}: how strongly one factor goes with finding work sooner. Dots to the right of the line are linked with a faster job; grey dots are not clearly different from no effect.")
     ui.section("What is associated with finding work sooner", "Hazard ratios from the Cox model with 95% intervals. "
                                                               "Above 1 = found an IT job sooner; grey = interval includes 1.",
                data_tag)
@@ -109,12 +112,14 @@ with tabs[2]:
     st.caption(info["associational_note"])
 
 with tabs[3]:
+    ui.in_short(f"The {ui.term('kaplan-meier', 'curve')} shows what share of graduates had found an IT job by each month after graduating, allowing for those still looking ({ui.term('censored', 'censored')} graduates).")
     ui.section("Time to first IT job", "Kaplan-Meier estimate: the share of graduates who had found an IT job by each "
                                        "month, accounting for those still looking. Shaded = 95% interval.", data_tag)
     if r["km"]:
         st.plotly_chart(cs.km_curve(r["km"], info["horizon_months"]), config=ui.PLOT, key="km")
 
 with tabs[4]:
+    ui.in_short("This checks whether the model ranks graduates about equally well in each group. Overlapping intervals mean there is no evidence of a difference.")
     ui.section("Fairness by subgroup", "Does the model rank graduates equally well across gender and institution type? "
                                        "Overlapping intervals = no evidence of a difference. Gender is never a model input.",
                data_tag)
@@ -130,6 +135,7 @@ with tabs[4]:
                          hide_index=True)
 
 with tabs[5]:
+    ui.in_short("This checks that the results hold when data-cleaning choices change, and when the model is trained on earlier graduates and tested on later ones.")
     ui.section("Robustness", "Do the results survive different data decisions, and a model trained on earlier cohorts "
                              "tested on later ones?", data_tag)
     c1, c2 = st.columns([0.45, 0.55], gap="large")
@@ -160,6 +166,7 @@ with tabs[5]:
                        "validation set. Max cal. err: largest gap between predicted and observed share employed.")
 
 with tabs[6]:
+    ui.in_short("This tests the method itself on invented surveys where the true answer is known, and shows how many respondents a real survey needs.")
     sim = r.get("simulation")
     ui.section("Simulation study", "Because the synthetic generator's true effects are known, we can test the method "
                                    "itself: draw hundreds of fresh surveys, refit, and count how often each true effect is "
@@ -189,6 +196,7 @@ with tabs[6]:
                    "survey-based studies like this one.")
 
 with tabs[7]:
+    ui.in_short("This checks the survey itself (repeated and logic questions) and compares what graduates and employers said.")
     qs = ui.fetch("/questionnaire")
     if qs:
         q_tag = "synthetic" if qs["is_synthetic"] else "real"
@@ -248,6 +256,7 @@ with tabs[7]:
                         f"{s_['label']} {s_['pct']}%" for s_ in x["shares"][:6] if s_["pct"] is not None))
 
 with tabs[8]:
+    ui.in_short("The data, the model, and the limits of what it can tell you.")
     c1, c2 = st.columns(2, gap="large")
     with c1:
         st.markdown("**The data**")
@@ -273,3 +282,6 @@ with tabs[8]:
         st.markdown(info["associational_note"])
         st.markdown("**Privacy**")
         st.markdown(info["privacy"])
+
+with st.expander("Glossary: the technical words in plain language", icon=":material/menu_book:"):
+    st.markdown("\n".join(f"- **{name}**: {definition}" for name, definition in ui.GLOSSARY.values()))
