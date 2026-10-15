@@ -270,6 +270,25 @@ See `docs/architecture.md` for the component diagram.
 | `artifacts/accuracy_experiments.md` | Neural, boosting, forest and ensemble models vs Cox, and the accuracy ceiling |
 | `docs/synthetic_data.md` | The synthetic data-generating process and its true effects |
 
+### Walkthrough notebook
+
+[`notebooks/research_walkthrough.ipynb`](notebooks/research_walkthrough.ipynb) walks through the whole analysis in
+14 commented sections - data and cleaning, exploratory analysis (correlations, skill ratings, reliability, scree
+plots), Kaplan-Meier curves, the split, training and tuning, model comparison and selection, model checks, diagnostics,
+the test result, fairness, robustness, skill gaps, usability and the LLM benchmark - with every table and chart saved
+in the notebook, so it can be **read on GitHub without running anything**. It calls the code in `core/` (no copied
+logic), trains and tunes live on the training and validation sets, and **loads** the locked test-set result instead of
+recomputing it. Its last section checks that its numbers match the reported ones. Only summaries are shown, never
+individual respondents.
+
+To re-run it you need the survey data (not on GitHub, for privacy) and the notebook tools:
+
+```powershell
+pip install -r requirements-notebook.txt
+python notebooks/build_walkthrough.py          # rebuilds the notebook from its source
+jupyter nbconvert --to notebook --execute --inplace notebooks/research_walkthrough.ipynb --ExecutePreprocessor.timeout=1800
+```
+
 ## 8. Privacy
 
 Respondent-level files (`data/raw/`, `data/processed/`, `reference.db`, out-of-fold predictions, the
