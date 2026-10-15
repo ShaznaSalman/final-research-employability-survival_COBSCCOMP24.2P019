@@ -172,6 +172,44 @@ print("Graduates hired at or before completion (duration set to 0.5 months):",
       int((grads["duration_months"] <= schema.JOB_BEFORE_GRADUATION_MONTHS).sum()))
 display(grads.groupby("event")["duration_months"].describe().rename(index={0: "still searching", 1: "found IT job"}))
 ''')
+md("""
+### 2.1 Class balance and the distribution of the outcome
+
+In survival analysis the two "classes" are **found an IT job (event)** and **still searching (censored)**. About one
+in four graduates was still searching, a moderate level of censoring that survival models handle directly. The
+histogram shows how long each group had been followed: months to the first job for those who found one, months of
+searching so far for those still looking.
+""")
+code(r'''
+# ---- Class balance: found an IT job vs still searching (all 885 modelling graduates) ----------------------------
+FOUND, SEARCHING = "#2a78d6", "#eb6834"          # one colour per outcome, used in every chart below
+counts = grads["event"].map({1: "Found an IT job", 0: "Still searching"}).value_counts()
+counts = counts.reindex(["Found an IT job", "Still searching"])
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4), gridspec_kw={"width_ratios": [1, 1.6]})
+bars = ax1.bar(counts.index, counts.values, color=[FOUND, SEARCHING], width=0.6)
+for bar, n in zip(bars, counts.values):           # label each bar with its count and share
+    ax1.annotate(f"{n}\n({n / counts.sum():.1%})", (bar.get_x() + bar.get_width() / 2, n),
+                 ha="center", va="bottom", fontsize=10)
+ax1.set_ylim(0, counts.max() * 1.25)
+ax1.set_ylabel("Graduates")
+ax1.set_title(f"Class balance (n = {counts.sum()})", loc="left")
+
+# ---- Distribution of the outcome time, by group (0-24 months; a few longer follow-ups are clipped at 24) --------
+bins = np.arange(0, 25, 1)
+for value, label, colour in ((1, "Found an IT job: months to the first job", FOUND),
+                             (0, "Still searching: months searched so far", SEARCHING)):
+    times = grads.loc[grads["event"] == value, "duration_months"].clip(upper=24)
+    ax2.hist(times, bins=bins, color=colour, alpha=0.75, label=label, edgecolor="white")
+ax2.set_xlabel("Months after degree completion (longer times grouped at 24)")
+ax2.set_ylabel("Graduates")
+ax2.set_title("Distribution of the outcome time", loc="left")
+ax2.legend(frameon=False)
+for ax in (ax1, ax2):
+    ax.grid(axis="y", alpha=0.3)
+    ax.spines[["top", "right"]].set_visible(False)
+show_fig(fig)
+''')
 
 # ---------------------------------------------------------------------------------------------------------------------
 md("""
@@ -187,6 +225,52 @@ valid = splits.load("validation")
 
 raw = preprocess.raw_feature_frame(train)          # predictors before imputation and scaling
 display(raw.select_dtypes("number").describe().T.round(2))
+''')
+md("""
+### 3.0 Distribution of each predictor
+
+Histograms of the numeric predictors and bar charts of the categorical ones (training set). Skewed counts (most
+graduates with few certifications or hackathons) and heaping (many internships of exactly 6 months) are visible here.
+""")
+code(r'''
+# ---- Histograms of the numeric predictors (training set, original units) ----------------------------------------
+numeric = {"gpa": "GPA", "internship_months": "Internship (months)", "certifications_count": "Certifications",
+           "project_count": "Projects", "technical_mean": "Technical skill score (1-5)",
+           "soft_mean": "Soft-skill score (1-5)", "hackathon_count": "Hackathons / events", "prep_years": "Years of preparation"}
+fig, axes = plt.subplots(2, 4, figsize=(14, 6))
+for ax, (col, label) in zip(axes.ravel(), numeric.items()):
+    values = pd.to_numeric(raw[col], errors="coerce").dropna()
+    discrete = bool(np.allclose(values, values.round()))   # whole-number counts: one bar per value; others: 15 bins
+    ax.hist(values, bins=np.arange(values.min(), values.max() + 2) - 0.5 if discrete else 15,
+            color="#2a78d6", edgecolor="white")
+    ax.set_title(f"{label}\nmean {values.mean():.2f}, median {values.median():.2f} (n = {len(values)})",
+                 fontsize=9, loc="left")
+    ax.grid(axis="y", alpha=0.3)
+    ax.spines[["top", "right"]].set_visible(False)
+fig.suptitle("Distribution of the numeric predictors (training set)", x=0.01, ha="left")
+fig.tight_layout()
+show_fig(fig)
+
+# ---- Bar charts of the categorical predictors, plus gender (used only in the fairness check, never as an input) ---
+categorical = {"university_type": "Institution type", "degree_group": "Degree group",
+               "has_portfolio": "Portfolio before completion", "open_source": "Open-source contribution",
+               "gender": "Gender (fairness check only)"}
+READABLE = {"foreign_affiliated": "Foreign-affiliated", "non_state": "Non-state", "state": "State",
+            "computing": "Computing", "it_is": "IT / IS", "specialised": "Specialised", "yes": "Yes", "no": "No",
+            "male": "Male", "female": "Female", "prefer_not_to_say": "Prefer not to say", "missing": "Missing"}
+fig, axes = plt.subplots(1, 5, figsize=(16, 3.6))
+for ax, (col, label) in zip(axes, categorical.items()):
+    shares = train[col].fillna("missing").astype(str).replace(READABLE).value_counts()
+    ax.barh(shares.index[::-1], shares.values[::-1], color="#2a78d6")
+    for i, n in enumerate(shares.values[::-1]):    # write the count and share at the end of each bar
+        ax.annotate(f"{n} ({n / shares.sum():.0%})", (n, i), xytext=(3, 0), textcoords="offset points",
+                    va="center", fontsize=8)
+    ax.set_xlim(0, shares.max() * 1.45)
+    ax.set_title(label, fontsize=10, loc="left")
+    ax.spines[["top", "right"]].set_visible(False)
+fig.suptitle("Distribution of the categorical predictors (training set)", x=0.01, ha="left")
+fig.tight_layout()
+show_fig(fig)
 ''')
 md("""
 ### 3.1 Correlation between predictors
@@ -341,6 +425,24 @@ by_split = splits.summary(with_split)
 by_split["still searching"] = by_split["graduates"] - by_split["events"]
 by_split["share censored"] = (by_split["still searching"] / by_split["graduates"]).map("{:.1%}".format)
 display(by_split)
+
+# ---- Class balance in each split: the stratified split keeps about the same share still searching ---------------
+fig, ax = plt.subplots(figsize=(9, 3.2))
+y = np.arange(len(by_split))
+found, searching = by_split["events"].to_numpy(), by_split["still searching"].to_numpy()
+ax.barh(y, found, color="#2a78d6", label="Found an IT job")
+ax.barh(y, searching, left=found, color="#eb6834", label="Still searching")
+for i, (f, s) in enumerate(zip(found, searching)):        # share still searching at the end of each bar
+    ax.annotate(f"{s / (f + s):.1%} still searching", (f + s, i), xytext=(5, 0), textcoords="offset points",
+                va="center", fontsize=9)
+ax.set_yticks(y, [f"{r} (n = {n})" for r, n in zip(by_split["split"], by_split["graduates"])])
+ax.invert_yaxis()
+ax.set_xlim(0, by_split["graduates"].max() * 1.35)
+ax.set_xlabel("Graduates")
+ax.set_title("Class balance by split (stratified by event and institution type)", loc="left")
+ax.legend(frameon=False, loc="lower right")
+ax.spines[["top", "right"]].set_visible(False)
+show_fig(fig)
 ''')
 
 # ---------------------------------------------------------------------------------------------------------------------
