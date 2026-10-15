@@ -282,7 +282,15 @@ logic), trains and tunes live on the training and validation sets, and **loads**
 recomputing it. Its last section checks that its numbers match the reported ones. Only summaries are shown, never
 individual respondents.
 
-To re-run it you need the survey data (not on GitHub, for privacy) and the notebook tools:
+Each main output is followed by a short "What this shows" note, the tables use readable names, and the overview at the
+top links to every section.
+
+**No access to the survey data?** Set `USE_SYNTHETIC = True` in the first code cell. The notebook then copies the code
+to a temporary folder, generates synthetic survey data with `core/synthetic.py` and runs the whole pipeline there
+(about 3 extra minutes); the real `data/` and `artifacts/` folders are never touched. The SUS, LLM-benchmark and
+coding-agreement sections are skipped, because they need real human responses.
+
+To re-run it on the real data you need the survey data (not on GitHub, for privacy) and the notebook tools:
 
 ```powershell
 pip install -r requirements-notebook.txt
