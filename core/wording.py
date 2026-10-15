@@ -287,6 +287,18 @@ INSTITUTIONS_BY_TYPE = {
 DEGREE_CLASS_LABELS = {"first": "First class", "second_upper": "Second class upper",
                        "second_lower": "Second class lower", "third_or_pass": "Third class / general pass"}
 CONFIDENCE_LABEL = {"High": "High confidence", "Medium": "Medium confidence", "Low": "Low confidence"}
+# Added after the usability study (participants asked for the terms and charts to be explained).
+READING_GUIDE = [
+    "**Most likely time** - half of past graduates with a profile like yours had found an IT job by this month.",
+    "**Typical range** - the middle half of those graduates: a quarter found work sooner than the first number and "
+    "a quarter took longer than the second.",
+    "**Confidence** - how much the most likely time moves when the model is re-estimated on resampled data. Low "
+    "confidence means few similar graduates were in the data.",
+    "**The bar chart** shows the typical range; **the chance chart** shows the share of similar graduates who had "
+    "found an IT job by each month.",
+    "**What's helping / holding you back** compares your profile with a typical graduate. These are patterns in past "
+    "graduates' data, not the effect of changing any one thing.",
+]
 PEERS_UNADJUSTED_NOTE = ("Each group is compared on its own, without accounting for other differences (GPA, skills, "
                          "experience). That is why a group can look faster or slower here than the model's "
                          "explanations suggest.")

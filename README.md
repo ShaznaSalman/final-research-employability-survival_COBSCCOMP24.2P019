@@ -168,7 +168,7 @@ Details: `docs/secondary_analyses.md`.
 |---|---|---|
 | `python -m core.market_study` (also in `run_all`) | Skill demand in the real ads, role profiles, skill bundles, interns vs junior roles, named technologies | `job_market_study.md` |
 | `python -m core.survey_study` (also in `run_all`) | Every questionnaire item that is not a model input: repeated questions tested against the model question they repeat, graduates vs employers, self-perceived employability vs outcome, artifact requirements, descriptive results for every item | `questionnaire_study.md` |
-| `python -m core.sus_study` (also in `run_all`) | Usability (RQ4): System Usability Scale scores from the form export in `New Data/Usability (SUS)/`, mean with 95% CI against the benchmark of 68, t and Wilcoxon tests, Cronbach's alpha, grade, item means and coded comments | `sus_study.md` |
+| `python -m core.sus_study` (also in `run_all`) | Usability (RQ4): System Usability Scale scores from the form export in `New Data/Usability (SUS)/`, mean with 95% CI against the benchmark of 68, t and Wilcoxon tests, Cronbach's alpha, approximate percentile, item means and coded comments | `sus_study.md` |
 | `python -m core.simulation_study --reps 200` (about 5 min) | Does the analysis recover known effects? Power by sample size, false positives, coverage | `simulation_study.md` |
 | `python -m core.accuracy_experiments` (about 3 min) | Do flexible models (neural networks DeepSurv/DeepHit/Cox-Time/N-MTLR, boosting, forest, ensemble) beat Cox? Accuracy ceiling | `accuracy_experiments.md` |
 | `python -m core.learning_curve` (about 1 min) | Would more respondents improve discrimination? Selected model fitted on 25-100% of the training set, scored on validation | `learning_curve.md` |

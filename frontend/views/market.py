@@ -13,7 +13,7 @@ m = ui.fetch("/job-market")
 if not m:
     st.stop()
 
-ui.hero("Job market · real data",
+ui.hero("Job market",
         "What Sri Lankan employers ask of entry-level IT graduates",
         f"{m['n_ads']} real internship, trainee, junior and associate IT vacancies from {m['n_companies']} companies, "
         f"posted {pd.Timestamp(m['date_from']):%d %b} - {pd.Timestamp(m['date_to']):%d %b %Y}, coded against the same "

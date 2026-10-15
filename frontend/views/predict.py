@@ -149,7 +149,9 @@ with right:
                 f"<div class='rng'>Typical range {ui.esc(pred['low']['display'])} - {ui.esc(hi)} months · "
                 f"{ui.esc(wording.CONFIDENCE_LABEL[pred['confidence']])}</div>"
                 f"<div class='hl'>{pred['headline']}</div></div>", unsafe_allow_html=True)
-    st.caption(pred["confidence_reason"])
+    st.caption(f"{pred['confidence_reason']} Source: survey answers of {info['training_n']} Sri Lankan IT graduates.")
+    with st.expander("How to read this result", icon=":material/help:"):
+        st.markdown("\n".join(f"- {line}" for line in wording.READING_GUIDE))
     for c in pred["cautions"]:
         st.warning(c, icon=":material/warning:")
     now = pred["months_since_graduation"]
@@ -245,10 +247,11 @@ with right:
 # ---------------------------------------------------------------------------
 CHAT_STARTERS = ["Why is my estimate like this?", "What if I do a 6-month internship?",
                  "Which skills should I learn?", "Can I trust this estimate?"]
-ui.section("Ask about your result", "Answers come only from this system's own results, using your current profile - "
-           "it is not a general chatbot. Nothing you type is stored.")
-with st.container(border=True):
-    history = st.session_state.setdefault("chat_history", [])
+history = st.session_state.setdefault("chat_history", [])
+# Collapsed until used, so the estimate stays the focus of the page (usability study feedback).
+with st.expander("Ask about your result", icon=":material/chat:", expanded=bool(history)):
+    st.caption("Answers come only from this system's own results, using your current profile - it is not a general "
+               "chatbot. Nothing you type is stored.")
     for role, text in history[-12:]:
         with st.chat_message(role):
             st.markdown(text)

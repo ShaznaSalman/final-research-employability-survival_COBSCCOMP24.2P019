@@ -2,9 +2,9 @@
 
 How representative is the sample? The modelling graduates (all roles; descriptive only) are compared with the
 published figures already used to calibrate the synthetic data (core/synthetic.py ANCHORS; sources in
-docs/synthetic_data.md): University of Kelaniya (2022) graduate employability survey and ICTA (2019) IT-BPM workforce
-survey. The published figures cover other populations (all faculties of one university; the ICT workforce), so the
-comparison shows direction, not a formal test.
+docs/synthetic_data.md). Only sources from 2022 onwards are compared: the University of Kelaniya (2022) graduate
+employability survey (the ICTA 2019 workforce figure is used for the synthetic data only). The published figures cover
+another population (all faculties of one university), so the comparison shows direction, not a formal test.
 
 Writes artifacts/sample_comparison.{json,md}.
 Run:  python -m core.sample_comparison
@@ -22,16 +22,14 @@ from core.synthetic import ANCHORS
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / "artifacts"
+COMPARED = ("mean_months_after_completion", "employed_before_completion_pct", "employed_at_survey_pct")
 
 
 def compare(df: pd.DataFrame) -> list[dict]:
     employed = df[df["event"] == 1]
     after = employed[employed["duration_months"] > schema.JOB_BEFORE_GRADUATION_MONTHS]
-    gave_gender = df[df["gender"].isin(["female", "male"])]
     km = KaplanMeierFitter().fit(df["duration_months"], df["event"])
     sample = {
-        "female_share_pct": (100 * (gave_gender["gender"] == "female").mean(), len(gave_gender),
-                             "women among graduates who gave female or male"),
         "mean_months_after_completion": (after["duration_months"].mean(), len(after),
                                          "mean months to the first IT job, graduates employed after completion "
                                          "(no minimum follow-up; recent cohorts' long searches are not yet observed)"),
@@ -41,7 +39,8 @@ def compare(df: pd.DataFrame) -> list[dict]:
         "employed_at_survey_pct": (100 * df["event"].mean(), len(df), "share in an IT job at the survey"),
     }
     rows = []
-    for key, (published, _lo, _hi, source) in ANCHORS.items():
+    for key in COMPARED:
+        published, _lo, _hi, source = ANCHORS[key]
         v, n, definition = sample[key]
         rows.append({"measure": key, "sample": round(float(v), 1), "n": int(n), "published": published,
                      "difference": round(float(v) - published, 1), "definition": definition,
@@ -53,7 +52,7 @@ def compare(df: pd.DataFrame) -> list[dict]:
     return rows
 
 
-LABELS = {"female_share_pct": "Women (%)", "mean_months_after_completion": "Mean months to first job",
+LABELS = {"mean_months_after_completion": "Mean months to first job",
           "employed_before_completion_pct": "Employed graduates hired by completion (%)",
           "employed_at_survey_pct": "In an IT job at the survey (%)", "km_median_months": "Median months (Kaplan-Meier)"}
 

@@ -7,10 +7,11 @@ response sheet into "New Data/Usability (SUS)/SUS_evaluations.csv". The file is 
 here.
 
 1. Data checks - consent, eligibility, unique participant codes, ten answers 1-5, straight-lining.
-2. Scoring (Brooke, 1996) - odd items contribute (answer - 1), even items (5 - answer); sum x 2.5 gives 0-100.
+2. Scoring (standard SUS procedure, Hyzy et al., 2022) - odd items contribute (answer - 1), even items (5 - answer); sum x 2.5 gives 0-100.
 3. Against the pre-set criterion (thesis Table 3.6: mean of at least 68, Hyzy et al., 2022) - mean with t and
    bootstrap 95% intervals, one-sample t-test and Wilcoxon signed-rank test against 68, effect size, share >= 68.
-4. Interpretation - curved grade (Lewis & Sauro, 2018), adjective (Bangor et al., 2009), approximate percentile.
+4. Interpretation - approximate percentile (benchmark 68, SD 12.5) and the mean across digital health apps
+   (Hyzy et al., 2022).
 5. Reliability (Cronbach's alpha of the ten scored items) and item means.
 6. Descriptive subgroups (profile used, background, experience with career sites) - too small to test, reported only.
 7. Open comments coded into themes with fixed keyword rules (every comment must receive at least one theme).
@@ -37,7 +38,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "New Data" / "Usability (SUS)" / "SUS_evaluations.csv"
 ARTIFACTS = ROOT / "artifacts"
 BENCHMARK = 68.0           # pre-set criterion (thesis Table 3.6)
-POPULATION_SD = 12.5       # SD of SUS scores across studies, used only for the approximate percentile
+POPULATION_SD = 12.5       # SD of the benchmark distribution (68 +/- 12.5, Hyzy et al., 2022); approximate percentile only
+APPS_MEAN = 76.64          # mean SUS across 114 digital health apps (Hyzy et al., 2022), for comparison only
 SEED, N_BOOT = 2026, 10_000
 
 ITEMS = [f"SUS{i}" for i in range(1, 11)]
@@ -60,12 +62,6 @@ CONSENT = ("I have read and understood the information above.",
 ELIGIBLE = "All of these apply to me"
 CODE = re.compile(r"^P\d{2}$")
 
-# Lewis & Sauro (2018) curved grading scale: (lower bound, grade)
-GRADES = [(84.1, "A+"), (80.8, "A"), (78.9, "A-"), (77.2, "B+"), (74.1, "B"), (72.6, "B-"), (71.1, "C+"),
-          (65.0, "C"), (62.7, "C-"), (51.7, "D"), (0.0, "F")]
-# Bangor, Kortum & Miller (2009): mean SUS score of each adjective rating
-ADJECTIVES = [(85.5, "Excellent"), (71.4, "Good"), (50.9, "OK"), (35.7, "Poor"), (20.3, "Awful"),
-              (0.0, "Worst imaginable")]
 
 # Fixed keyword rules for the open comments (lower case, substring match). Each comment must match at least one.
 ISSUE_THEMES = {
@@ -144,13 +140,6 @@ def sus_score(answers: pd.DataFrame) -> pd.Series:
     return contributions(answers).sum(axis=1) * 2.5
 
 
-def grade(score: float) -> str:
-    return next(g for lo, g in GRADES if score >= lo)
-
-
-def adjective(score: float) -> str:
-    return next(a for lo, a in ADJECTIVES if score >= lo)
-
 
 def cronbach_alpha(items: pd.DataFrame) -> float:
     k = items.shape[1]
@@ -180,7 +169,6 @@ def summary(scores: pd.Series, benchmark: float = BENCHMARK) -> dict:
         "cohens_d": round((mean - benchmark) / sd, 2),
         "at_or_above_benchmark": k, "share_at_or_above": round(k / n, 3),
         "share_ci": [round(v, 3) for v in wilson(k, n)],
-        "grade": grade(mean), "adjective": adjective(mean),
         "percentile_approx": round(float(stats.norm.cdf((mean - benchmark) / POPULATION_SD)) * 100),
         "criterion_met": bool(mean >= benchmark), "ci_above_benchmark": bool(mean - tcrit * se > benchmark),
     }
@@ -305,7 +293,7 @@ def to_markdown(r: dict) -> str:
         f"| Excluded | {', '.join(c['excluded']) or 'none'} |",
         f"| **Analysed** | **{c['analysed']}** |", "",
         "## Scoring", "",
-        "Brooke (1996): odd-numbered (positive) items contribute answer - 1, even-numbered (negative) items 5 - answer; "
+        "Standard SUS procedure (Hyzy et al., 2022): odd-numbered (positive) items contribute answer - 1, even-numbered (negative) items 5 - answer; "
         "the ten contributions (0-4 each) are summed and multiplied by 2.5, giving 0-100.", "",
         "## Result against the pre-set criterion (mean SUS of at least 68)", "",
         "| Measure | Value |", "|---|---|",
@@ -322,9 +310,8 @@ def to_markdown(r: dict) -> str:
         f"| Effect size (mean - {s['benchmark']:g}) / SD | d = {s['cohens_d']:.2f} |",
         f"| Participants scoring {s['benchmark']:g} or more | {s['at_or_above_benchmark']} of {s['n']} "
         f"({s['share_at_or_above']:.0%}, Wilson 95% CI {s['share_ci'][0]:.0%} to {s['share_ci'][1]:.0%}) |",
-        f"| Curved grade (Lewis & Sauro, 2018) | {s['grade']} |",
-        f"| Adjective (Bangor et al., 2009) | {s['adjective']} |",
-        f"| Approximate percentile (normal, mean 68, SD {POPULATION_SD:g}) | {s['percentile_approx']}th |",
+        f"| Approximate percentile (normal, mean 68, SD {POPULATION_SD:g}; Hyzy et al., 2022) | {s['percentile_approx']}th |",
+        f"| Mean across 114 digital health apps (Hyzy et al., 2022), for comparison | {APPS_MEAN:g} |",
         f"| Internal consistency (Cronbach's alpha, 10 scored items) | {r['alpha']:.2f} |", "",
         f"**Criterion {'met' if s['criterion_met'] else 'not met'}**: the mean is {s['mean']:.2f} and the lower end of the "
         f"95% interval ({s['ci_low']:.2f}) is {'above' if s['ci_above_benchmark'] else 'not above'} {s['benchmark']:g}.", "",
@@ -364,14 +351,8 @@ def to_markdown(r: dict) -> str:
               "the session sheet (Appendix L) was filled in during the sessions. Comments show that P06 and P11 asked "
               "the researcher for help.", "",
               "## References", "",
-              "- Bangor, A., Kortum, P., & Miller, J. (2009). Determining what individual SUS scores mean: Adding an "
-              "adjective rating scale. Journal of Usability Studies, 4(3), 114-123.",
-              "- Brooke, J. (1996). SUS: A 'quick and dirty' usability scale. In P. W. Jordan et al. (Eds.), Usability "
-              "evaluation in industry (pp. 189-194). Taylor & Francis.",
               "- Hyzy, M., et al. (2022). System Usability Scale benchmarking for digital health apps: Meta-analysis. "
-              "JMIR mHealth and uHealth, 10(8), e37290.",
-              "- Lewis, J. R., & Sauro, J. (2018). Item benchmarks for the System Usability Scale. Journal of Usability "
-              "Studies, 13(3), 158-167.", ""]
+              "JMIR mHealth and uHealth, 10(8), e37290.", ""]
     return "\n".join(lines)
 
 
@@ -392,4 +373,4 @@ if __name__ == "__main__":
     r = run()
     s = r["summary"]
     print(f"SUS n = {s['n']}: mean {s['mean']:.2f} (95% CI {s['ci_low']:.2f}-{s['ci_high']:.2f}), "
-          f"grade {s['grade']}, {s['adjective']}; criterion >= {s['benchmark']:g} {'met' if s['criterion_met'] else 'not met'}")
+          f"about the {s['percentile_approx']}th percentile; criterion >= {s['benchmark']:g} {'met' if s['criterion_met'] else 'not met'}")

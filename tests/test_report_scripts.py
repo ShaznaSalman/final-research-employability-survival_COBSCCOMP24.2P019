@@ -171,9 +171,10 @@ def test_robustness_figure(tmp_path):
 # ---------------------------------------------------------------------------------------------- sample comparison
 def test_sample_comparison_measures(train_df):
     rows = {r["measure"]: r for r in sample_comparison.compare(train_df)}
-    assert set(rows) >= {"female_share_pct", "mean_months_after_completion", "employed_before_completion_pct",
+    assert set(rows) >= {"mean_months_after_completion", "employed_before_completion_pct",
                          "employed_at_survey_pct", "km_median_months"}
-    for k in ("female_share_pct", "employed_before_completion_pct", "employed_at_survey_pct"):
+    assert "female_share_pct" not in rows        # ICTA (2019) is before 2022: not compared
+    for k in ("employed_before_completion_pct", "employed_at_survey_pct"):
         assert 0 <= rows[k]["sample"] <= 100
     assert rows["employed_at_survey_pct"]["sample"] == pytest.approx(100 * train_df["event"].mean(), abs=0.05)
     md = sample_comparison.to_markdown(list(rows.values()))

@@ -34,11 +34,10 @@ def test_scoring_matches_hand_calculation():
     assert sus_study.sus_score(answers([4, 2, 4, 1, 4, 2, 5, 2, 4, 2])).iloc[0] == 80.0
 
 
-def test_grade_and_adjective_boundaries():
-    assert sus_study.grade(84.1) == "A+" and sus_study.grade(84.0) == "A" and sus_study.grade(74.1) == "B"
-    assert sus_study.grade(68) == "C" and sus_study.grade(51.6) == "F"
-    assert sus_study.adjective(71.4) == "Good" and sus_study.adjective(71.3) == "OK"
-    assert sus_study.adjective(90) == "Excellent"
+def test_percentile_uses_benchmark_distribution():
+    # Benchmark 68 +/- 12.5 (Hyzy et al., 2022): the benchmark itself is the 50th percentile, one SD above about the 84th
+    assert sus_study.summary(pd.Series([66, 70.0]))["percentile_approx"] == 50
+    assert sus_study.summary(pd.Series([78.5, 82.5]))["percentile_approx"] == 84
 
 
 def test_summary_interval_and_test_against_benchmark():
@@ -99,6 +98,6 @@ def test_real_export_reproduces_reported_result(tmp_path):
     s = r["summary"]
     assert r["checks"]["analysed"] == 12 and not r["checks"]["excluded"]
     assert s["mean"] == 76.25 and (s["ci_low"], s["ci_high"]) == (69.53, 82.97)
-    assert (s["min"], s["max"]) == (60.0, 92.5) and s["grade"] == "B" and s["criterion_met"]
+    assert (s["min"], s["max"]) == (60.0, 92.5) and s["percentile_approx"] == 75 and s["criterion_met"]
     assert not r["issues"]["uncoded"] and not r["useful"]["uncoded"]
     assert (tmp_path / "sus_study.md").exists() and (tmp_path / "figures" / "sus_scores.png").exists()
