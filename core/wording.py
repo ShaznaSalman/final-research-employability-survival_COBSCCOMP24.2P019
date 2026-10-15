@@ -290,7 +290,9 @@ CONFIDENCE_LABEL = {"High": "High confidence", "Medium": "Medium confidence", "L
 PEERS_UNADJUSTED_NOTE = ("Each group is compared on its own, without accounting for other differences (GPA, skills, "
                          "experience). That is why a group can look faster or slower here than the model's "
                          "explanations suggest.")
-WHATIF_PROMPT = "Move a slider to see how graduates with the changed profile compared."
+WHATIF_PROMPT = ("Move a slider to see how graduates with the changed profile compared. In the study, only GPA and "
+                 "internship experience were clearly linked to a shorter search; other sliders show patterns, not "
+                 "effects you can count on.")
 
 # ---------------------------------------------------------------------------
 # Model performance in plain terms (About tab, model report)
@@ -328,6 +330,7 @@ SUGGESTION_CHANGE = {
     "area": "{label} rated {new:g} instead of {old:g}",
 }
 SUGGESTIONS_NOTE = ("These combinations are patterns in past graduates' data, chosen as small, realistic changes. "
-                    "They are ideas to explore, not guarantees.")
+                    "They are ideas to explore, not guarantees. In the study, only GPA and internship experience were "
+                    "clearly linked to a shorter search.")
 NO_SUGGESTIONS = ("No small, realistic change in the things you can control is associated with a noticeably "
                   "shorter search for profiles like yours.")
