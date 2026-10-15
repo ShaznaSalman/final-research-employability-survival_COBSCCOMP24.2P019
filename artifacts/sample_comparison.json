@@ -1,0 +1,47 @@
+[
+ {
+  "measure": "female_share_pct",
+  "sample": 35.1,
+  "n": 838,
+  "published": 30.3,
+  "difference": 4.8,
+  "definition": "women among graduates who gave female or male",
+  "source": "ICTA (2019): women among Bachelor's-level ICT workforce"
+ },
+ {
+  "measure": "mean_months_after_completion",
+  "sample": 5.0,
+  "n": 550,
+  "published": 8.0,
+  "difference": -3.0,
+  "definition": "mean months to the first IT job, graduates employed after completion (no minimum follow-up; recent cohorts' long searches are not yet observed)",
+  "source": "Univ. of Kelaniya (2022): Faculty of Computing & Technology"
+ },
+ {
+  "measure": "employed_before_completion_pct",
+  "sample": 17.5,
+  "n": 667,
+  "published": 18.1,
+  "difference": -0.6,
+  "definition": "share of employed graduates whose IT job began at or before completion",
+  "source": "Univ. of Kelaniya (2022): found work before/while studying"
+ },
+ {
+  "measure": "employed_at_survey_pct",
+  "sample": 75.4,
+  "n": 885,
+  "published": 60.5,
+  "difference": 14.9,
+  "definition": "share in an IT job at the survey",
+  "source": "Univ. of Kelaniya (2022): all-faculty rate; IT expected higher"
+ },
+ {
+  "measure": "km_median_months",
+  "sample": 4.0,
+  "n": 885,
+  "published": null,
+  "difference": null,
+  "definition": "Kaplan-Meier median months to the first IT job (accounts for graduates still searching)",
+  "source": "-"
+ }
+]

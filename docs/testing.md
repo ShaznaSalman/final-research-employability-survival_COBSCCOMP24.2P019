@@ -6,7 +6,7 @@ Run everything from the project root (venv active):
 pytest
 ```
 
-275 automated tests, about 2 minutes. No test needs `artifacts/` or `data/` to exist - each builds its
+295 automated tests, about 2 minutes. No test needs `artifacts/` or `data/` to exist - each builds its
 own small synthetic dataset and models, and anything written goes to a temporary folder.
 
 ## Requirement -> test map
@@ -51,6 +51,7 @@ own small synthetic dataset and models, and anything written goes to a temporary
 | API rejects invalid / extra fields (e.g. gender) and never stores profiles | `test_api.py::test_invalid_*`, `::test_api_never_stores_profiles` |
 | **SUS scoring** follows Brooke (1996) (0 / 50 / 100 extremes, hand-calculated example); grade and adjective boundaries; t interval; excluded rows (no consent, not eligible, incomplete, duplicate code); straight-lining and acquiescence flags; every comment coded; the real export reproduces the reported mean 76.25 (95% CI 69.53-82.97) | `test_sus_study.py` |
 | **Benchmark scorer handles unparseable responses** | `test_benchmark.py::test_parse_months_unparseable[*]`, `::test_score_with_responses_including_unparseable` |
+| **Report-only scripts for the thesis appendices** (learning curve, error analysis, DeepSurv curves, tuning results, time-dependent metrics, exploratory and evaluation figures, sample comparison, baselines) compute sane values and write their reports and figures | `test_report_scripts.py` (20 tests) |
 | LLM API mode: fills template rows, resumes, appends a second LLM, saves on failure, records refusals, no network in tests | `test_run_llm.py` |
 | Secondary analyses: Q16a leaves the main data unchanged and old exports without it are accepted; competing-outcome rules; cumulative incidences <= 1; careless / heaped detection; Rubin's rules; multiple imputation; earlier-vs-later split; conservative clustering CI never narrower, institutions never named | `test_robustness.py` |
 | Prompt variants: standard prompt unchanged, Sri Lanka absent only in `no_country`, range parsing and coverage, variant rows kept separate in API mode, old responses without a variant column still scored | `test_benchmark.py::test_*variant*`, `::test_parse_range*`, `test_run_llm.py::test_variant_rows_are_kept_separate`, `::test_range_prompts_are_sent_for_range_variant` |

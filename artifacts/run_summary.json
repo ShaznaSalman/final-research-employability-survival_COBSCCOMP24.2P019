@@ -159,6 +159,13 @@
     }
   },
   "benchmark": {
-    "skipped": "The training data changed since the prompts were exported, so recorded responses no longer match the profiles. Run `python -m benchmark.export_prompts --force-template` and collect new responses."
+    "profiles": 132,
+    "responses_answered": 192,
+    "unparseable": 0,
+    "llms": [
+      "ChatGPT GPT-5.6"
+    ],
+    "model_uno_c": 0.619,
+    "variant_comparisons": 0
   }
 }

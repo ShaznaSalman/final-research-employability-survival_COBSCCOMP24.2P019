@@ -95,7 +95,7 @@ It opens at http://localhost:8501 with four pages (top navigation): **Home**, **
 pytest
 ```
 
-275 tests, about 2 minutes. See `docs/testing.md` for the
+295 tests, about 2 minutes. See `docs/testing.md` for the
 requirement-to-test map.
 
 ---
@@ -177,6 +177,8 @@ Details: `docs/secondary_analyses.md`.
 | `python -m core.tuning_results` | Every tuning configuration with its validation Uno's C; checks the chosen settings match the main analysis | `tuning_results.md` |
 | `python -m core.time_dependent_metrics` | Supplementary: time-dependent AUC at 3/6/12 months for every candidate, and the Brier score over time vs Kaplan-Meier (validation set) | `time_dependent_metrics.md`, `figures/brier_over_time.png` |
 | `python -m core.eda_figures` | Exploratory figures (training set): predictor correlation heatmap, distribution of the skill ratings, scree plots with parallel analysis | `eda_figures.md`, `figures/eda_*.png` |
+| `python -m core.baselines` | How much do the inputs add? Selected model vs GPA only, GPA + internship and the core inputs (validation, paired bootstrap) | `baselines.md` |
+| `python -m core.sample_comparison` | How representative is the sample? Compared with published Sri Lankan figures (Kelaniya 2022, ICTA 2019) | `sample_comparison.md` |
 | `python -m core.evaluation_figures` | Evaluation figures: Kaplan-Meier with numbers at risk, AFT distribution fit, labelled Schoenfeld plot, fairness and robustness charts (drawn from the existing reports; the test set is not re-evaluated) | `evaluation_figures.md`, `figures/{km_at_risk,aft_fit,schoenfeld_labelled,fairness,robustness}.png` |
 | `python -m core.coding_agreement --sample`, hand-code, then `python -m core.coding_agreement` | Agreement (Cohen's kappa) between keyword coding and manual coding of 40 ads | `coding_agreement.md` |
 

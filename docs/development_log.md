@@ -44,6 +44,7 @@ meeting records; do not estimate them.
 | 14 Oct 2026 | Data | Import fix: the answer text "None" (Q26, Q28, employer Q6) and the comment "n/a" were read as blank cells by pandas; they are now kept (`schema.SURVEY_NA_VALUES`). Re-ran import, cleaning and the questionnaire study only: model inputs, split and exclusions byte-for-byte identical, so the model and test result are unchanged; descriptive shares for Q26, Q28 and Q6 moved by up to 3 points | `core/import_responses.py`, `core/clean.py` |
 | 10 Oct 2026 | Process | Git initialised; history organised into feature branches; contribution workflow defined | `CONTRIBUTING.md` |
 | 14 Oct 2026 | Evaluation | Usability evaluation: 12 participants, System Usability Scale scored and analysed (mean 76.25, 95% CI 69.53-82.97, criterion of 68 met) | `core/sus_study.py`, `artifacts/sus_study.md` |
+| 15 Oct 2026 | Evaluation | Report-only diagnostics on the training and validation sets: learning curve, error analysis, DeepSurv loss curves, every tuning configuration, time-dependent AUC and Brier score, exploratory and evaluation figures (thesis Appendices E, J and K). Complete-case sensitivity check now includes the extended-set inputs (15 of 16 directions unchanged). No headline result changed; the test set was not used again | `core/learning_curve.py`, `error_analysis.py`, `deepsurv_curves.py`, `tuning_results.py`, `time_dependent_metrics.py`, `eda_figures.py`, `evaluation_figures.py`, `sensitivity.py` |
 
 ## Decisions and why
 
@@ -64,7 +65,12 @@ Parts of the code, documentation and dissertation drafting were produced with th
 assistant (Claude Code). Declare this according to
 the university's policy on AI use.
 
-## Still to do
+## Status (15 Oct 2026)
 
-See the planned branches in `CONTRIBUTING.md`: questionnaire logic fixes, pilot study, real survey import, results
-on real data, usability study, LLM benchmark re-run, Chapters 4-6 and appendices. Done on 11 Oct 2026: real survey import and results on real data. Still open: LLM benchmark re-run on the real profiles (`python -m benchmark.export_prompts --force-template`), usability study, Chapters 4-6. Done on 14 Oct 2026: LLM benchmark (ChatGPT GPT-5.6) and usability study (SUS, 12 participants).
+Done: real survey import and results on the real data (11 Oct 2026); LLM benchmark with ChatGPT GPT-5.6 and the
+usability study with 12 participants (14 Oct 2026); Chapters 4-6 and the appendices; report-only diagnostics
+(15 Oct 2026). The planned branches in `CONTRIBUTING.md` and what became of each are listed there.
+
+Not done: fixes to the artifact from the usability comments - they are reported as recommendations (thesis
+Section 6.5) instead, because changing the artifact after the study would mean the SUS score describes a different
+version.
