@@ -35,7 +35,20 @@ git checkout main && git pull && git branch -d feature/short-name
 
 ## Planned branches for the remaining work
 
-Each entry lists the planned commits and a draft pull-request description. Dates are whenever the work is done.
+This plan was written before the real data were collected. What became of each item (15 Oct 2026):
+
+| Planned branch | Status |
+|---|---|
+| 1. `fix/questionnaire-logic` | Done before collection, outside git: version 2 questionnaires (`docs/questionnaires/`) |
+| 2. `feature/leave-institution-out-cv` | Done differently: each institution type held out in `core/thesis_results.py` (fixed split, no cross-validation); reported in thesis Table 5.4 |
+| 3. `data/pilot-study` | Done outside git: pilot responses in `New Data/Pilot Test/` (not used in any analysis) |
+| 4. `data/real-survey-import` | Done 11 Oct 2026: `core/import_responses.py` |
+| 5. `analysis/real-data-results` | Done 11 Oct 2026: full pipeline on the real data |
+| 6. `feature/usability-fixes` | Not done: usability comments reported as recommendations (thesis Section 6.5), so the SUS score still describes the tested version |
+| 7. `analysis/llm-benchmark` | Done 14 Oct 2026 as `analysis/llm-benchmark-results` |
+| 8. `docs/chapters-4-6` | Done: Chapters 4-6 written in the thesis document (outside git) |
+
+The original plan follows. Each entry lists the planned commits and a draft pull-request description.
 
 ### 1. `fix/questionnaire-logic`
 Commits:
