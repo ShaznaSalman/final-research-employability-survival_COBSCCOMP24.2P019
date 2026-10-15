@@ -42,6 +42,12 @@ results, with every table and chart produced in place.
   chosen; its results are loaded from `artifacts/`. This keeps the rule "test set used once" intact.
 * Only counts, summaries and charts are shown - never individual respondents.
 * Reports that are regenerated here are written to a temporary folder, so `artifacts/` is not changed.
+* **No private data?** Set `USE_SYNTHETIC = True` in the first code cell. The notebook then copies the code to a
+  temporary folder, generates synthetic survey data with the project's own generator and runs the full pipeline there
+  (about 3 extra minutes). The real data and results are never touched. The "What this shows" notes describe the
+  **real** results; with synthetic data the numbers will differ, and the SUS, LLM-benchmark and coding-agreement
+  sections, which need real human responses, are skipped. The diagnostics in section 9 always use the log-normal AFT
+  model, the one selected on the real data.
 
 | Section | Content |
 |---|---|
@@ -69,11 +75,36 @@ md("""
 The first cell finds the project folder, imports the project's modules and defines three small display helpers.
 """)
 code(r'''
+# ---- Choose the data ----------------------------------------------------------------------------------------------
+USE_SYNTHETIC = False   # True: run everything on generated data in a temporary copy (no private data needed)
+
 # ---- Locate the project and make its code importable ------------------------------------------------------------
-import io, json, os, shutil, sys, tempfile, warnings
+import io, json, os, shutil, subprocess, sys, tempfile, warnings
 from pathlib import Path
 
-ROOT = Path.cwd().parent if Path.cwd().name == "notebooks" else Path.cwd()   # works from notebooks/ or the root
+PROJECT = Path.cwd().parent if Path.cwd().name == "notebooks" else Path.cwd()   # works from notebooks/ or the root
+
+if USE_SYNTHETIC:
+    # Copy the code into a temporary folder and run the whole pipeline there on synthetic data, so the real
+    # data/ and artifacts/ folders are never read or overwritten.
+    ROOT = Path(tempfile.mkdtemp(prefix="walkthrough_synthetic_"))
+    for folder in ("core", "benchmark", "api"):
+        shutil.copytree(PROJECT / folder, ROOT / folder, ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copytree(PROJECT / "docs" / "questionnaires", ROOT / "docs" / "questionnaires")
+    for folder in ("data/raw", "data/processed", "data/reference", "artifacts/figures"):
+        (ROOT / folder).mkdir(parents=True, exist_ok=True)
+    for name in ("job_ad_coding_rules.json", "job_ad_technology_rules.json", "learning_resources.csv",
+                 "university_types_SYNTHETIC.csv"):           # the fictional institutions' lookup, not the real one
+        shutil.copy(PROJECT / "data" / "reference" / name, ROOT / "data" / "reference" / name)
+    print("Generating synthetic data and running the full pipeline (about 3 minutes)...")
+    run = subprocess.run([sys.executable, "-m", "core.run_all", "--synthetic", "--quick"], cwd=ROOT,
+                         capture_output=True, text=True)
+    if run.returncode:
+        raise RuntimeError(run.stdout[-3000:] + run.stderr[-3000:])
+    print("SYNTHETIC MODE: every number below comes from generated data, not the survey.")
+else:
+    ROOT = PROJECT
+
 os.chdir(ROOT)                      # the project's code reads data/ and artifacts/ relative to the root
 sys.path.insert(0, str(ROOT))
 warnings.filterwarnings("ignore")   # keep the outputs readable (convergence notes from the survival libraries)
@@ -86,7 +117,7 @@ import matplotlib.pyplot as plt
 from IPython.display import Image, Markdown, display
 
 # The project's own modules - the notebook only calls them, it re-implements nothing
-from core import (baselines, construct_validity, deepsurv_curves, eda_figures, error_analysis, evaluate, evaluation_figures,
+from core import (baselines, construct_validity, deepsurv_curves, sus_study, eda_figures, error_analysis, evaluate, evaluation_figures,
                   learning_curve, preprocess, sample_comparison, schema, splits, thesis_results,
                   time_dependent_metrics, tuning_results)
 
@@ -116,8 +147,58 @@ def show_fig(fig, width=900):
     display(Image(data=buf.getvalue(), width=width))
 
 
+# Readable names for the columns and codes the project's functions return
+COLUMN_NAMES = {
+    "uno_c": "Uno's C", "uno_c_mean": "Uno's C", "uno_c_lo": "95% CI low", "uno_c_hi": "95% CI high",
+    "uno_c_sd": "SD", "uno_c_min": "Lowest", "uno_c_max": "Highest", "harrell_c_mean": "Harrell's C",
+    "ibs": "IBS", "ibs_mean": "IBS", "cal_err_3m_mean": "Calibration error 3 m", "cal_err_6m_mean": "Calibration error 6 m",
+    "cal_err_12m_mean": "Calibration error 12 m", "candidate": "Candidate", "label": "Model", "params": "Setting",
+    "aic": "AIC", "chosen": "Chosen", "matches_main_analysis": "Matches main analysis", "model": "Model",
+    "kmo": "KMO", "bartlett_chi2": "Bartlett chi-square", "bartlett_df": "Bartlett df",
+    "factors_parallel_analysis": "Factors (parallel analysis)", "alpha": "Cronbach's alpha", "alpha_lo": "alpha CI low",
+    "alpha_hi": "alpha CI high", "omega": "McDonald's omega", "ave": "AVE", "loading_min": "Lowest loading",
+    "loading_max": "Highest loading", "block": "Block", "item": "Item", "loading": "Loading",
+    "communality": "Communality", "predictor": "Predictor", "hr": "HR per SD", "lo": "95% CI low", "hi": "95% CI high",
+    "vif": "VIF", "auc_3m": "AUC 3 m", "auc_6m": "AUC 6 m", "auc_12m": "AUC 12 m", "auc_mean": "Mean AUC",
+    "diff_vs_selected": "Difference from selected", "diff_lo": "Difference CI low", "diff_hi": "Difference CI high",
+    "selected_better_share": "Selected better in", "fraction": "Share of training set", "n_train": "Training graduates",
+    "subsamples": "Random subsets", "band": "Actual time to first IT job", "actual_mean": "Mean actual (months)",
+    "predicted_mean": "Mean predicted median", "mean_error": "Mean error", "mae": "Mean absolute error",
+    "input": "Input", "worst": "Worst-predicted tenth", "rest": "Rest", "skill": "Skill", "kind": "Type",
+    "graduate_mean": "Graduates (mean)", "employer_mean": "Employers (mean)", "gap": "Gap", "rank_biserial": "Rank-biserial",
+    "q": "q (BH)", "ad_share": "Share of ads", "predicted_6m": "Predicted employed by 6 m",
+    "observed_6m": "Observed employed by 6 m", "events": "Events", "group": "Group", "level": "Level",
+    "mean_answer": "Mean answer", "sd": "SD", "mean_contribution": "Mean contribution", "text": "Statement",
+    "tone": "Tone", "measure": "Measure", "sample": "Sample", "published": "Published", "difference": "Difference",
+    "source": "Source", "graduates": "Graduates", "split": "Split", "min": "Lowest", "max": "Highest",
+    "count": "Settings", "range": "Range", "n_validation": "Validation graduates", "events_validation": "Events",
+}
+VALUE_NAMES = {**evaluate.LABELS, **evaluation_figures.LABELS, **evaluation_figures.GROUP_LABELS,
+               "aft_best": "AFT (best by AIC)", "technical": "Technical", "soft": "Soft", "train": "Train",
+               "validation": "Validation", "test": "Test"}
+
+
+def show_table(obj, digits=None):
+    """Display a table with readable column names and labels; anything else is displayed as it is."""
+    if isinstance(obj, pd.Series):
+        obj = obj.to_frame()
+    if not isinstance(obj, pd.DataFrame):
+        display(obj)
+        return
+    t = obj.copy()
+    t.columns = [COLUMN_NAMES.get(c, str(c).replace("_", " ").capitalize()) if isinstance(c, str) else c
+                 for c in t.columns]
+    t.index = [VALUE_NAMES.get(i, i) if isinstance(i, str) else i for i in t.index]
+    for c in t.columns[t.dtypes == object]:
+        t[c] = t[c].map(lambda v: VALUE_NAMES.get(v, v) if isinstance(v, str) else v)
+    display(t.round(digits) if digits is not None else t)
+
+
 def show_report(name, start=None, stop=None, max_lines=45):
     """Display part of a saved report in artifacts/ (rendered Markdown), from heading `start` up to heading `stop`."""
+    if not (ART / name).exists():
+        print(f"{name} is not available here (it needs real survey responses or a separate run).")
+        return
     lines = (ART / name).read_text(encoding="utf-8").splitlines()
     if start:
         lines = lines[next(i for i, l in enumerate(lines) if l.startswith(start)):]
@@ -812,17 +893,21 @@ md("""
 ### 13.1 System Usability Scale (12 participants)
 """)
 code(r'''
-# ---- SUS results (core/sus_study.py; saved result) --------------------------------------------------------------
-sus = json.loads((ART / "sus_study.json").read_text(encoding="utf-8"))["summary"]
-display(pd.DataFrame([{"Participants": sus["n"], "Mean SUS": sus["mean"],
-                       "95% CI": f"{sus['ci_low']}-{sus['ci_high']}", "Benchmark": sus["benchmark"],
-                       "t-test p (one-sided)": round(sus["p_one_sided"], 4), "Grade": sus["grade"]}]).T
-        .rename(columns={0: "Usability"}))
-show_png(FIG / "sus_scores.png", width=760)
+# ---- SUS results, recomputed live from the form responses (core/sus_study.py) -----------------------------------
+if not sus_study.SOURCE.exists():
+    print("No usability responses here (synthetic mode): this section needs the real SUS study.")
+else:
+    sus_result = sus_study.run(out_dir=TMP)          # scores, tests and chart written to the scratch folder
+    sus = sus_result["summary"]
+    display(pd.DataFrame([{"Participants": sus["n"], "Mean SUS": sus["mean"],
+                           "95% CI": f"{sus['ci_low']}-{sus['ci_high']}", "Benchmark": sus["benchmark"],
+                           "t-test p (one-sided)": round(sus["p_one_sided"], 4), "Grade": sus["grade"]}]).T
+            .rename(columns={0: "Usability"}))
+    show_png(TMP / "figures" / "sus_scores.png", width=760)
 
-# ---- Each SUS statement (thesis Table G.1): mean answer and its contribution to the score -------------------------
-items = pd.DataFrame(json.loads((ART / "sus_study.json").read_text(encoding="utf-8"))["items"])
-display(items[["item", "text", "tone", "mean_answer", "sd", "mean_contribution"]])
+    # ---- Each SUS statement (thesis Table G.1): mean answer and its contribution to the score ---------------------
+    items = pd.DataFrame(sus_result["items"])
+    display(items[["item", "text", "tone", "mean_answer", "sd", "mean_contribution"]])
 ''')
 md("""
 ### 13.2 The model against a general-purpose LLM
@@ -832,13 +917,16 @@ The same 132 test profiles were given to ChatGPT; both are scored with Uno's C. 
 """)
 code(r'''
 # ---- LLM benchmark (saved result) -------------------------------------------------------------------------------
-llm = json.loads((ART / "llm_benchmark.json").read_text(encoding="utf-8"))["comparisons"][0]
-display(pd.DataFrame([{"LLM": llm["llm"], "Profiles": llm["profiles"], "LLM Uno's C": llm["uno_c"],
-                       "Model Uno's C": llm["model_uno_c"],
-                       "Difference (95% CI)": f"{llm['diff'][0]:+.3f} ({llm['diff'][1]:+.3f} to {llm['diff'][2]:+.3f})"}]))
+if not (ART / "llm_benchmark.json").exists():
+    print("No LLM answers here (synthetic mode): this section needs the recorded ChatGPT responses.")
+else:
+    llm = json.loads((ART / "llm_benchmark.json").read_text(encoding="utf-8"))["comparisons"][0]
+    display(pd.DataFrame([{"LLM": llm["llm"], "Profiles": llm["profiles"], "LLM Uno's C": llm["uno_c"],
+                           "Model Uno's C": llm["model_uno_c"],
+                           "Difference (95% CI)": f"{llm['diff'][0]:+.3f} ({llm['diff'][1]:+.3f} to {llm['diff'][2]:+.3f})"}]))
 
-# ---- Calibration and consistency across runs (thesis Table H.1; saved report) ------------------------------------
-show_report("llm_benchmark.md", start="## Per run", stop="## Notes", max_lines=40)
+    # ---- Calibration and consistency across runs (thesis Table H.1; saved report) --------------------------------
+    show_report("llm_benchmark.md", start="## Per run", stop="## Notes", max_lines=40)
 ''')
 md("""
 ### 13.3 Job-advertisement coding agreement (thesis Table I.1)
@@ -895,10 +983,9 @@ The project's test suite (thesis Appendix F) is collected here, not run, to show
 API response times (thesis Table F.3) were measured against the running service and are not repeated here.
 """)
 code(r'''
-# ---- Count the automated tests without running them --------------------------------------------------------------
-import subprocess
-collected = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q", "--color=no"], capture_output=True, text=True,
-                           cwd=ROOT).stdout.strip().splitlines()
+# ---- Count the automated tests without running them (always in the real project folder) -----------------------
+collected = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q", "--color=no"], capture_output=True,
+                           text=True, cwd=PROJECT).stdout.strip().splitlines()
 print(collected[-1])                                              # e.g. "295 tests collected in ..."
 per_file = pd.Series([l.split("::")[0] for l in collected if "::" in l]).value_counts().sort_index()
 display(per_file.rename("tests").to_frame())
@@ -926,9 +1013,13 @@ checks = [
     ("Time ratio: internship months", round(intern_ratio, 2), round(saved_ratios["internship_months"]["time_ratio"], 2)),
     ("Cronbach's alpha, technical", round(alpha["Technical (17 items)"], 3), 0.925),
     ("Cronbach's alpha, soft", round(alpha["Soft (9 items)"], 3), 0.902),
-    ("Learning curve at 100%", round(lc["curve"][-1]["uno_c_mean"], 3), selection["uno_c_validation"]),
+    ("Learning curve at 100% vs AFT log-normal validation C", round(lc["curve"][-1]["uno_c_mean"], 3),
+     round(comparison_table.set_index("model").loc["aft_lognormal", "uno_c_mean"], 3)),
     ("Test Uno's C (loaded, evaluated once)", round(test["uno_c"], 3), selection["uno_c"]),
 ]
+if USE_SYNTHETIC:      # the fixed thesis values describe the real data; keep only comparisons with saved results
+    checks = [c for c in checks if c[0] not in ("Kaplan-Meier median (months)", "Selected model",
+                                                "Cronbach's alpha, technical", "Cronbach's alpha, soft")]
 check = pd.DataFrame(checks, columns=["Result", "This notebook", "Reported"])
 check["Match"] = [str(a) == str(b) for a, b in zip(check["This notebook"], check["Reported"])]
 display(check)
@@ -957,6 +1048,32 @@ print("Done. artifacts/ was not modified by this notebook.")
 ''')
 
 # =====================================================================================================================
+# ---- "What this shows" notes under the main outputs (they describe the real-data results) ------------------------
+NOTES = {'# ---- Why responses were excluded': 'Most exclusions are by design: 230 final-year students have no outcome yet and are set aside, and 24 responses failed the attention check. Only a handful were removed for impossible dates.', '# ---- Class balance: found an IT job': 'Three in four graduates had found an IT job and one in four was still searching - moderate censoring that survival analysis uses rather than discards. Most first jobs came within six months; the still-searching group is spread out, and the bar at 24 groups the longest searches.', '# ---- Histograms of the numeric predictors': 'GPA clusters around 3.0-3.5; internship months are heaped at 6 (the usual internship length); certifications, projects and hackathons are skewed towards few. The two skill scores are roughly symmetric. Institution types and degree groups are all well represented; few graduates contributed to open source (12%).', '# ---- Correlation heatmap': 'No two predictors move together strongly: the highest correlation is 0.59 (technical and soft skill scores), so each predictor carries some information of its own.', '# ---- Univariate Cox per SD and VIF': 'On its own, almost every predictor is linked to finding work sooner (GPA most, HR 1.33). Once they are considered together (section 8.3) only GPA and internship remain clear, because many predictors overlap with GPA. Every VIF is below 2.6, so the overlap is not strong enough to distort the adjusted estimates.', '# ---- Distribution of the 26 skill ratings': 'Graduates rated themselves lowest on DevOps (1.95), Docker and cloud computing and highest on programming fundamentals (3.82); soft skills were rated higher and more evenly.', '# ---- Reliability and validity of the two skill blocks': 'Both blocks are highly reliable (alpha 0.925 and 0.902; KMO above 0.94) and clearly distinct from each other (HTMT 0.676). The technical block has a dominant first factor plus two small ones and an AVE of 0.43, below the 0.50 ideal, so the technical score summarises related abilities rather than one narrow skill - a limitation reported in the thesis.', '# ---- Sample vs published figures': 'The gender mix and the share hired by completion match published figures closely; the sample was more often employed and found work faster, as expected for IT graduates and for a voluntary survey. The results describe this sample, not all Sri Lankan IT graduates.', '# ---- All evaluation figures at once': 'Half the graduates had a first IT job within 4 months and about 90% within two years. Few graduates are followed beyond 18 months, so the right end of the curve is less certain.', '# ---- Log-rank tests by group': 'GPA of 3.0 or higher (p < 0.001), an internship (p = 0.003) and a portfolio (p = 0.006) were linked to a faster search; institution type (p = 0.84) and degree group (p = 0.47) were not.', '# ---- Competing risks': 'Taking another path first (non-IT job, further study) was rare (6.5% by 12 months), so treating it as censoring changes the estimates only slightly (81.9% vs 77.8% in IT work by 12 months).', '# ---- Size, events and censoring per split': 'The stratified split kept the share still searching almost identical in every set (24.2-24.8%), so the sets are comparable.', '# ---- Characteristics of each split': 'The sets are alike on most characteristics. The test set had more internships (90.9% vs 81.9%) and a shorter median search (3 vs 4 months) - one reason the model, calibrated on the training set, under-predicts employment on the test set (section 10).', '# ---- Train and tune every model': "Each tuned model's best setting was found on the validation set; the AFT distribution was chosen by AIC on the training set, as fixed in advance.", "# ---- Every setting with its validation Uno's C": 'Cox PH barely changed across settings (0.666-0.667); Elastic Net varied more and DeepSurv most (0.568-0.679). Every chosen setting matches the main analysis, so the model comparison does not depend on a lucky setting.', '# ---- DeepSurv training and early-stopping loss': 'The training loss keeps falling, but the hold-out loss is lowest at epoch 2 and then rises: the network starts to overfit almost at once. Early stopping keeps the epoch-2 weights - a sign that this data holds limited signal for a neural network.', '# ---- Summarise the validation results': 'AFT log-normal ranked graduates best (0.693). Log-logistic (0.687) and DeepSurv (0.679) were within the 0.02 margin; the rule prefers the simpler, better-calibrated model, so AFT log-normal was selected. The intervals overlap, so the ranking of models should not be over-read.', '# ---- AFT distribution fit': 'Log-normal and log-logistic follow the observed curve closely (about 2 points on average); Weibull rises too slowly in the first year. Log-normal had the lowest AIC, the pre-set rule.', '# ---- Schoenfeld residuals': "No smoothed line trends away from zero and every p-value is above 0.10, so the Cox models' proportional-hazards assumption holds.", '# ---- Fit the final model on the training set': "Only GPA (time ratio 0.80: about 20% shorter search per 0.4 GPA points) and internship experience (0.84: about 16% shorter per 3.5 months) have intervals that exclude 1, and both stay significant after Holm correction. Every other factor's interval includes 'no effect'.", '# ---- Unpenalised Cox model': 'The Cox hazard ratios and the AFT time ratios tell the same story: GPA and internship are the clear factors (HR above 1 and time ratio below 1 both mean a faster search).', '# ---- Selected model fitted on 25-100%': 'Discrimination rises with more training data but the gains shrink (+0.029, +0.012, +0.010): more respondents answering the same questions would add little.', '# ---- Baselines': 'GPA alone already reaches 0.637; adding internship gives 0.675, close to the full model (0.693). Most of the ranking comes from these two inputs, consistent with section 8.3.', '# ---- Time-dependent metrics': 'The selected model has the highest AUC at 3, 6 and 12 months (about 0.76-0.81) and, on validation, a lower Brier score than the no-model baseline at every month. This did not carry over to the test set (section 10): validation is the set the model was chosen on, so its figures are optimistic.', '# ---- Error analysis': 'Predictions are pulled towards the typical 4-5 months: fast hires are predicted too slow and long searches far too fast. The worst-predicted graduates had weaker profiles but searched longer than predicted - what the questionnaire cannot capture (networks, search effort, interviews).', '# ---- Load the one test-set evaluation': 'On new graduates the model ranks better than chance (C 0.619, CI 0.557-0.683) but its overall error is no better than the Kaplan-Meier baseline (0.167 vs 0.164) and it under-predicts employment by up to 17 points. The ranking is useful; the probabilities should be read as indicative, which is how the app presents them.', '# ---- Evidence for each pre-set condition': 'Four conditions are met, two partly, and one (correct probabilities) is not - reported openly rather than tuned away.', '# ---- Fairness chart': 'The model ranked women (0.724) better than men (0.574), but the intervals overlap, so the gap may be chance. It under-predicted employment in most groups, as it did overall.', '# ---- Robustness chart': 'Across every alternative data decision, later cohorts and each institution type held out, the C-index stayed between 0.658 and 0.721 - within 0.035 of the main result. The ranking does not depend on one choice.', '# ---- Per-skill alignment': "Graduates rated themselves below employers' expectations on 25 of 26 skills, most in cloud computing, software testing and DevOps. Advertisements asked most for problem solving, teamwork and communication, and employers' importance ratings only loosely matched what they advertised (rho 0.39).", '# ---- SUS results': "Usability was rated good: 76.25 against the benchmark of 68 (one-sided p = 0.010), grade B. The participants were the researcher's peers, which may favour positive ratings.", '# ---- LLM benchmark': "On the same 132 test graduates the model ranked better than ChatGPT (0.619 vs 0.539); the difference's interval excludes 0. ChatGPT's answers also changed between runs.", "# ---- Cohen's kappa": 'Agreement between the keyword rules and hand coding is almost perfect overall (kappa 0.83) but weak for broadly worded skills such as critical thinking, which the rules under-count.', '# ---- Core vs extended vs transformed': 'Only the log-transformed set met the pre-registered rule (+0.011, better in 91% of resamples); the extended set used in the app added +0.003 - a deviation reported in the thesis.', '# ---- Accuracy experiments': 'No other model family - boosting, random forest, other neural networks or an ensemble - beat the selected AFT model (0.693); the best was gradient boosting at 0.687.', '# ---- Cluster-robust': 'Allowing for graduates from the same institution changed no conclusion; with only 23 institutions the robust standard errors are themselves imprecise.', '# ---- Does the analysis recover effects': "On synthetic data with known effects, the pipeline recovers strong effects such as GPA reliably at this sample size, but small effects (soft skills, degree group) are often missed - so 'no clear association' does not prove 'no effect'.", '# ---- Headline results of the job-advertisement': 'Problem solving, teamwork and communication top the 324 advertisements; among technical skills, testing, SQL and REST APIs are asked for more than cloud or AI.', '# ---- Headline results of the questionnaire': 'Repeated questions mostly agree with the model questions they repeat; graduates and employers differ on what matters most for employability (section 12).'}
+with_notes = []
+for cell in cells:
+    with_notes.append(cell)
+    if cell.cell_type == "code":
+        for prefix, note in NOTES.items():
+            if cell.source.startswith(prefix):
+                with_notes.append(nbf.v4.new_markdown_cell(f"> **What this shows:** {note}"))
+cells[:] = with_notes
+
+# ---- Readable tables: every table in the analysis cells goes through show_table() ---------------------------------
+for cell in cells[3:]:                        # after the setup cell, which defines the helpers
+    if cell.cell_type == "code":
+        cell.source = cell.source.replace("display(", "show_table(")
+
+# ---- Clickable table of contents: an anchor on each section heading, links in the overview table --------------------
+import re
+for cell in cells:
+    if cell.cell_type == "markdown":
+        m = re.match(r"## (\d+)\.", cell.source)
+        if m:
+            cell.source = f'<a id="s{m.group(1)}"></a>\n\n' + cell.source
+cells[0].source = re.sub(r"^\| (\d+) \|", lambda m: f"| [{m.group(1)}](#s{m.group(1)}) |", cells[0].source,
+                         flags=re.M)
+
 nb = nbf.v4.new_notebook()
 nb["cells"] = cells
 nb["metadata"] = {"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
