@@ -1,0 +1,39 @@
+{
+ "model": "AFT Log-Normal",
+ "n_train": 620,
+ "n_validation": 133,
+ "curve": [
+  {
+   "fraction": 0.25,
+   "n_train": 155,
+   "subsamples": 20,
+   "uno_c_mean": 0.6411623944279334,
+   "uno_c_min": 0.5330197464190385,
+   "uno_c_max": 0.714490961771717
+  },
+  {
+   "fraction": 0.5,
+   "n_train": 310,
+   "subsamples": 20,
+   "uno_c_mean": 0.6701456249159408,
+   "uno_c_min": 0.6332772328774472,
+   "uno_c_max": 0.6985470331384461
+  },
+  {
+   "fraction": 0.75,
+   "n_train": 465,
+   "subsamples": 20,
+   "uno_c_mean": 0.6824666310037212,
+   "uno_c_min": 0.6680193010554042,
+   "uno_c_max": 0.7052577554755494
+  },
+  {
+   "fraction": 1.0,
+   "n_train": 620,
+   "subsamples": 1,
+   "uno_c_mean": 0.6928906987491287,
+   "uno_c_min": 0.6928906987491287,
+   "uno_c_max": 0.6928906987491287
+  }
+ ]
+}
