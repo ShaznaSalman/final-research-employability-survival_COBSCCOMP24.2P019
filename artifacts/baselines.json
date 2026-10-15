@@ -1,0 +1,62 @@
+{
+ "n_train": 620,
+ "n_validation": 133,
+ "bootstrap": 1000,
+ "rows": [
+  {
+   "model": "km",
+   "label": "Kaplan-Meier (no model)",
+   "uno_c": 0.5,
+   "lo": null,
+   "hi": null,
+   "diff_vs_selected": -0.1929,
+   "diff_lo": null,
+   "diff_hi": null,
+   "selected_better_share": null
+  },
+  {
+   "model": "gpa_only",
+   "label": "GPA only",
+   "uno_c": 0.6365178049936893,
+   "lo": 0.5744461085528787,
+   "hi": 0.6956207592284823,
+   "diff_vs_selected": -0.05637289375543941,
+   "diff_lo": -0.09523435183396449,
+   "diff_hi": -0.0209703042898062,
+   "selected_better_share": 1.0
+  },
+  {
+   "model": "gpa_internship",
+   "label": "GPA + internship months",
+   "uno_c": 0.6745769576035586,
+   "lo": 0.6213253438032087,
+   "hi": 0.7302196764649839,
+   "diff_vs_selected": -0.01831374114557005,
+   "diff_lo": -0.04979999656247195,
+   "diff_hi": 0.012042929943210266,
+   "selected_better_share": 0.881
+  },
+  {
+   "model": "core",
+   "label": "Core inputs (8)",
+   "uno_c": 0.6831821115912458,
+   "lo": 0.6301408018227802,
+   "hi": 0.7387324856928549,
+   "diff_vs_selected": -0.00970858715788292,
+   "diff_lo": -0.02839742165591716,
+   "diff_hi": 0.006972013000600725,
+   "selected_better_share": 0.854
+  },
+  {
+   "model": "selected",
+   "label": "Selected model (extended inputs)",
+   "uno_c": 0.6928906987491287,
+   "lo": 0.6362273793550045,
+   "hi": 0.7499032770185249,
+   "diff_vs_selected": 0.0,
+   "diff_lo": null,
+   "diff_hi": null,
+   "selected_better_share": null
+  }
+ ]
+}
