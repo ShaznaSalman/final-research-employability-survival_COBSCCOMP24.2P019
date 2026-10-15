@@ -298,6 +298,7 @@ READING_GUIDE = [
     "found an IT job by each month.",
     "**What's helping / holding you back** compares your profile with a typical graduate. These are patterns in past "
     "graduates' data, not the effect of changing any one thing.",
+    "**Questions about your result?** Open *Ask about your result* further down this page.",
 ]
 PEERS_UNADJUSTED_NOTE = ("Each group is compared on its own, without accounting for other differences (GPA, skills, "
                          "experience). That is why a group can look faster or slower here than the model's "
