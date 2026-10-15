@@ -1,0 +1,196 @@
+{
+ "km": {
+  "n": 885,
+  "events": 667,
+  "median_months": 4.0,
+  "employed_by": {
+   "3": 0.436,
+   "6": 0.67,
+   "12": 0.809,
+   "24": 0.898
+  },
+  "at_risk": {
+   "0": 885,
+   "3": 562,
+   "6": 281,
+   "12": 107,
+   "18": 42,
+   "24": 20
+  }
+ },
+ "aft_fit": {
+  "lognormal": {
+   "aic": 2724.830188686007,
+   "max_abs_gap": 0.08308212969308981,
+   "mean_abs_gap": 0.020194251817044147
+  },
+  "loglogistic": {
+   "aic": 2729.7860405615893,
+   "max_abs_gap": 0.07887198735031464,
+   "mean_abs_gap": 0.019616791839473124
+  },
+  "weibull": {
+   "aic": 2766.718962147245,
+   "max_abs_gap": 0.08449460300434986,
+   "mean_abs_gap": 0.03582288916691432
+  }
+ },
+ "schoenfeld_p": {
+  "Certifications": 0.11,
+  "Degree: IT / IS (vs computing)": 0.35,
+  "Degree: specialised (vs computing)": 0.335,
+  "GPA": 0.615,
+  "Hackathons": 0.174,
+  "Portfolio": 0.208,
+  "Internship months": 0.15,
+  "Open source": 0.824,
+  "Years of preparation": 0.59,
+  "Projects": 0.518,
+  "SDLC familiarity": 0.78,
+  "Self-learning frequency": 0.702,
+  "Soft-skill score": 0.168,
+  "Technical skill score": 0.707,
+  "Institution: foreign-affiliated (vs state)": 0.86,
+  "Institution: non-state (vs state)": 0.984
+ },
+ "fairness": [
+  {
+   "group": "all",
+   "level": "All",
+   "n": 132,
+   "events": 100,
+   "uno_c": 0.619,
+   "lo": 0.559,
+   "hi": 0.677,
+   "predicted_6m": 0.61,
+   "observed_6m": 0.77
+  },
+  {
+   "group": "gender",
+   "level": "female",
+   "n": 48,
+   "events": 35,
+   "uno_c": 0.724,
+   "lo": 0.597,
+   "hi": 0.814,
+   "predicted_6m": 0.63,
+   "observed_6m": 0.74
+  },
+  {
+   "group": "gender",
+   "level": "male",
+   "n": 78,
+   "events": 61,
+   "uno_c": 0.574,
+   "lo": 0.48,
+   "hi": 0.65,
+   "predicted_6m": 0.6,
+   "observed_6m": 0.79
+  },
+  {
+   "group": "university_type",
+   "level": "foreign_affiliated",
+   "n": 59,
+   "events": 45,
+   "uno_c": 0.593,
+   "lo": 0.48,
+   "hi": 0.693,
+   "predicted_6m": 0.64,
+   "observed_6m": 0.88
+  },
+  {
+   "group": "university_type",
+   "level": "non_state",
+   "n": 30,
+   "events": 23,
+   "uno_c": 0.636,
+   "lo": 0.511,
+   "hi": 0.808,
+   "predicted_6m": 0.63,
+   "observed_6m": 0.61
+  },
+  {
+   "group": "university_type",
+   "level": "state",
+   "n": 43,
+   "events": 32,
+   "uno_c": 0.615,
+   "lo": 0.493,
+   "hi": 0.736,
+   "predicted_6m": 0.56,
+   "observed_6m": 0.77
+  }
+ ],
+ "robustness": [
+  {
+   "check": "Sensitivity: Main analysis",
+   "group": "Sensitivity (validation)",
+   "uno_c": 0.6928906987491287,
+   "sd": 0.0286240448272717,
+   "n": 133
+  },
+  {
+   "check": "Sensitivity: Job on/before completion = 0.25 months",
+   "group": "Sensitivity (validation)",
+   "uno_c": 0.6594292228431605,
+   "sd": 0.029971131829539,
+   "n": 133
+  },
+  {
+   "check": "Sensitivity: Job on/before completion = 1.0 month",
+   "group": "Sensitivity (validation)",
+   "uno_c": 0.6827325201011741,
+   "sd": 0.0295519241830118,
+   "n": 133
+  },
+  {
+   "check": "Sensitivity: Excluding 'round number' job-start times",
+   "group": "Sensitivity (validation)",
+   "uno_c": 0.7073770197390455,
+   "sd": 0.0307588415973485,
+   "n": 108
+  },
+  {
+   "check": "Sensitivity: Excluding straight-liners and erratic responders",
+   "group": "Sensitivity (validation)",
+   "uno_c": 0.6915534168528583,
+   "sd": 0.029345103748549,
+   "n": 132
+  },
+  {
+   "check": "Sensitivity: Complete cases only (no imputation)",
+   "group": "Sensitivity (validation)",
+   "uno_c": 0.6956810894717924,
+   "sd": 0.0296472195952326,
+   "n": 117
+  },
+  {
+   "check": "Later cohorts (trained on earlier cohorts)",
+   "group": "Temporal",
+   "uno_c": 0.7214611872146118,
+   "sd": null,
+   "n": 68
+  },
+  {
+   "check": "Held-out institution type: State",
+   "group": "Institution transfer",
+   "uno_c": 0.702,
+   "sd": null,
+   "n": 44
+  },
+  {
+   "check": "Held-out institution type: Non-state",
+   "group": "Institution transfer",
+   "uno_c": 0.695,
+   "sd": null,
+   "n": 30
+  },
+  {
+   "check": "Held-out institution type: Foreign-affiliated",
+   "group": "Institution transfer",
+   "uno_c": 0.658,
+   "sd": null,
+   "n": 59
+  }
+ ]
+}

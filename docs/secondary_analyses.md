@@ -15,6 +15,13 @@ All rules were fixed before looking at results.
 | Simulation study | Does the analysis recover effects known to exist, and how many respondents are needed? | `python -m core.simulation_study --reps 200` (about 5 min, not in `run_all`) | `artifacts/simulation_study.md` |
 | Coding agreement | Do the keyword rules code job ads the way a person would? | `python -m core.coding_agreement --sample`, hand-code, then `python -m core.coding_agreement` | `artifacts/coding_agreement.md` |
 | Accuracy experiments | Would non-linear terms, boosting, a forest, neural nets or an ensemble discriminate better? | `python -m core.accuracy_experiments` (about 2 min, not in `run_all`) | `artifacts/accuracy_experiments.md` |
+| Learning curve | Would more respondents answering the same questions improve discrimination? | `python -m core.learning_curve` (about 1 min, not in `run_all`) | `artifacts/learning_curve.md` |
+| Error analysis | Where does the selected model go wrong, and for whom? (validation set; group summaries only) | `python -m core.error_analysis` (not in `run_all`) | `artifacts/error_analysis.md` |
+| DeepSurv training curves | Did early stopping stop DeepSurv before it overfitted? | `python -m core.deepsurv_curves` (not in `run_all`) | `artifacts/deepsurv_curves.md` |
+| Tuning results | Every hyperparameter setting and its validation score; do the chosen settings match the main analysis? | `python -m core.tuning_results` (about 2 min, not in `run_all`) | `artifacts/tuning_results.md` |
+| Time-dependent metrics | Supplementary AUC at 3/6/12 months and the Brier score over time (validation set; not used for selection) | `python -m core.time_dependent_metrics` (not in `run_all`) | `artifacts/time_dependent_metrics.md` |
+| Exploratory figures | Predictor correlations, skill-rating distributions and scree plots (training set) | `python -m core.eda_figures` (not in `run_all`) | `artifacts/eda_figures.md` |
+| Evaluation figures | Kaplan-Meier with numbers at risk, AFT fit, Schoenfeld check, fairness and robustness charts (from existing results) | `python -m core.evaluation_figures` (not in `run_all`) | `artifacts/evaluation_figures.md` |
 | LLM prompt variants | Does the LLM benchmark depend on the prompt? | `python -m benchmark.score` | `artifacts/llm_benchmark.md` |
 
 ## Sensitivity (`core/sensitivity.py`)
@@ -108,7 +115,8 @@ forest (scikit-survival), four established neural survival models from pycox - D
 interaction terms 0.666; gradient-boosted Cox 0.687 (+0.019, better in 85% of bootstrap resamples); random
 survival forest 0.677; ensemble 0.683; neural networks 0.590 (DeepHit) to 0.674 (DeepSurv, Cox-Time). None of
 them reaches the selected AFT Log-Normal model (0.693). The theoretical ceiling can only be computed on
-synthetic data, where the true risk is known (about 0.72 there). A learning curve (AFT fitted on 25-100% of the
-training set, scored on validation) rises from 0.637 to 0.693 and is flattening, so more respondents answering
+synthetic data, where the true risk is known (about 0.72 there). A learning curve (`core/learning_curve.py`: AFT fitted on 25-100%
+of the training set, 20 random subsets at each smaller size, scored on validation) rises from 0.641 to 0.693 and is
+flattening, so more respondents answering
 the same questions are expected to add only about 0.01-0.02. The main model's family list and selection rule were
 fixed in advance and are not changed by this analysis.

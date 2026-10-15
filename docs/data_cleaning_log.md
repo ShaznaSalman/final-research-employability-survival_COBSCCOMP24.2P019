@@ -94,6 +94,12 @@ Missing values remaining in the training set (handled in preprocessing, inside C
 | `internship_months` | 0 |
 | `certifications_count` | 0 |
 | `project_count` | 0 |
+| `has_portfolio` | 0 |
+| `prep_start` | 0 |
+| `self_learning_freq` | 0 |
+| `hackathon_count` | 107 |
+| `open_source` | 0 |
+| `sdlc_familiarity` | 0 |
 | skill items (any of 26) | 0 rows |
 | `gender` (fairness only) | 25 |
 

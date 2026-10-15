@@ -1,0 +1,518 @@
+{
+ "n_train": 620,
+ "strongest_correlation": {
+  "pair": [
+   "Technical skill score",
+   "Soft-skill score"
+  ],
+  "rho": 0.593
+ },
+ "correlation": {
+  "GPA": {
+   "GPA": 1.0,
+   "Internship months": -0.062,
+   "Certifications": 0.043,
+   "Projects": 0.539,
+   "Technical skill score": 0.45,
+   "Soft-skill score": 0.258,
+   "Portfolio": 0.357,
+   "Years of preparation": 0.019,
+   "Self-learning frequency": 0.395,
+   "Hackathons": 0.454,
+   "Open source": 0.125,
+   "SDLC familiarity": 0.318
+  },
+  "Internship months": {
+   "GPA": -0.062,
+   "Internship months": 1.0,
+   "Certifications": 0.027,
+   "Projects": -0.065,
+   "Technical skill score": -0.012,
+   "Soft-skill score": -0.032,
+   "Portfolio": -0.049,
+   "Years of preparation": -0.043,
+   "Self-learning frequency": -0.059,
+   "Hackathons": -0.011,
+   "Open source": 0.02,
+   "SDLC familiarity": 0.114
+  },
+  "Certifications": {
+   "GPA": 0.043,
+   "Internship months": 0.027,
+   "Certifications": 1.0,
+   "Projects": 0.058,
+   "Technical skill score": 0.028,
+   "Soft-skill score": -0.025,
+   "Portfolio": 0.008,
+   "Years of preparation": 0.005,
+   "Self-learning frequency": 0.039,
+   "Hackathons": 0.109,
+   "Open source": -0.043,
+   "SDLC familiarity": 0.033
+  },
+  "Projects": {
+   "GPA": 0.539,
+   "Internship months": -0.065,
+   "Certifications": 0.058,
+   "Projects": 1.0,
+   "Technical skill score": 0.344,
+   "Soft-skill score": 0.188,
+   "Portfolio": 0.405,
+   "Years of preparation": -0.023,
+   "Self-learning frequency": 0.324,
+   "Hackathons": 0.39,
+   "Open source": 0.124,
+   "SDLC familiarity": 0.287
+  },
+  "Technical skill score": {
+   "GPA": 0.45,
+   "Internship months": -0.012,
+   "Certifications": 0.028,
+   "Projects": 0.344,
+   "Technical skill score": 1.0,
+   "Soft-skill score": 0.593,
+   "Portfolio": 0.226,
+   "Years of preparation": 0.016,
+   "Self-learning frequency": 0.524,
+   "Hackathons": 0.362,
+   "Open source": 0.1,
+   "SDLC familiarity": 0.574
+  },
+  "Soft-skill score": {
+   "GPA": 0.258,
+   "Internship months": -0.032,
+   "Certifications": -0.025,
+   "Projects": 0.188,
+   "Technical skill score": 0.593,
+   "Soft-skill score": 1.0,
+   "Portfolio": 0.174,
+   "Years of preparation": 0.06,
+   "Self-learning frequency": 0.383,
+   "Hackathons": 0.164,
+   "Open source": 0.071,
+   "SDLC familiarity": 0.398
+  },
+  "Portfolio": {
+   "GPA": 0.357,
+   "Internship months": -0.049,
+   "Certifications": 0.008,
+   "Projects": 0.405,
+   "Technical skill score": 0.226,
+   "Soft-skill score": 0.174,
+   "Portfolio": 1.0,
+   "Years of preparation": -0.054,
+   "Self-learning frequency": 0.22,
+   "Hackathons": 0.226,
+   "Open source": 0.106,
+   "SDLC familiarity": 0.225
+  },
+  "Years of preparation": {
+   "GPA": 0.019,
+   "Internship months": -0.043,
+   "Certifications": 0.005,
+   "Projects": -0.023,
+   "Technical skill score": 0.016,
+   "Soft-skill score": 0.06,
+   "Portfolio": -0.054,
+   "Years of preparation": 1.0,
+   "Self-learning frequency": 0.006,
+   "Hackathons": 0.002,
+   "Open source": 0.014,
+   "SDLC familiarity": 0.01
+  },
+  "Self-learning frequency": {
+   "GPA": 0.395,
+   "Internship months": -0.059,
+   "Certifications": 0.039,
+   "Projects": 0.324,
+   "Technical skill score": 0.524,
+   "Soft-skill score": 0.383,
+   "Portfolio": 0.22,
+   "Years of preparation": 0.006,
+   "Self-learning frequency": 1.0,
+   "Hackathons": 0.263,
+   "Open source": 0.12,
+   "SDLC familiarity": 0.328
+  },
+  "Hackathons": {
+   "GPA": 0.454,
+   "Internship months": -0.011,
+   "Certifications": 0.109,
+   "Projects": 0.39,
+   "Technical skill score": 0.362,
+   "Soft-skill score": 0.164,
+   "Portfolio": 0.226,
+   "Years of preparation": 0.002,
+   "Self-learning frequency": 0.263,
+   "Hackathons": 1.0,
+   "Open source": 0.109,
+   "SDLC familiarity": 0.214
+  },
+  "Open source": {
+   "GPA": 0.125,
+   "Internship months": 0.02,
+   "Certifications": -0.043,
+   "Projects": 0.124,
+   "Technical skill score": 0.1,
+   "Soft-skill score": 0.071,
+   "Portfolio": 0.106,
+   "Years of preparation": 0.014,
+   "Self-learning frequency": 0.12,
+   "Hackathons": 0.109,
+   "Open source": 1.0,
+   "SDLC familiarity": 0.097
+  },
+  "SDLC familiarity": {
+   "GPA": 0.318,
+   "Internship months": 0.114,
+   "Certifications": 0.033,
+   "Projects": 0.287,
+   "Technical skill score": 0.574,
+   "Soft-skill score": 0.398,
+   "Portfolio": 0.225,
+   "Years of preparation": 0.01,
+   "Self-learning frequency": 0.328,
+   "Hackathons": 0.214,
+   "Open source": 0.097,
+   "SDLC familiarity": 1.0
+  }
+ },
+ "scree": {
+  "technical": {
+   "n": 620,
+   "items": 17,
+   "eigenvalues": [
+    7.8399,
+    1.6398,
+    1.3356,
+    0.814,
+    0.6262,
+    0.5296,
+    0.4884,
+    0.4438,
+    0.4262,
+    0.4028,
+    0.3871,
+    0.3736,
+    0.3685,
+    0.357,
+    0.3407,
+    0.3149,
+    0.3119
+   ],
+   "parallel_95th": [
+    1.3523,
+    1.2767,
+    1.2256,
+    1.1829,
+    1.1462,
+    1.1096,
+    1.078,
+    1.0443,
+    1.0191,
+    0.9875,
+    0.9584,
+    0.9309,
+    0.9031,
+    0.8739,
+    0.8431,
+    0.8102,
+    0.7734
+   ],
+   "factors": 3
+  },
+  "soft": {
+   "n": 620,
+   "items": 9,
+   "eigenvalues": [
+    5.0432,
+    0.5727,
+    0.556,
+    0.5396,
+    0.5149,
+    0.4865,
+    0.4507,
+    0.4313,
+    0.4051
+   ],
+   "parallel_95th": [
+    1.2448,
+    1.1687,
+    1.1112,
+    1.062,
+    1.0243,
+    0.9856,
+    0.9478,
+    0.9104,
+    0.8659
+   ],
+   "factors": 1
+  }
+ },
+ "likert": {
+  "technical": [
+   {
+    "item": "DevOps / CI-CD",
+    "n": 620,
+    "mean": 1.9484,
+    "1": 0.3194,
+    "2": 0.4355,
+    "3": 0.2242,
+    "4": 0.0194,
+    "5": 0.0016
+   },
+   {
+    "item": "Docker",
+    "n": 620,
+    "mean": 2.0613,
+    "1": 0.2661,
+    "2": 0.4419,
+    "3": 0.2581,
+    "4": 0.0323,
+    "5": 0.0016
+   },
+   {
+    "item": "Cloud Computing",
+    "n": 620,
+    "mean": 2.3274,
+    "1": 0.1419,
+    "2": 0.4516,
+    "3": 0.3484,
+    "4": 0.0532,
+    "5": 0.0048
+   },
+   {
+    "item": "Cybersecurity Fundamentals",
+    "n": 620,
+    "mean": 2.5629,
+    "1": 0.0919,
+    "2": 0.3919,
+    "3": 0.3887,
+    "4": 0.1161,
+    "5": 0.0113
+   },
+   {
+    "item": "Artificial Intelligence / Machine Learning",
+    "n": 620,
+    "mean": 2.5984,
+    "1": 0.0887,
+    "2": 0.3742,
+    "3": 0.4016,
+    "4": 0.121,
+    "5": 0.0145
+   },
+   {
+    "item": "Linux / Command Line",
+    "n": 620,
+    "mean": 2.6371,
+    "1": 0.071,
+    "2": 0.3645,
+    "3": 0.4323,
+    "4": 0.121,
+    "5": 0.0113
+   },
+   {
+    "item": "Software Testing",
+    "n": 620,
+    "mean": 2.7242,
+    "1": 0.0355,
+    "2": 0.3613,
+    "3": 0.4581,
+    "4": 0.1339,
+    "5": 0.0113
+   },
+   {
+    "item": "Data Analytics",
+    "n": 620,
+    "mean": 2.7855,
+    "1": 0.0774,
+    "2": 0.2839,
+    "3": 0.4468,
+    "4": 0.1597,
+    "5": 0.0323
+   },
+   {
+    "item": "REST APIs",
+    "n": 620,
+    "mean": 3.1306,
+    "1": 0.0177,
+    "2": 0.2065,
+    "3": 0.4516,
+    "4": 0.2758,
+    "5": 0.0484
+   },
+   {
+    "item": "JavaScript",
+    "n": 620,
+    "mean": 3.2661,
+    "1": 0.0145,
+    "2": 0.1742,
+    "3": 0.429,
+    "4": 0.2952,
+    "5": 0.0871
+   },
+   {
+    "item": "Java",
+    "n": 620,
+    "mean": 3.2984,
+    "1": 0.0081,
+    "2": 0.1613,
+    "3": 0.4258,
+    "4": 0.3339,
+    "5": 0.071
+   },
+   {
+    "item": "Git / GitHub",
+    "n": 620,
+    "mean": 3.3065,
+    "1": 0.0081,
+    "2": 0.1371,
+    "3": 0.4645,
+    "4": 0.321,
+    "5": 0.0694
+   },
+   {
+    "item": "Python",
+    "n": 620,
+    "mean": 3.3613,
+    "1": 0.0113,
+    "2": 0.1161,
+    "3": 0.4565,
+    "4": 0.3323,
+    "5": 0.0839
+   },
+   {
+    "item": "Web Development",
+    "n": 620,
+    "mean": 3.4903,
+    "1": 0.0081,
+    "2": 0.1065,
+    "3": 0.4097,
+    "4": 0.3387,
+    "5": 0.1371
+   },
+   {
+    "item": "Object-Oriented Programming",
+    "n": 620,
+    "mean": 3.6274,
+    "1": 0.0048,
+    "2": 0.0774,
+    "3": 0.3871,
+    "4": 0.3468,
+    "5": 0.1839
+   },
+   {
+    "item": "SQL / Database Management",
+    "n": 620,
+    "mean": 3.6871,
+    "1": 0.0032,
+    "2": 0.0516,
+    "3": 0.35,
+    "4": 0.4452,
+    "5": 0.15
+   },
+   {
+    "item": "Programming Fundamentals",
+    "n": 620,
+    "mean": 3.8161,
+    "1": 0.0097,
+    "2": 0.0516,
+    "3": 0.2968,
+    "4": 0.3968,
+    "5": 0.2452
+   }
+  ],
+  "soft": [
+   {
+    "item": "Leadership Ability",
+    "n": 620,
+    "mean": 3.0952,
+    "1": 0.0258,
+    "2": 0.2226,
+    "3": 0.4371,
+    "4": 0.2597,
+    "5": 0.0548
+   },
+   {
+    "item": "Critical Thinking",
+    "n": 620,
+    "mean": 3.6565,
+    "1": 0.0016,
+    "2": 0.0806,
+    "3": 0.3565,
+    "4": 0.3823,
+    "5": 0.179
+   },
+   {
+    "item": "Problem Solving",
+    "n": 620,
+    "mean": 3.6565,
+    "1": 0.0032,
+    "2": 0.0758,
+    "3": 0.3452,
+    "4": 0.4129,
+    "5": 0.1629
+   },
+   {
+    "item": "Self-learning Ability",
+    "n": 620,
+    "mean": 3.6581,
+    "1": 0.0048,
+    "2": 0.0726,
+    "3": 0.3435,
+    "4": 0.4177,
+    "5": 0.1613
+   },
+   {
+    "item": "Time Management",
+    "n": 620,
+    "mean": 3.6645,
+    "1": 0.0081,
+    "2": 0.0839,
+    "3": 0.3387,
+    "4": 0.3742,
+    "5": 0.1952
+   },
+   {
+    "item": "Professionalism",
+    "n": 620,
+    "mean": 3.6855,
+    "1": 0.0032,
+    "2": 0.0758,
+    "3": 0.3371,
+    "4": 0.4,
+    "5": 0.1839
+   },
+   {
+    "item": "Adaptability",
+    "n": 620,
+    "mean": 3.6903,
+    "1": 0.0016,
+    "2": 0.0742,
+    "3": 0.3419,
+    "4": 0.3968,
+    "5": 0.1855
+   },
+   {
+    "item": "Communication Skills",
+    "n": 620,
+    "mean": 3.7145,
+    "1": 0.0081,
+    "2": 0.0774,
+    "3": 0.35,
+    "4": 0.321,
+    "5": 0.2435
+   },
+   {
+    "item": "Teamwork",
+    "n": 620,
+    "mean": 3.9226,
+    "1": 0.0032,
+    "2": 0.05,
+    "3": 0.2452,
+    "4": 0.4242,
+    "5": 0.2774
+   }
+  ]
+ }
+}

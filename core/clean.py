@@ -459,6 +459,9 @@ def render_log(audit: Audit, train: pd.DataFrame, final_year: pd.DataFrame, emp:
     lines += [f"| `{f}` | {k} | {v} |" for f, k, v in issues] or ["| - | none | 0 |"]
     model_cols = ["gpa", "degree_type", "university_type", "internship_months", "certifications_count",
                   "project_count"]
+    # Extended-set inputs (Q14, Q20, Q21, Q23, Q24, Q29), when present in the data
+    model_cols += [c for c in ("has_portfolio", "prep_start", "self_learning_freq", "hackathon_count",
+                               "open_source", "sdlc_familiarity") if c in train]
     lines += ["", "Missing values remaining in the training set (handled in preprocessing, inside CV folds):", "",
               "| Field | Missing |", "|---|---|"]
     lines += [f"| `{c}` | {int(train[c].isna().sum())} |" for c in model_cols]
