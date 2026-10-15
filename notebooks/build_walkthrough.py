@@ -58,7 +58,8 @@ results, with every table and chart produced in place.
 | 11 | Robustness |
 | 12 | Skill gaps: graduates, employers and job advertisements (RQ2) |
 | 13 | Usability and the LLM benchmark (RQ4) |
-| 14 | Summary and consistency check against the reported results |
+| 14 | Secondary analyses: feature sets, other models, clustering, simulation, job market, questionnaire, tests |
+| 15 | Summary and consistency check against the reported results |
 """)
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -85,7 +86,7 @@ import matplotlib.pyplot as plt
 from IPython.display import Image, Markdown, display
 
 # The project's own modules - the notebook only calls them, it re-implements nothing
-from core import (baselines, deepsurv_curves, eda_figures, error_analysis, evaluate, evaluation_figures,
+from core import (baselines, construct_validity, deepsurv_curves, eda_figures, error_analysis, evaluate, evaluation_figures,
                   learning_curve, preprocess, sample_comparison, schema, splits, thesis_results,
                   time_dependent_metrics, tuning_results)
 
@@ -113,6 +114,18 @@ def show_fig(fig, width=900):
     fig.savefig(buf, format="png", dpi=130, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
     display(Image(data=buf.getvalue(), width=width))
+
+
+def show_report(name, start=None, stop=None, max_lines=45):
+    """Display part of a saved report in artifacts/ (rendered Markdown), from heading `start` up to heading `stop`."""
+    lines = (ART / name).read_text(encoding="utf-8").splitlines()
+    if start:
+        lines = lines[next(i for i, l in enumerate(lines) if l.startswith(start)):]
+    if stop:
+        end = next((i for i, l in enumerate(lines[1:], 1) if l.startswith(stop)), len(lines))
+        lines = lines[:end]
+    lines = [l for l in lines if not l.startswith("![") and not l.startswith("_Generated")]   # no file links
+    display(Markdown("\n".join(lines[:max_lines])))
 
 
 print("Project folder:", ROOT)
@@ -290,6 +303,20 @@ a, b = off_diagonal.idxmax()
 print(f"Strongest correlation: {a} and {b}, rho = {corr.loc[a, b]:.2f} - moderate, so no predictor duplicates another")
 ''')
 md("""
+### 3.1.1 Each predictor on its own, and variance inflation factors (thesis Table E.2)
+
+A univariate Cox model per predictor (hazard ratio per SD: above 1 = finding work sooner) and the variance inflation
+factor (VIF) of each predictor given the others. VIFs below 5 (here all below 2.6) mean multicollinearity is not a
+concern.
+""")
+code(r'''
+# ---- Univariate Cox per SD and VIF, training set (core/construct_validity.py) ------------------------------------
+train_scored = construct_validity.with_scores(train)             # adds the block scores and numeric codes
+e2 = construct_validity.univariate_and_vif(train_scored)
+display(e2.assign(**{"HR per SD (95% CI)": e2.apply(lambda r: f"{r.hr:.2f} ({r.lo:.2f}-{r.hi:.2f})", axis=1)})
+        [["predictor", "n", "HR per SD (95% CI)", "p", "vif"]].round(4))
+''')
+md("""
 ### 3.2 Skill self-ratings
 
 How graduates rated the 17 technical and 9 soft skills at degree completion (1-5), sorted by mean.
@@ -308,16 +335,19 @@ block is reliable (Cronbach's alpha >= 0.70) and dominated by one underlying fac
 analysis: factors above the dashed random-data line are retained).
 """)
 code(r'''
-# ---- Cronbach's alpha for each skill block (complete cases, training set) --------------------------------------
-def cronbach_alpha(items: pd.DataFrame) -> float:
-    """alpha = k/(k-1) * (1 - sum of item variances / variance of the total score)"""
-    k = items.shape[1]
-    return k / (k - 1) * (1 - items.var(ddof=1).sum() / items.sum(axis=1).var(ddof=1))
+# ---- Reliability and validity of the two skill blocks (thesis Table E.3; core/construct_validity.py) -----------
+# KMO and Bartlett: are the items correlated enough to factor?   alpha / omega: reliability (>= 0.70)
+# AVE: variance the factor explains (>= 0.50 ideal);  HTMT < 0.85 and Fornell-Larcker: the two blocks are distinct
+e3, e4, discriminant = construct_validity.block_validity(train)
+display(e3[["block", "n", "kmo", "bartlett_chi2", "bartlett_df", "factors_parallel_analysis", "alpha", "alpha_lo",
+            "alpha_hi", "omega", "ave", "loading_min", "loading_max"]].round(3))
+print(f"Discriminant validity: HTMT = {discriminant['htmt']:.3f} (below 0.85); sqrt(AVE) "
+      f"{discriminant['sqrt_ave_technical']:.3f} technical and {discriminant['sqrt_ave_soft']:.3f} soft, both above "
+      f"the {discriminant['score_correlation']:.3f} correlation between the two scores (Fornell-Larcker)")
+alpha = {"Technical (17 items)": float(e3.loc[0, "alpha"]), "Soft (9 items)": float(e3.loc[1, "alpha"])}
 
-skills = train[list(schema.TECH_COLUMNS + schema.SOFT_COLUMNS)].apply(pd.to_numeric, errors="coerce").dropna()
-alpha = {"Technical (17 items)": cronbach_alpha(skills[list(schema.TECH_COLUMNS)]),
-         "Soft (9 items)": cronbach_alpha(skills[list(schema.SOFT_COLUMNS)])}
-display(pd.Series(alpha, name="Cronbach's alpha").round(3).to_frame())
+# ---- Item loadings on one factor per block (thesis Table E.4) -----------------------------------------------------
+display(e4.round(3))
 
 # ---- Scree plots with parallel analysis (same method and seed as thesis Table E.3) ------------------------------
 scree = eda_figures.scree(train)
@@ -443,6 +473,16 @@ ax.set_title("Class balance by split (stratified by event and institution type)"
 ax.legend(frameon=False, loc="lower right")
 ax.spines[["top", "right"]].set_visible(False)
 show_fig(fig)
+''')
+md("""
+### 5.1 Sample characteristics by split (thesis Table E.1)
+
+The three sets should look alike. They do on most characteristics; the test set had more internships and a shorter
+median search, one reason its results differ from validation (section 10).
+""")
+code(r'''
+# ---- Characteristics of each split, and all graduates (core/construct_validity.py) -------------------------------
+display(construct_validity.split_characteristics(construct_validity.with_scores(with_split)))
 ''')
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -591,6 +631,23 @@ ax.set_title("Adjusted time ratios of the selected model (training set)", loc="l
 show_fig(fig, width=760)
 print("Clearly associated (CI excludes 1):", ", ".join(evaluation_figures.LABELS.get(f, f) for f in ratios.index[clear]))
 ''')
+md("""
+**Thesis Table 5.3** reports the same factors from two angles: the Cox hazard ratio (above 1 = finding work sooner)
+and the AFT time ratio (below 1 = a shorter search). The Cox model here is unpenalised and fitted on the training set,
+with the same scaling. Both point the same way for every clearly associated factor.
+""")
+code(r'''
+# ---- Unpenalised Cox model on the training set: hazard ratios per SD ----------------------------------------------
+cox_pre, cox_model = evaluate.fit_all(train, {"penalizer": 0.0}, None, "cox_ph", evaluate.SEED)
+cox = cox_model.coefficients
+r2 = lambda x: f"{float(f'{x:.3f}'):.2f}"   # round to 3 decimals, then 2 - the convention used in the thesis tables
+table_53 = pd.DataFrame({
+    "Cox HR (95% CI); > 1 = sooner": [f"{np.exp(r.coef):.2f} ({np.exp(r.lower):.2f}-{np.exp(r.upper):.2f})" for r in cox.itertuples()],
+    "AFT time ratio (95% CI); < 1 = sooner": [f"{r2(ratios.loc[f, 'time ratio'])} ({r2(ratios.loc[f, '95% CI low'])}-"
+                                              f"{r2(ratios.loc[f, '95% CI high'])})" for f in cox.index],
+}, index=[evaluation_figures.LABELS.get(f, f) for f in cox.index])
+display(table_53)
+''')
 
 # ---------------------------------------------------------------------------------------------------------------------
 md("""
@@ -667,6 +724,34 @@ print(f"Kaplan-Meier baseline IBS on the test set: {model_checks['ibs_test_km_ba
 show_png(FIG / "calibration_test.png")
 ''')
 md("""
+### 10.0 Conditions under which the model is claimed to work (thesis Table 5.4)
+
+The conditions were fixed in advance (thesis Table 3.6). The evidence below is loaded from the saved results; the
+verdicts are those reported in the thesis.
+""")
+code(r'''
+# ---- Evidence for each pre-set condition (saved results) ----------------------------------------------------------
+checks_saved = json.loads((ART / "thesis_results.json").read_text(encoding="utf-8"))
+c, transfer = checks_saved["model_checks"]["uno_c"], checks_saved["institution_transfer"]
+fair = {r["level"]: r for r in ev["fairness"]}
+conditions = pd.DataFrame([
+    ("Better than no model", f"Test C {test['uno_c_lo']:.3f}-{test['uno_c_hi']:.3f} above 0.5; IBS {test['ibs']:.3f} vs "
+     f"baseline {checks_saved['model_checks']['ibs_test_km_baseline']:.3f}", "Partly: ranks, but no lower overall error"),
+    ("Probabilities are correct", f"Under-prediction of {100 * test['cal_err_12m']:.0f}-{100 * test['cal_err_6m']:.0f} "
+     "points at 3, 6 and 12 months", "No"),
+    ("Results are stable", f"Validation {c['validation']} vs test {c['test']}; intervals overlap", "Partly"),
+    ("Works across institutions", "Fitted without one type, C on that type: " +
+     ", ".join(f"{evaluation_figures.GROUP_LABELS.get(t['held_out_type'], t['held_out_type'])} {t['uno_c']}"
+               for t in transfer), "Yes"),
+    ("Fair across groups", f"Test C: women {fair['female']['uno_c']:.3f}, men {fair['male']['uno_c']:.3f} (overlapping CIs)",
+     "Partly"),
+    ("Model assumptions hold", f"No Schoenfeld violation (smallest p {min(ev['schoenfeld_p'].values()):.3f}); AFT chosen by AIC",
+     "Yes"),
+    ("Not overfitted", f"Training C {c['train']} vs test C {c['test']}", "Yes"),
+], columns=["Condition", "Evidence", "Met? (as reported)"])
+display(conditions)
+''')
+md("""
 ### 10.1 Fairness (test set, from the saved fairness report)
 
 Uno's C and calibration at six months by gender and institution type. Gender is never a model input.
@@ -734,6 +819,10 @@ display(pd.DataFrame([{"Participants": sus["n"], "Mean SUS": sus["mean"],
                        "t-test p (one-sided)": round(sus["p_one_sided"], 4), "Grade": sus["grade"]}]).T
         .rename(columns={0: "Usability"}))
 show_png(FIG / "sus_scores.png", width=760)
+
+# ---- Each SUS statement (thesis Table G.1): mean answer and its contribution to the score -------------------------
+items = pd.DataFrame(json.loads((ART / "sus_study.json").read_text(encoding="utf-8"))["items"])
+display(items[["item", "text", "tone", "mean_answer", "sd", "mean_contribution"]])
 ''')
 md("""
 ### 13.2 The model against a general-purpose LLM
@@ -747,11 +836,75 @@ llm = json.loads((ART / "llm_benchmark.json").read_text(encoding="utf-8"))["comp
 display(pd.DataFrame([{"LLM": llm["llm"], "Profiles": llm["profiles"], "LLM Uno's C": llm["uno_c"],
                        "Model Uno's C": llm["model_uno_c"],
                        "Difference (95% CI)": f"{llm['diff'][0]:+.3f} ({llm['diff'][1]:+.3f} to {llm['diff'][2]:+.3f})"}]))
+
+# ---- Calibration and consistency across runs (thesis Table H.1; saved report) ------------------------------------
+show_report("llm_benchmark.md", start="## Per run", stop="## Notes", max_lines=40)
+''')
+md("""
+### 13.3 Job-advertisement coding agreement (thesis Table I.1)
+
+The job advertisements were coded to the 26-skill vocabulary by fixed keyword rules; 40 randomly sampled
+advertisements were also hand-coded blind to the keyword result (`python -m core.coding_agreement`).
+""")
+code(r'''
+# ---- Cohen's kappa between hand coding and the keyword rules (saved report) --------------------------------------
+show_report("coding_agreement.md", start="36 randomly", max_lines=40)
 ''')
 
 # ---------------------------------------------------------------------------------------------------------------------
 md("""
-## 14. Summary and consistency check
+## 14. Secondary analyses (saved reports)
+
+These analyses support the main results and are reported in the thesis and `docs/secondary_analyses.md`. Each was run
+once by its own script; its saved report is shown here rather than re-run (some take several minutes).
+""")
+md("### 14.1 Feature-set comparison (pre-registered rule)")
+code(r'''
+# ---- Core vs extended vs transformed inputs (core/feature_sets.py) -----------------------------------------------
+show_report("feature_set_comparison.md", start="## Pre-registered decision rule", stop="## Each extended")
+''')
+md("### 14.2 Other model families: boosting, forest, other neural networks, ensemble (exploratory)")
+code(r'''
+# ---- Accuracy experiments (core/accuracy_experiments.py) - report only, not candidates --------------------------
+show_report("accuracy_experiments.md", start="| Method")
+''')
+md("### 14.3 Clustering by institution")
+code(r'''
+# ---- Cluster-robust and institution-stratified Cox (core/clustering.py) -----------------------------------------
+show_report("institution_clustering.md", start="## Standard errors", max_lines=30)
+''')
+md("### 14.4 Simulation study (synthetic data by design)")
+code(r'''
+# ---- Does the analysis recover effects known to exist? (core/simulation_study.py) -------------------------------
+show_report("simulation_study.md", start="## Power", stop="## Bias", max_lines=30)
+''')
+md("### 14.5 Job-market study (324 real advertisements)")
+code(r'''
+# ---- Headline results of the job-advertisement study (core/market_study.py) -------------------------------------
+show_report("job_market_study.md", max_lines=40)
+''')
+md("### 14.6 Questionnaire study (items that are not model inputs)")
+code(r'''
+# ---- Headline results of the questionnaire study (core/survey_study.py) -----------------------------------------
+show_report("questionnaire_study.md", max_lines=40)
+''')
+md("""
+### 14.7 Automated tests
+
+The project's test suite (thesis Appendix F) is collected here, not run, to show its size; run `pytest` to execute it.
+API response times (thesis Table F.3) were measured against the running service and are not repeated here.
+""")
+code(r'''
+# ---- Count the automated tests without running them --------------------------------------------------------------
+import subprocess
+collected = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q", "--color=no"], capture_output=True, text=True,
+                           cwd=ROOT).stdout.strip().splitlines()
+print(collected[-1])                                              # e.g. "295 tests collected in ..."
+per_file = pd.Series([l.split("::")[0] for l in collected if "::" in l]).value_counts().sort_index()
+display(per_file.rename("tests").to_frame())
+''')
+md("""
+## 15. Summary and consistency check
 
 The key numbers computed live in this notebook are compared with the results reported in the thesis (saved in
 `artifacts/`). Every row should match.
