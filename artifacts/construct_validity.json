@@ -1,0 +1,372 @@
+{
+ "table_e1": {
+  "train": {
+   "n": 620,
+   "events": 467,
+   "censored": "24.7%",
+   "women": "33.4%",
+   "state / non-state / foreign": "33.1% / 22.6% / 44.4%",
+   "GPA mean (SD)": "3.09 (0.37)",
+   "internship completed": "81.9%",
+   "internship months median (IQR)": "6 (3-6)",
+   "certifications median (IQR)": "1 (0-2)",
+   "projects median (IQR)": "3 (1-4)",
+   "technical score mean (SD)": "2.98 (0.57)",
+   "soft score mean (SD)": "3.64 (0.66)",
+   "Kaplan-Meier median (months)": "4"
+  },
+  "validation": {
+   "n": 133,
+   "events": 100,
+   "censored": "24.8%",
+   "women": "29.3%",
+   "state / non-state / foreign": "33.1% / 22.6% / 44.4%",
+   "GPA mean (SD)": "3.06 (0.41)",
+   "internship completed": "77.4%",
+   "internship months median (IQR)": "6 (3-6)",
+   "certifications median (IQR)": "1 (0-2)",
+   "projects median (IQR)": "2 (1-4)",
+   "technical score mean (SD)": "2.99 (0.54)",
+   "soft score mean (SD)": "3.67 (0.68)",
+   "Kaplan-Meier median (months)": "4"
+  },
+  "test": {
+   "n": 132,
+   "events": 100,
+   "censored": "24.2%",
+   "women": "36.4%",
+   "state / non-state / foreign": "32.6% / 22.7% / 44.7%",
+   "GPA mean (SD)": "3.07 (0.37)",
+   "internship completed": "90.9%",
+   "internship months median (IQR)": "6 (4-6)",
+   "certifications median (IQR)": "1 (0-1)",
+   "projects median (IQR)": "2 (1-4)",
+   "technical score mean (SD)": "2.97 (0.57)",
+   "soft score mean (SD)": "3.60 (0.73)",
+   "Kaplan-Meier median (months)": "3"
+  },
+  "all": {
+   "n": 885,
+   "events": 667,
+   "censored": "24.6%",
+   "women": "33.2%",
+   "state / non-state / foreign": "33.0% / 22.6% / 44.4%",
+   "GPA mean (SD)": "3.08 (0.37)",
+   "internship completed": "82.6%",
+   "internship months median (IQR)": "6 (3-6)",
+   "certifications median (IQR)": "1 (0-2)",
+   "projects median (IQR)": "2 (1-4)",
+   "technical score mean (SD)": "2.98 (0.56)",
+   "soft score mean (SD)": "3.64 (0.67)",
+   "Kaplan-Meier median (months)": "4"
+  }
+ },
+ "table_e2": [
+  {
+   "predictor": "GPA",
+   "n": 620,
+   "hr": 1.3259143458633622,
+   "lo": 1.2093336079394226,
+   "hi": 1.4537335612145919,
+   "p": 1.8811380952382866e-09,
+   "vif": 1.8935081256014956
+  },
+  {
+   "predictor": "Projects",
+   "n": 620,
+   "hr": 1.237656982627731,
+   "lo": 1.1294682572531642,
+   "hi": 1.3562088149094713,
+   "p": 4.910031139039303e-06,
+   "vif": 1.7092804480411128
+  },
+  {
+   "predictor": "Technical skill score",
+   "n": 620,
+   "hr": 1.2242512187189236,
+   "lo": 1.1163983267682174,
+   "hi": 1.3425235514939493,
+   "p": 1.707553828355733e-05,
+   "vif": 2.528030070824899
+  },
+  {
+   "predictor": "Hackathons",
+   "n": 548,
+   "hr": 1.1539431422766042,
+   "lo": 1.0557102059637873,
+   "hi": 1.2613165697224291,
+   "p": 0.001609117288505868,
+   "vif": 1.3790424486917099
+  },
+  {
+   "predictor": "Self-learning frequency",
+   "n": 620,
+   "hr": 1.1510529539461847,
+   "lo": 1.0501837386969401,
+   "hi": 1.2616105677204559,
+   "p": 0.0026436885986186615,
+   "vif": 1.5851840723928583
+  },
+  {
+   "predictor": "Portfolio",
+   "n": 620,
+   "hr": 1.1353430216939406,
+   "lo": 1.0368842774259297,
+   "hi": 1.2431510487448858,
+   "p": 0.006096694277314857,
+   "vif": 1.2850842496623682
+  },
+  {
+   "predictor": "SDLC familiarity",
+   "n": 620,
+   "hr": 1.1336940799413724,
+   "lo": 1.0354754342819825,
+   "hi": 1.2412291246535838,
+   "p": 0.006648859710407481,
+   "vif": 1.6216343861166118
+  },
+  {
+   "predictor": "Certifications",
+   "n": 620,
+   "hr": 1.1233885901724185,
+   "lo": 1.0290650693571073,
+   "hi": 1.226357751427702,
+   "p": 0.009314996342922969,
+   "vif": 1.0252251143671778
+  },
+  {
+   "predictor": "Soft-skill score",
+   "n": 620,
+   "hr": 1.1080105638979607,
+   "lo": 1.0078709204627712,
+   "hi": 1.2180998427316223,
+   "p": 0.03382240456426021,
+   "vif": 1.6065755789920175
+  },
+  {
+   "predictor": "Internship months",
+   "n": 620,
+   "hr": 1.0996377817808758,
+   "lo": 1.0074831598119887,
+   "hi": 1.2002217995838467,
+   "p": 0.03342748616039953,
+   "vif": 1.0541417399303017
+  },
+  {
+   "predictor": "Years of preparation",
+   "n": 620,
+   "hr": 1.0148033486963817,
+   "lo": 0.9258251301160598,
+   "hi": 1.1123329914325104,
+   "p": 0.7536266436475081,
+   "vif": 1.011228150882475
+  },
+  {
+   "predictor": "Open source",
+   "n": 620,
+   "hr": 0.9813002169604135,
+   "lo": 0.8942907993277672,
+   "hi": 1.0767751569516293,
+   "p": 0.6902758664481536,
+   "vif": 1.0467096699801037
+  }
+ ],
+ "table_e3": [
+  {
+   "block": "Technical (17 items)",
+   "n": 620,
+   "kmo": 0.9450352177856228,
+   "bartlett_chi2": 5584.003718151519,
+   "bartlett_df": 136,
+   "bartlett_p": 0.0,
+   "factors_parallel_analysis": 3,
+   "alpha": 0.924969109285589,
+   "alpha_lo": 0.9160792059075983,
+   "alpha_hi": 0.9333121036498114,
+   "omega": 0.9263501184002143,
+   "ave": 0.42880093857257834,
+   "loading_min": 0.45433767976269446,
+   "loading_max": 0.75189869281388
+  },
+  {
+   "block": "Soft (9 items)",
+   "n": 620,
+   "kmo": 0.9484426302365582,
+   "bartlett_chi2": 2503.188813832497,
+   "bartlett_df": 36,
+   "bartlett_p": 0.0,
+   "factors_parallel_analysis": 1,
+   "alpha": 0.901733960637883,
+   "alpha_lo": 0.8897028482139323,
+   "alpha_hi": 0.9129337613082116,
+   "omega": 0.9019203128490781,
+   "ave": 0.5056074511679481,
+   "loading_min": 0.6758543808425208,
+   "loading_max": 0.7442963592166563
+  }
+ ],
+ "table_e4": [
+  {
+   "item": "Git / GitHub",
+   "block": "Technical",
+   "loading": 0.75189869281388,
+   "communality": 0.5653516442552214
+  },
+  {
+   "item": "Object-Oriented Programming",
+   "block": "Technical",
+   "loading": 0.7344602718202846,
+   "communality": 0.5394318908823263
+  },
+  {
+   "item": "Java",
+   "block": "Technical",
+   "loading": 0.7274104619660002,
+   "communality": 0.5291259801775898
+  },
+  {
+   "item": "Software Testing",
+   "block": "Technical",
+   "loading": 0.7211909600191531,
+   "communality": 0.5201164008133476
+  },
+  {
+   "item": "Programming Fundamentals",
+   "block": "Technical",
+   "loading": 0.7175077788050189,
+   "communality": 0.514817412645712
+  },
+  {
+   "item": "SQL / Database Management",
+   "block": "Technical",
+   "loading": 0.6993558054878312,
+   "communality": 0.4890985426695331
+  },
+  {
+   "item": "Python",
+   "block": "Technical",
+   "loading": 0.6990112302791289,
+   "communality": 0.4886167000563414
+  },
+  {
+   "item": "JavaScript",
+   "block": "Technical",
+   "loading": 0.675612464760254,
+   "communality": 0.45645220253942553
+  },
+  {
+   "item": "REST APIs",
+   "block": "Technical",
+   "loading": 0.6698962959304854,
+   "communality": 0.44876104730138444
+  },
+  {
+   "item": "Linux / Command Line",
+   "block": "Technical",
+   "loading": 0.6473707071191552,
+   "communality": 0.41908883243595507
+  },
+  {
+   "item": "Web Development",
+   "block": "Technical",
+   "loading": 0.6345379801138203,
+   "communality": 0.40263844820692707
+  },
+  {
+   "item": "Cloud Computing",
+   "block": "Technical",
+   "loading": 0.6314482544196462,
+   "communality": 0.3987268980096183
+  },
+  {
+   "item": "Docker",
+   "block": "Technical",
+   "loading": 0.6142020822779237,
+   "communality": 0.3772441978745374
+  },
+  {
+   "item": "DevOps / CI-CD",
+   "block": "Technical",
+   "loading": 0.5711535767431455,
+   "communality": 0.3262164082264882
+  },
+  {
+   "item": "Cybersecurity Fundamentals",
+   "block": "Technical",
+   "loading": 0.5617419665409381,
+   "communality": 0.31555403697328044
+  },
+  {
+   "item": "Artificial Intelligence / Machine Learning",
+   "block": "Technical",
+   "loading": 0.5403263693491136,
+   "communality": 0.2919525854139947
+  },
+  {
+   "item": "Data Analytics",
+   "block": "Technical",
+   "loading": 0.45433767976269446,
+   "communality": 0.2064227272521487
+  },
+  {
+   "item": "Communication Skills",
+   "block": "Soft",
+   "loading": 0.7442963592166563,
+   "communality": 0.5539770703431698
+  },
+  {
+   "item": "Time Management",
+   "block": "Soft",
+   "loading": 0.7340758731037269,
+   "communality": 0.538867387472999
+  },
+  {
+   "item": "Problem Solving",
+   "block": "Soft",
+   "loading": 0.7287441861646052,
+   "communality": 0.5310680888687128
+  },
+  {
+   "item": "Critical Thinking",
+   "block": "Soft",
+   "loading": 0.722368499954505,
+   "communality": 0.5218162497265217
+  },
+  {
+   "item": "Self-learning Ability",
+   "block": "Soft",
+   "loading": 0.7052186146072078,
+   "communality": 0.4973332943885095
+  },
+  {
+   "item": "Professionalism",
+   "block": "Soft",
+   "loading": 0.7006936871525038,
+   "communality": 0.49097164321537085
+  },
+  {
+   "item": "Adaptability",
+   "block": "Soft",
+   "loading": 0.6945235087019141,
+   "communality": 0.4823629041396178
+  },
+  {
+   "item": "Teamwork",
+   "block": "Soft",
+   "loading": 0.6908627057908134,
+   "communality": 0.47729127825260403
+  },
+  {
+   "item": "Leadership Ability",
+   "block": "Soft",
+   "loading": 0.6758543808425208,
+   "communality": 0.45677914410402715
+  }
+ ],
+ "discriminant": {
+  "htmt": 0.6757666358674314,
+  "sqrt_ave_technical": 0.6548289384049687,
+  "sqrt_ave_soft": 0.7110607928777596,
+  "score_correlation": 0.6186722946679627
+ }
+}

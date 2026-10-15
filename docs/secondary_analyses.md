@@ -21,6 +21,7 @@ All rules were fixed before looking at results.
 | Tuning results | Every hyperparameter setting and its validation score; do the chosen settings match the main analysis? | `python -m core.tuning_results` (about 2 min, not in `run_all`) | `artifacts/tuning_results.md` |
 | Time-dependent metrics | Supplementary AUC at 3/6/12 months and the Brier score over time (validation set; not used for selection) | `python -m core.time_dependent_metrics` (not in `run_all`) | `artifacts/time_dependent_metrics.md` |
 | Exploratory figures | Predictor correlations, skill-rating distributions and scree plots (training set) | `python -m core.eda_figures` (not in `run_all`) | `artifacts/eda_figures.md` |
+| Construct validity | Are the skill scores reliable and valid, and are the predictors free of multicollinearity? (thesis Tables E.1-E.4) | `python -m core.construct_validity` (not in `run_all`) | `artifacts/construct_validity.md` |
 | Baselines | How much do the inputs add beyond GPA alone, GPA + internship and the core set? (validation) | `python -m core.baselines` (not in `run_all`) | `artifacts/baselines.md` |
 | Sample comparison | How does the sample compare with published Sri Lankan figures? (descriptive) | `python -m core.sample_comparison` (not in `run_all`) | `artifacts/sample_comparison.md` |
 | Evaluation figures | Kaplan-Meier with numbers at risk, AFT fit, Schoenfeld check, fairness and robustness charts (from existing results) | `python -m core.evaluation_figures` (not in `run_all`) | `artifacts/evaluation_figures.md` |
