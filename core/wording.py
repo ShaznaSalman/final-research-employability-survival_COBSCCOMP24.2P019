@@ -115,7 +115,13 @@ LOCAL = {
                      "tended to take {strength} longer to find work.",
     "helping_level": "Graduates from {level} tended to find work {strength} sooner than average in our data.",
     "hurting_level": "Graduates from {level} tended to take {strength} longer than average to find work in our data.",
+    "helping_class": "Degree class: {level}. The model associates this with finding work {strength} sooner than "
+                      "the typical profile.",
+    "hurting_class": "Degree class: {level}. The model associates this with taking {strength} longer to find work "
+                      "than the typical profile.",
 }
+LOCAL_NO_HURTING = ("No strong, changeable profile factor stood out as associated with a longer search than typical. "
+                    "Smaller effects may fall below the display threshold, and other factors may still matter.")
 LOCAL_NOTE = ("These are patterns in past graduates' data, not guarantees. They describe what graduates with "
               "profiles like yours experienced; they do not show that changing one thing on its own changes the "
               "outcome.")
@@ -218,7 +224,7 @@ PEER_NOTE = ("Medians use all graduates in each group, including those still loo
 # ---------------------------------------------------------------------------
 # About / disclaimer (shown by the frontend; served by GET /model-info)
 # ---------------------------------------------------------------------------
-DISCLAIMER = ("Decision support only - not a hiring tool. Based on survey data from {n} Sri Lankan IT graduates.")
+DISCLAIMER = "Decision support only - not a hiring tool. Based on survey data from Sri Lankan IT graduates."
 SYNTHETIC_BANNER = "DEMO - SYNTHETIC DATA. These results come from computer-generated data, not real graduates."
 ASSOCIATIONAL_NOTE = ("All explanations describe patterns in past graduates' data. They show which profiles tended to "
                       "find work sooner; they cannot tell you the effect of changing any single thing about yourself. "
@@ -227,8 +233,8 @@ ASSOCIATIONAL_NOTE = ("All explanations describe patterns in past graduates' dat
 PRIVACY = ("Nothing you enter is stored. Your profile is used only to calculate the results on this page and is "
            "discarded as soon as the page is closed. There are no accounts and no tracking.")
 LIMITATIONS = [
-    "The model learned from {n_train} of the {n_modelling} graduates who answered the survey (the rest were kept "
-    "aside to test it), so estimates carry real uncertainty - see the confidence label and ranges.",
+    "The model was tested on survey responses it did not train on, but estimates still carry uncertainty - see the "
+    "confidence label and ranges.",
     "Skill levels are self-rated, and graduates rated them looking back to when they completed their degree.",
     "Respondents chose to take part, so they may not represent every Sri Lankan IT graduate.",
     "Follow-up ends at 24 months; times beyond that are reported as 'more than 24 months', not estimated.",
@@ -240,9 +246,8 @@ LIMITATIONS = [
 
 
 def limitations(info: dict) -> list[str]:
-    """LIMITATIONS with the sample sizes of the data actually used."""
-    n = {"n_train": info.get("training_n", "the"), "n_modelling": info.get("modelling_n", info.get("training_n", ""))}
-    return [s.format(**n) for s in LIMITATIONS]
+    """Limitations that apply to the selected model and its survey data."""
+    return LIMITATIONS.copy()
 
 
 # ---------------------------------------------------------------------------

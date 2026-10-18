@@ -1,19 +1,22 @@
 """API tests: every endpoint returns its declared schema. A real uvicorn server is started in a thread and
 called with `requests` (no extra test dependency). State is injected, so no artifacts are needed."""
+import json
 import socket
 import threading
 import time
 from pathlib import Path
+from unittest.mock import Mock
 
 import pandas as pd
 import pytest
 import requests
 import uvicorn
 
-from api import schemas
+from api import main as api_main, schemas
 from api.main import app
 from core import clean, market, synthetic
 from core.explain import Explainer
+from frontend import api_client
 from tests.conftest import QUICK_PROFILE
 
 
@@ -22,6 +25,12 @@ def base_url(tmp_path_factory, cox_predictor, train_df):
     tmp = tmp_path_factory.mktemp("api")
     processed = tmp / "processed"
     processed.mkdir()
+    artifacts = tmp / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "job_market_study.json").write_text(json.dumps({
+        "roles": {"Software engineering": 30},
+        "by_role": {"Software engineering": {"python": 100, "teamwork": 50}},
+    }), encoding="utf-8")
     train_df.to_csv(processed / "graduates_train.csv", index=False)
     synthetic.generate_employers().to_csv(processed / "employers.csv", index=False)
     clean.clean_job_ads(synthetic.generate_job_ads())[0].to_csv(processed / "job_ads.csv", index=False)
@@ -37,7 +46,7 @@ def base_url(tmp_path_factory, cox_predictor, train_df):
                                 "cal_err_6m_mean": 0.05, "cal_err_12m_mean": 0.04}])
     app.state.core = {"predictor": cox_predictor, "explainer": Explainer(cox_predictor),
                       "reference": market.ReferenceData.load(tmp / "reference.db"), "comparison": comparison,
-                      "info": cox_predictor.bundle["dataset_info"]}
+                      "info": cox_predictor.bundle["dataset_info"], "artifacts": artifacts}
 
     with socket.socket() as s:
         s.bind(("127.0.0.1", 0))
@@ -72,6 +81,37 @@ def test_predict(base_url):
     assert body["is_synthetic"] is True and body["curve"]["months"][0] == 0
 
 
+def test_report(base_url, monkeypatch):
+    captured = {}
+    build_report = api_main.build_report
+
+    def capture_report(*args):
+        captured["pathways"] = args[-1]
+        return build_report(*args)
+
+    monkeypatch.setattr(api_main, "build_report", capture_report)
+    response = requests.post(f"{base_url}/report", json=QUICK_PROFILE)
+    assert response.status_code == 200, response.text
+    assert response.headers["content-type"] == "application/pdf"
+    assert response.headers["cache-control"] == "no-store"
+    assert response.content.startswith(b"%PDF-")
+    assert "attachment" in response.headers["content-disposition"]
+    assert captured["pathways"]["recommendations"][0]["role"] == "Software engineering"
+
+
+def test_frontend_api_client_accepts_pdf(monkeypatch):
+    response = Mock(status_code=200, headers={"content-type": "application/pdf"}, content=b"%PDF-report")
+    monkeypatch.setattr(api_client.requests, "post", lambda *args, **kwargs: response)
+    assert api_client.post_bytes("/report", QUICK_PROFILE) == b"%PDF-report"
+
+
+def test_frontend_api_client_rejects_non_pdf(monkeypatch):
+    response = Mock(status_code=200, headers={"content-type": "application/json"}, content=b"{}")
+    monkeypatch.setattr(api_client.requests, "post", lambda *args, **kwargs: response)
+    with pytest.raises(api_client.APIError, match="invalid PDF"):
+        api_client.post_bytes("/report", QUICK_PROFILE)
+
+
 def test_explain(base_url):
     body = _check(requests.post(f"{base_url}/explain", json=QUICK_PROFILE), schemas.ExplainResponse)
     assert len(body["helping"]) <= 3 and len(body["hurting"]) <= 3
@@ -97,6 +137,10 @@ def test_model_info(base_url):
     body = _check(requests.get(f"{base_url}/model-info"), schemas.ModelInfoResponse)
     assert body["is_synthetic"] is True and body["synthetic_banner"]
     assert body["limitations"] and body["privacy"]
+    assert body["disclaimer"] == (
+        "Decision support only - not a hiring tool. Based on survey data from Sri Lankan IT graduates."
+    )
+    assert all("620" not in limitation for limitation in body["limitations"])
 
 
 @pytest.mark.parametrize("payload", [dict(QUICK_PROFILE, gender="male"), dict(QUICK_PROFILE, salary=1),
@@ -114,7 +158,7 @@ def test_invalid_whatif_rejected_with_message(base_url, changes):
 
 @pytest.mark.parametrize("field", ["gpa", "degree_type", "university_type", "certifications_count",
                                    "internship_months", "project_count"])
-@pytest.mark.parametrize("endpoint", ["/predict", "/explain", "/peer-benchmark"])
+@pytest.mark.parametrize("endpoint", ["/predict", "/explain", "/peer-benchmark", "/report"])
 def test_missing_core_input_rejected_in_plain_words(base_url, endpoint, field):
     r = requests.post(f"{base_url}{endpoint}", json={k: v for k, v in QUICK_PROFILE.items() if k != field})
     assert r.status_code == 422 and "please give" in r.json()["detail"][0]["msg"]
@@ -164,6 +208,18 @@ def test_chat(base_url):
                                                                                                   "I learn?"}),
                   schemas.ChatResponse)
     assert body["intent"] == "skills" and body["reply"] and body["follow_ups"]
+
+
+def test_chat_answers_general_questions_without_a_profile(base_url):
+    body = _check(requests.post(f"{base_url}/chat", json={"message": "How does the model work?"}),
+                  schemas.ChatResponse)
+    assert body["intent"] == "method" and "past IT graduates" in body["reply"]
+
+
+def test_chat_requires_a_profile_for_personal_estimates(base_url):
+    body = _check(requests.post(f"{base_url}/chat", json={"profile": None, "message": "How long will it take me?"}),
+                  schemas.ChatResponse)
+    assert body["intent"] == "estimate" and "Complete your profile" in body["reply"]
 
 
 @pytest.mark.parametrize("payload", [{"profile": QUICK_PROFILE, "message": ""},

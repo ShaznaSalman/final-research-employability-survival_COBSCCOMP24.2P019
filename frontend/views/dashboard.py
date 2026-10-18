@@ -1,11 +1,13 @@
 """My dashboard: the estimate and the few things a graduate needs first. Detail lives on the Improve, Compare and Ask pages."""
 from __future__ import annotations
 
+import json
+
 import streamlit as st
 
 from core import wording  # labels only - no model logic
 from frontend import charts, profile as prof, ui
-from frontend.api_client import APIError
+from frontend.api_client import APIError, post_bytes
 
 S = st.session_state
 try:
@@ -39,7 +41,7 @@ now = pred["months_since_graduation"]
 main, side = st.columns([1.15, 1], gap="large")
 with main:
     ui.estimate_card(med, pred["low"]["display"], hi, wording.CONFIDENCE_LABEL[pred["confidence"]], pred["headline"])
-    st.caption(f"{pred['confidence_reason']} Source: survey answers of {info['training_n']} Sri Lankan IT graduates.")
+    st.caption(f"{pred['confidence_reason']} Source: survey answers from Sri Lankan IT graduates.")
     for c in pred["cautions"]:
         st.warning(c, icon=":material/warning:")
     st.plotly_chart(charts.range_bar([{"label": "You", "pred": pred, "color": charts.BLUE}], horizon, now=now),
@@ -93,7 +95,7 @@ if expl:
                        "Nothing stands out above the typical graduate.")
     with b:
         ui.driver_card("holding", "What's holding you back", [i["text"] for i in expl["hurting"][:3]],
-                       "Nothing stands out below the typical graduate.")
+                       wording.LOCAL_NO_HURTING)
     if len(expl["helping"]) > 3 or len(expl["hurting"]) > 3:
         with st.expander("See every factor"):
             c1, c2 = st.columns(2, gap="medium")
@@ -102,31 +104,48 @@ if expl:
                 prof.show_items(expl["helping"], "Nothing stands out above the typical graduate.")
             with c2:
                 st.markdown("**Holding you back**")
-                prof.show_items(expl["hurting"], "Nothing stands out below the typical graduate.")
+                prof.show_items(expl["hurting"], wording.LOCAL_NO_HURTING)
     st.caption(expl["note"])
 
 if sg and sg["suggestions"]:
     ui.section("Your next steps", "Small changes linked with finding work sooner in profiles like yours.")
-    with st.container(border=True):
-        for i, sug in enumerate(sg["suggestions"][:3]):
+    for i, sug in enumerate(sg["suggestions"][:3]):
+        with st.container(border=True):
             t, btn = st.columns([4, 1], vertical_alignment="center")
             t.markdown(f"<div class='item'>{sug['text']}</div>", unsafe_allow_html=True)
-            if btn.button("Try it", key=f"dash_try_{i}", use_container_width=True,
+            if btn.button("Try it", type="primary", key=f"dash_try_{i}", use_container_width=True,
                           help="Opens Improve with this change applied."):
                 S["pending_changes"] = sug["changes"]
                 st.switch_page("views/improve.py")
-        st.caption(sg["note"])
+    st.caption(sg["note"])
+
+ui.section("Printable report", "Create a PDF with your estimate, chart, explanation, next steps and employer skill gaps.")
+profile_signature = json.dumps(profile, sort_keys=True)
+if S.get("report_profile_signature") != profile_signature:
+    S.pop("report_pdf", None)
+    S.pop("report_profile_signature", None)
+if st.button("Generate PDF report", icon=":material/picture_as_pdf:", key="dash_report"):
+    S.pop("report_pdf", None)
+    S.pop("report_profile_signature", None)
+    with st.spinner("Preparing your report…"):
+        try:
+            S["report_pdf"] = post_bytes("/report", profile)
+            S["report_profile_signature"] = profile_signature
+        except APIError as e:
+            st.error(f"Could not generate the report: {e}", icon=":material/error:")
+if S.get("report_profile_signature") == profile_signature and S.get("report_pdf"):
+    st.download_button("Download PDF report", data=S["report_pdf"], file_name="jobspark-report.pdf",
+                       mime="application/pdf", icon=":material/download:", key="dash_report_download")
+    st.caption("Generated only when requested; the API does not save your profile or PDF.")
 
 ui.section("Go further")
-t1, t2, t3, t4 = st.columns(4, gap="medium")
+t1, t2, t3 = st.columns(3, gap="medium")
 with t1:
     ui.nav_tile("views/improve.py", "Improve", "Preview what-if changes", "target")
 with t2:
     ui.nav_tile("views/compare.py", "Compare", "Employers and peers", "scale")
 with t3:
     ui.nav_tile("views/market.py", "Job market", "What ads ask for", "case")
-with t4:
-    ui.nav_tile("views/ask.py", "Ask", "Questions about your result", "chat")
 
 S.setdefault("remember_device", False)
 with st.expander("Save my profile", icon=":material/save:"):
@@ -135,8 +154,9 @@ with st.expander("Save my profile", icon=":material/save:"):
                    "Switch it off, or use 'Forget me' on Home, to remove them.")
     st.download_button("Download my profile", prof.profile_file(), file_name="jobspark-profile.json",
                        mime="application/json", icon=":material/download:")
-    st.caption("Your answers never go to a server: they stay in this browser or in the file you download. "
-               "Load the file again from the Home page, on any device.")
+    st.caption("Your answers are sent to the prediction service to calculate results, but are not stored. "
+               "They stay in this browser or in the file you download. Load the file again from the Home page, "
+               "on any device.")
 
 with st.expander("How to read this result", icon=":material/help:"):
     st.markdown("\n".join(f"- {line}" for line in wording.READING_GUIDE))

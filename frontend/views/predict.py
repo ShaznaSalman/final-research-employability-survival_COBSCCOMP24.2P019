@@ -140,13 +140,19 @@ with main_col:
     ui.synthetic_notice(info)
     with st.container(border=True):
         STEP_VIEWS[step - 1]()
+    if step == len(STEPS):
+        st.info(
+            "Your profile is ready. Next, JobSpark will calculate your estimated time to a first IT job, "
+            "explain what is influencing it, and show career paths and practical next steps.",
+            icon=":material/analytics:",
+        )
     back, nxt = st.columns(2)
     back.button("Back", icon=":material/arrow_back:", on_click=go, args=(step - 1,), disabled=step == 1,
                 use_container_width=True, key=f"flow_back_{step}")
     if step < len(STEPS):
         nxt.button(f"Next: {STEPS[step]}", type="primary", icon=":material/arrow_forward:", on_click=go,
                    args=(step + 1,), use_container_width=True, key=f"flow_next_{step}")
-    elif nxt.button("See my results", type="primary", icon=":material/arrow_forward:", use_container_width=True,
+    elif nxt.button("Calculate my results", type="primary", icon=":material/arrow_forward:", use_container_width=True,
                     key=f"flow_next_{step}"):
         S["profile_done"] = True
         st.switch_page("views/dashboard.py")

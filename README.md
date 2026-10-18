@@ -9,7 +9,7 @@ associated with shorter or longer searches, lets the user try "what-if" changes,
 with employer requirements and job ads. Graduates who are still looking can enter how long they have been
 searching; the estimate is then based on graduates who were also still looking at that point.
 
-> **Decision support only - not a hiring or screening tool.** No accounts, nothing stored.
+> **Decision support only - not a hiring or screening tool.** Profile and prediction data are not stored by the prediction API. The optional account/progress service uses a separate SQLite database; phone sign-in stays unavailable until SMS credentials are configured.
 > All data are real: 324 job ads, and the main-study graduate (1,175 responses) and employer (245 responses)
 > surveys (see the Data statement). The synthetic generator is kept only for the method checks and tests.
 
@@ -87,7 +87,24 @@ venv\Scripts\activate
 streamlit run frontend/app.py
 ```
 
-It opens at http://localhost:8501 with four pages (top navigation): **Home**, **My prediction** (the predictor), **Job market** (the study of the real job ads) and **Research lab** (model comparison, calibration, effects, fairness, robustness and the simulation study). Page code is in `frontend/views/`, shared styling in `frontend/ui.py`.
+It opens at http://localhost:8501 with pages grouped in the sidebar: **Home** and **My profile** to enter answers; **My dashboard** and **Compare** for results; **Career path**, **Saved profile & progress**, and **Improve my chances** under My plan; plus **Job market**. Career path compares your skill ratings with skills named in the collected entry-level job ads; it is descriptive guidance, not a hiring prediction. Page code is in `frontend/views/`, shared styling in `frontend/ui.py`.
+
+On the **My prediction** dashboard, choose **Generate PDF report** and then **Download PDF report**. The report includes the estimate, uncertainty chart, explanation, suggested next steps and employer skill gaps. It is generated on request and returned directly; the API does not save the profile or PDF. The frontend keeps the generated PDF in temporary session memory until the page session ends.
+
+### Optional profile and progress storage
+
+The profile/progress service is an independent app (`profile_service.main`) on port 8001 with a separate SQLite file (`data/profile_store.sqlite3`). It does not change or connect internally to the prediction API. After phone verification, users can save a display name and choose an avatar from the built-in emoji set; these account settings follow the account across sign-ins. Each profile snapshot saves the original answers, calculated profile, prediction, explanation, personalized suggestions, employer skill alignment, recommended roles/gaps, selected career path, and any active Improve my chances what-if comparison. Career goals and action statuses are stored separately; records are retained for up to one year and can be deleted by the user. Start it in its own terminal:
+
+```powershell
+venv\Scripts\activate
+uvicorn profile_service.main:app --host 127.0.0.1 --port 8001
+```
+
+Copy `.env.example` to the ignored `.env`, then set `SMS_API_KEY` and `SMS_SENDER_ID`. The service uses `SMS_API_ENDPOINT` (defaults to `https://dashboard.smsapi.lk/api/v3/sms/send`) and sends a plain-text message with `recipient`, `sender_id`, `type`, and `message` fields. `SMS_API_AUTH_SCHEME` defaults to `Bearer`; change it only if your SMSAPI.lk account requires a different authorization scheme. The endpoint and request fields follow public third-party examples, not verified provider documentation; no real SMS delivery has been tested. Confirm the request format with SMSAPI.lk and test using your own number. Never put an API token in source control or chat.
+
+OTP codes expire after five minutes, allow at most five verification attempts, and are limited to three requests per phone number per 15 minutes. The SQLite database is free and requires no separate DB account; it persists on the machine where the profile service runs. It is suitable for a local installation. For a public deployment or access across devices, the service and database need to be hosted with a persistent disk or managed database, HTTPS and backups. A free hosted database is not required for local use, and free-tier availability/retention varies by provider.
+
+After sign-in, the profile-service session token is kept in this browser tab's `sessionStorage` so full-page reloads (including theme changes) can restore the session. It is cleared when you sign out or delete the account, is not shared as a persistent login across separate tabs, and remains subject to the profile service's 30-day token expiry.
 
 **8. Run the tests** (optional):
 
@@ -238,11 +255,11 @@ model, whose candidate list and selection rule were fixed in advance.
 | `core/survey_items.py` / `survey_study.py` / `synthetic_survey.py` | Questionnaire-study items (not model inputs), their analysis, and their synthetic answers |
 | `core/sus_study.py` | Usability evaluation: SUS scoring and analysis (form built by `docs/usability/SUS_Form_Builder.gs`) |
 | `core/wording.py` | **Every user-facing sentence** - edit wording here |
-| `core/chat.py` | Grounded assistant behind `/chat`: answers questions about a profile from the system's own results (no language model, nothing stored) |
+| `core/chat.py` | Grounded assistant behind `/chat`: answers general questions without a profile and personal-result questions once a profile is complete (no language model, nothing stored) |
 | `core/run_all.py` | The one-command pipeline |
 | `benchmark/` | LLM prompt export, optional API mode (`run_llm.py`), manual Excel answer sheet for free chat apps (`answer_sheet.py`), scoring |
 | `api/` | FastAPI app (thin layer over `core/`), incl. `/chat` (grounded assistant) and the `/job-market` and `/research` study endpoints |
-| `frontend/` | Streamlit app: `app.py` (navigation), `views/` (Home, My prediction, Job market, Research lab), `ui.py` (shared style), `charts.py` / `charts_study.py` (figures) |
+| `frontend/` | Streamlit app: `app.py` (navigation), `views/` (profile, dashboard, career path, Job market, Research lab, and guidance pages), `ui.py` (shared style), `charts.py` / `charts_study.py` (figures) |
 | `data/reference/real/` | Real institution lookup, staged until real survey data is used |
 | `docs/` | Data dictionary, cleaning log, architecture, testing, questionnaires |
 | `artifacts/` | Generated: models, results tables (`model_comparison.md` = Chapter 4), figures |
