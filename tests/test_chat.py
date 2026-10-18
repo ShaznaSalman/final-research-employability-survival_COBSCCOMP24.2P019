@@ -19,10 +19,23 @@ def assistant(cox_predictor):
     ("how can I find work sooner", "suggestions"), ("can I trust this?", "trust"),
     ("Is GPA important?", "factor"), ("how do I compare with similar graduates", "peers"),
     ("how does it work", "method"), ("do you store my data", "privacy"), ("hello", "greeting"),
+    ("hi", "greeting"), ("hii", "greeting"), ("hio", "greeting"),
+    ("good evening my friend", "greeting"), ("thankyuo", "greeting"), ("thanku", "greeting"),
+    ("thankyou", "greeting"),
     ("what is the capital of France", "unknown"),
+    ("why is my estmate like this", "explain"), ("which skils should i lern", "skills"),
+    ("What if I do a 6-month internshp?", "whatif"), ("can i trust this esimate?", "trust"),
+    ("Who will win the cricket world cup?", "unknown"),
 ])
 def test_classify(message, intent):
     assert classify(message) == intent
+
+
+def test_misspelled_what_if_question_is_corrected_before_parsing(assistant):
+    response = assistant.respond("What if I do a 6-month internshp?", QUICK_PROFILE)
+    assert response["intent"] == "whatif"
+    assert "Change tested" in response["reply"]
+    assert "internship_months" not in response["reply"]
 
 
 def test_parse_changes_adds_and_sets():
@@ -44,6 +57,59 @@ def test_estimate_uses_the_model_output(assistant, cox_predictor):
     r = assistant.respond("How long will it take me?", QUICK_PROFILE)
     assert cox_predictor.predict(QUICK_PROFILE)["headline"] in r["reply"]
     assert r["sources"] == ["prediction"]
+
+
+@pytest.mark.parametrize("message,intent", [
+    ("hi", "greeting"), ("What can I ask?", "help"), ("How does the model work?", "method"),
+    ("Do you store my data?", "privacy"), ("Can I trust this estimate?", "trust"),
+    ("Is GPA important?", "factor"), ("Who will win the cricket world cup?", "unknown"),
+])
+def test_general_questions_work_without_a_profile(assistant, message, intent):
+    response = assistant.respond(message, None)
+    assert response["intent"] == intent
+    assert response["reply"]
+    assert response["follow_ups"]
+
+
+@pytest.mark.parametrize("message,expected", [
+    ("good evening my friend", "Good evening!"),
+    ("good morning", "Good morning!"),
+    ("good afternoon", "Good afternoon!"),
+    ("thanks", "You're welcome!"),
+    ("thankyuo", "You're welcome!"),
+    ("thanku", "You're welcome!"),
+    ("thankyou", "You're welcome!"),
+])
+@pytest.mark.parametrize("profile", [QUICK_PROFILE, None])
+def test_greetings_get_a_contextual_acknowledgement(assistant, message, expected, profile):
+    response = assistant.respond(message, profile)
+    assert response["intent"] == "greeting"
+    assert response["reply"].startswith(expected)
+
+
+def test_explanation_says_when_no_strong_factor_holds_profile_back(assistant, monkeypatch):
+    monkeypatch.setattr(assistant.explainer, "explain", lambda _: {
+        "helping": [{"text": "A factor is helping."}], "hurting": [], "note": wording.LOCAL_NOTE,
+    })
+    response = assistant.respond("Why is my estimate like this?", QUICK_PROFILE)
+    assert wording.LOCAL_NO_HURTING in response["reply"]
+
+
+@pytest.mark.parametrize("message", [
+    "hi", "What can I ask?", "How does the model work?", "Do you store my data?",
+    "Can I trust this estimate?", "Who will win the cricket world cup?",
+])
+def test_basic_answers_without_a_profile_use_simple_language(assistant, message):
+    reply = assistant.respond(message, None)["reply"]
+    assert len(reply.split()) <= 45
+    assert "survival-analysis" not in reply
+
+
+def test_personal_questions_require_a_profile(assistant):
+    response = assistant.respond("How long will it take me?", None)
+    assert response["intent"] == "estimate"
+    assert "Complete your profile" in response["reply"]
+    assert response["sources"] == []
 
 
 def test_whatif_matches_the_whatif_module(assistant, cox_predictor):

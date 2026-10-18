@@ -11,12 +11,14 @@ from __future__ import annotations
 
 import streamlit as st
 
+from core.chat import PROFILE_FREE_INTENTS, classify
 from frontend import profile as prof
 
 STARTERS = ["Why is my estimate like this?", "What if I do a 6-month internship?",
             "Which skills should I learn?", "Can I trust this estimate?"]
-NOT_READY = ("I can explain your result once your profile is complete. Answer the four short steps under "
-             "**My profile**, then ask me anything about your estimate.")
+BASIC_STARTERS = ["What can I ask?", "How does the model work?", "Do you store my data?", "Is GPA important?"]
+NOT_READY = ("I can answer general questions now. To explain your estimate or test changes for your situation, "
+             "complete the four short steps under **My profile**.")
 UNREACHABLE = "Sorry, I could not reach the results service just now. Please try again in a moment."
 MAX_CHARS = 300
 
@@ -28,6 +30,11 @@ export default function (component) {
   const S = (w.__jsChat = w.__jsChat || { open: false, pending: false, seen: 0, optimistic: null, tipDone: false });
   w.__jsChatTrigger = setTriggerValue;
   const info = data || {};
+  if (info.open_request && info.open_request !== S.openRequest) {
+    S.openRequest = info.open_request;
+    S.open = true;
+    S.tipDone = true;
+  }
 
   const CSS = `
   #js-chat { position: fixed; right: 24px; bottom: 20px; z-index: 99990; font-family: 'Inter','Segoe UI',sans-serif; }
@@ -186,7 +193,7 @@ export default function (component) {
     if (S.pending && history.length > S.seen) { S.pending = false; S.optimistic = null; }   // the answer has arrived
     let html = `<div class="jc-b bot"><p>Hi, I'm <strong>Spark</strong>.</p>` +
       (cur.ready ? `<p>Ask me about your estimate, what is helping or holding you back, or what small changes might do.</p></div>`
-                 : `<p>I can explain your result once your profile is complete.</p></div><button type="button" class="jc-cta">Build my profile</button>`);
+                 : `<p>Ask general questions about the model, privacy, or factors that matter across graduates. Complete your profile for answers about your own estimate.</p></div><button type="button" class="jc-cta">Build my profile</button>`);
     for (const [role, text] of history) {
       html += role === "user" ? `<div class="jc-b me">${esc(text)}</div>` : `<div class="jc-b bot">${fmt(text)}</div>`;
     }
@@ -196,13 +203,19 @@ export default function (component) {
     msgs.innerHTML = html;
     msgs.scrollTop = msgs.scrollHeight;
 
-    const chips = history.length ? (cur.followups || []) : (cur.ready ? (cur.starters || []) : []);
+    const chips = history.length ? (cur.followups || []) : (cur.starters || []);
     $("jc-chips").innerHTML = S.pending ? "" : chips.slice(0, 4).map((c) => `<button type="button">${esc(c)}</button>`).join("");
     $("jc-send").disabled = !!S.pending;
   }
 
   w.__jsChatData = info;
   paint();
+  if (info.open_request && info.open_request === S.openRequest) {
+    setTimeout(() => {
+      const input = d.getElementById("jc-input");
+      if (S.open && input) input.focus();
+    }, 60);
+  }
 }
 """
 
@@ -213,8 +226,12 @@ def reply_for(text: str, ready: bool, call) -> tuple[str, list[str]]:
     """The assistant's answer and its suggested follow-up questions. `call` is frontend.profile.call (path, payload)
     -> (result, error). Without a finished profile the answer is a fixed prompt to build one."""
     if not ready:
-        return NOT_READY, []
-    answer, err = call("/chat", {"profile": prof.build_profile(), "message": text})
+        if classify(text) not in PROFILE_FREE_INTENTS:
+            return NOT_READY, []
+        profile = None
+    else:
+        profile = prof.build_profile()
+    answer, err = call("/chat", {"profile": profile, "message": text})
     if err or not answer:
         return UNREACHABLE, []
     return answer["reply"], list(answer.get("follow_ups") or [])
@@ -227,8 +244,9 @@ def _widget(hidden: bool) -> None:
     ready = bool(S.get("profile_done"))
     result = _component(
         key="jobspark_chat",
-        data={"history": [list(h) for h in history], "hidden": hidden, "ready": ready, "starters": STARTERS,
-              "followups": S.get("chat_followups", [])},
+        data={"history": [list(h) for h in history], "hidden": hidden, "ready": ready,
+              "starters": STARTERS if ready else BASIC_STARTERS,
+              "followups": S.get("chat_followups", []), "open_request": S.get("_chat_open_request")},
         on_message_change=lambda: None)
     msg = result.message
     if msg and msg.get("n") != S.get("_chat_n"):
@@ -248,3 +266,8 @@ def _widget(hidden: bool) -> None:
 def render(hidden: bool = False) -> None:
     """Show the floating assistant. Call once per run, from the app entry point."""
     _widget(hidden)
+
+
+def request_open() -> None:
+    """Open Spark on the next render, for navigation tiles that target the chat assistant."""
+    st.session_state["_chat_open_request"] = st.session_state.get("_chat_open_request", 0) + 1

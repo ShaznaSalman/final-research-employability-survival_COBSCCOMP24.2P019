@@ -19,6 +19,21 @@ def test_without_a_finished_profile_it_asks_for_one_and_calls_nothing():
     assert "My profile" in reply
 
 
+@pytest.mark.parametrize("message", ["hi", "hii", "hio", "What can I ask?", "How does the model work?",
+                                     "Do you store my data?", "Is GPA important?"])
+def test_general_questions_are_answered_without_a_profile(message):
+    seen = {}
+
+    def call(path, payload):
+        seen.update(path=path, payload=payload)
+        return {"reply": "A general answer.", "follow_ups": ["How does the model work?"]}, None
+
+    reply, follow = cw.reply_for(message, False, call)
+    assert reply == "A general answer."
+    assert follow == ["How does the model work?"]
+    assert seen == {"path": "/chat", "payload": {"profile": None, "message": message}}
+
+
 def test_a_normal_answer_returns_the_reply_and_follow_ups_from_the_api():
     seen = {}
 
@@ -47,3 +62,11 @@ def test_starters_are_questions_the_assistant_understands():
     from core.chat import FOLLOW_UPS
     assert all(q.endswith("?") for q in cw.STARTERS) and len(cw.STARTERS) == 4
     assert set(cw.STARTERS) <= set(FOLLOW_UPS) | {"What if I do a 6-month internship?"}
+    assert all(q.endswith("?") for q in cw.BASIC_STARTERS)
+
+
+def test_personal_questions_still_require_a_finished_profile():
+    def boom(*a, **k):
+        raise AssertionError("profile-dependent questions must not call the API without a profile")
+    reply, follow = cw.reply_for("How long will it take me?", False, boom)
+    assert reply == cw.NOT_READY and follow == []

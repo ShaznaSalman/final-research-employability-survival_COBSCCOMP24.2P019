@@ -19,13 +19,17 @@ class APIError(Exception):
 def _handle(resp: requests.Response) -> dict:
     if resp.status_code == 200:
         return resp.json()
+    raise APIError(_error_detail(resp))
+
+
+def _error_detail(resp: requests.Response) -> str:
     try:
         detail = resp.json().get("detail")
     except ValueError:
         detail = resp.text
     if isinstance(detail, list):                       # pydantic validation errors
         detail = "; ".join(f"{'.'.join(map(str, d.get('loc', [])[1:]))}: {d.get('msg')}" for d in detail)
-    raise APIError(str(detail))
+    return str(detail)
 
 
 def get(path: str) -> dict:
@@ -42,3 +46,17 @@ def post(path: str, payload: dict) -> dict:
     except requests.ConnectionError:
         raise APIError(f"The prediction service at {API_URL} is not reachable. Start it with "
                        "`uvicorn api.main:app --port 8000`.") from None
+
+
+def post_bytes(path: str, payload: dict) -> bytes:
+    try:
+        response = requests.post(f"{API_URL}{path}", json=payload, timeout=TIMEOUT)
+    except requests.ConnectionError:
+        raise APIError(f"The prediction service at {API_URL} is not reachable. Start it with "
+                       "`uvicorn api.main:app --port 8000`.") from None
+    if response.status_code != 200:
+        raise APIError(_error_detail(response))
+    if response.headers.get("content-type", "").split(";", 1)[0] != "application/pdf" \
+            or not response.content.startswith(b"%PDF-"):
+        raise APIError("The prediction service returned an invalid PDF report.")
+    return response.content
