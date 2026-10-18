@@ -27,8 +27,7 @@ def code(text: str):
 md("""
 # Time to first IT job: research walkthrough
 
-**A Survival-Analysis Framework for Predicting and Explaining Time-to-Employment for Final-Year IT Undergraduates in
-Sri Lanka** - M. S. F. Shazna
+**A Survival-Analysis Framework for Predicting and Explaining Time-to-Employment for Final-Year Information Technology Undergraduates and Graduates in Sri Lanka** - M. S. F. Shazna
 
 This notebook walks through the whole analysis behind the dissertation, from the cleaned survey data to the final
 results, with every table and chart produced in place.
@@ -986,7 +985,7 @@ code(r'''
 # ---- Count the automated tests without running them (always in the real project folder) -----------------------
 collected = subprocess.run([sys.executable, "-m", "pytest", "--collect-only", "-q", "--color=no"], capture_output=True,
                            text=True, cwd=PROJECT).stdout.strip().splitlines()
-print(collected[-1])                                              # e.g. "295 tests collected in ..."
+print(collected[-1])                                              # e.g. "412 tests collected in ..."
 per_file = pd.Series([l.split("::")[0] for l in collected if "::" in l]).value_counts().sort_index()
 display(per_file.rename("tests").to_frame())
 ''')
