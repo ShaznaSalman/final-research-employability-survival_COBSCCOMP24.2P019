@@ -53,6 +53,16 @@ def test_local_top3_helping_and_hurting(cox_predictor, quick_profile):
     assert features <= set(schema.MODEL_FEATURES) and "gender" not in features
 
 
+def test_degree_class_profiles_are_not_reported_as_gpa(cox_predictor, quick_profile):
+    profile = {**quick_profile, "respondent_status": "final_year", "degree_class": "first"}
+    profile.pop("gpa")
+    local = Explainer(cox_predictor).local(profile)
+    degree = next(item for item in local["helping"] + local["hurting"] if item["feature"] == "gpa")
+    assert degree["name"] == "degree class"
+    assert degree["value"] == "First class"
+    assert "GPA" not in degree["text"] and "3.85" not in degree["text"]
+
+
 def test_cox_contributions_sum_to_linear_predictor_difference(cox_predictor, quick_profile):
     from core.predict import profile_frame
     ex = Explainer(cox_predictor)

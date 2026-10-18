@@ -100,7 +100,7 @@ class Extras(BaseModel):
 
 class ChatRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    profile: Profile
+    profile: Optional[Profile] = None
     message: str = Field(..., min_length=1, max_length=500, description="The graduate's question")
 
 

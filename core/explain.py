@@ -188,6 +188,13 @@ class Explainer:
         status = profile.get("respondent_status", "graduated")
         df = profile_frame({k: v for k, v in profile.items() if k != "months_since_graduation"})
         scores = self.contributions(df)
+        degree_class = profile.get("degree_class") if profile.get("gpa") is None else None
+        if degree_class in schema.DEGREE_CLASS_TO_GPA:
+            gpa_features = [feat for feat in ("gpa", "gpa_3plus") if feat in scores.index]
+            if gpa_features:
+                degree_score = scores.loc[gpa_features].sum()
+                scores = scores.drop(gpa_features)
+                scores.loc["gpa"] = degree_score
         raw = preprocess.raw_feature_frame(df, self.features).iloc[0]
         derived = preprocess.derive_and_block(df).iloc[0]
         allowed = actionable_model_features(status) if LOCAL_ACTIONABLE_ONLY else set(scores.index)
@@ -197,11 +204,16 @@ class Explainer:
                 continue
             side = "helping" if score > 0 else "hurting"
             spec = wording.FEATURES[feat]
-            if feat in preprocess.CATEGORICAL_FEATURES:
+            if feat == "gpa" and degree_class in schema.DEGREE_CLASS_TO_GPA:
+                value = wording.DEGREE_CLASS_LABELS[degree_class]
+                name = "degree class"
+                text = wording.LOCAL[f"{side}_class"].format(level=value, strength=_strength(score))
+            elif feat in preprocess.CATEGORICAL_FEATURES:
                 level = raw[feat]
                 text = wording.LOCAL[f"{side}_level"].format(level=wording.LEVELS[feat].get(level, level),
                                                              strength=_strength(score))
                 value = wording.LEVELS[feat].get(level, str(level))
+                name = spec["name"]
             else:
                 v = raw[feat]
                 shown = derived.get(spec.get("display", feat), v)
@@ -216,7 +228,8 @@ class Explainer:
                     Name=spec["name"][0].upper() + spec["name"][1:], value=value, higher=spec["higher"],
                     lower=spec["lower"],
                     strength=_strength(score))
-            items.append({"feature": feat, "name": spec["name"], "value": value, "score": round(float(score), 4),
+                name = spec["name"]
+            items.append({"feature": feat, "name": name, "value": value, "score": round(float(score), 4),
                           "strength": _strength(score), "side": side, "text": text})
         helping = sorted([i for i in items if i["side"] == "helping"], key=lambda i: -i["score"])[:TOP_K]
         hurting = sorted([i for i in items if i["side"] == "hurting"], key=lambda i: i["score"])[:TOP_K]

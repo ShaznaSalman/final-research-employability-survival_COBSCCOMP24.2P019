@@ -39,7 +39,8 @@ flowchart LR
         WD["wording.py"]
     end
 
-    API["api/ - FastAPI<br/>/predict /explain /whatif /suggestions<br/>/market-alignment /peer-benchmark<br/>/model-info /health /chat"]
+    API["api/ - FastAPI<br/>/predict /report /explain /whatif /suggestions<br/>/market-alignment /peer-benchmark<br/>/model-info /health /chat"]
+    STORE["profile_service/ - separate FastAPI<br/>port 8001; optional phone OTP"]
     FE["frontend/ - Streamlit<br/>single screen"]
 
     SYN -. "writes *_SYNTHETIC" .-> RAW
@@ -58,6 +59,7 @@ flowchart LR
     WD --> PR & EX & WI & RD
     PR & EX & WI & RD --> API
     API -- "HTTP (API_URL in .env)" --> FE
+    FE -- "HTTP (PROFILE_STORE_URL in .env)" --> STORE
 ```
 
 ## Components
@@ -93,9 +95,12 @@ flowchart LR
 - `core/explain.py` - global hazard / time ratios and per-profile top-3 helping / hurting (actionable features only).
 - `core/whatif.py` - re-predicts after changes to actionable features only, with range checks and cautions.
 - `core/market.py` (`ReferenceData`) - skill gaps and peer benchmarks read from `reference.db`.
+- `core/pathways.py` - compares self-rated skills with skill prevalence by role in the job-ad study; this is descriptive guidance, not a hiring prediction.
 - `core/wording.py` - every user-facing sentence, associational and jargon-free.
 
 **Serving**
-- `core/chat.py` - grounded assistant: matches a question to a fixed set of intents and answers from the prediction, explanation, what-if, suggestion, market, peer and evaluation outputs; no language model, nothing stored.
+- `core/chat.py` - grounded assistant: matches a question to a fixed set of intents; general questions about the model, privacy, reliability and population-level factors work without a profile, while personalized prediction, explanation, what-if, suggestion, market and peer answers require one; no language model, nothing stored.
 - `api/` - FastAPI; Pydantic schemas generated from `core/schema.py`; no logic, no storage, no auth.
-- `frontend/` - Streamlit single screen; calls the API only; never caches profiles.
+- `api/report.py` - builds a one-time PDF report in memory; `/report` returns the bytes without writing to disk.
+- `profile_service/` - a separate optional FastAPI service and SQLite database for account identity (display name and a fixed-set emoji avatar), profile snapshots (answers, prediction, explanation, suggestions, employer alignment, role recommendations, selected career path and active what-if comparisons), career goals and action progress. It is isolated from `api.main`; phone OTP uses separately configured SMS provider credentials and rate-limited, expiring challenges.
+- `frontend/` - Streamlit app pages, including role-fit exploration based on the job-ad study; calls the prediction API and optional progress service without storing profile data inside the prediction backend.

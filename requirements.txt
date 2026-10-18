@@ -28,6 +28,7 @@ pydantic
 streamlit
 plotly
 requests
+reportlab
 
 # Reference data + config
 sqlalchemy

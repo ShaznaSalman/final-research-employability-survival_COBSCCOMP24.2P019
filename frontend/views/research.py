@@ -36,8 +36,7 @@ if sel and test:
          f"95% CI {test['uno_c_lo']:.2f}-{test['uno_c_hi']:.2f} · {info['selected_model_label']}", data_tag),
         (f"{test['ibs']:.3f}", "Integrated Brier score (test)", "lower is better (0.25 = uninformative)"),
         (f"{100 * test['cal_err_6m']:.1f} pts", "Calibration error at 6 months (test)", "predicted vs observed share employed"),
-        (info.get("modelling_n", info["training_n"]), "Graduates",
-         f"train {info['training_n']} · validation {info.get('validation_n', 0)} · test {info.get('test_n', 0)}"),
+        ("Survey", "Graduate data", "Split into training, validation and test groups"),
     ])
 
 tabs = st.tabs([":material/leaderboard: Models", ":material/target: Calibration", ":material/balance: What matters",
@@ -260,8 +259,8 @@ with tabs[8]:
     c1, c2 = st.columns(2, gap="large")
     with c1:
         st.markdown("**The data**")
-        st.markdown(f"- Training data: **{info['training_n']} graduates**, of whom {info['events']} had found an IT job "
-                    f"by the survey and {info['censored']} were still looking (*censored*).\n"
+        st.markdown("- Training data: graduate survey responses; some respondents had found an IT job by the survey "
+                    "and others were still looking (*censored*).\n"
                     f"- Market data: {info['employers_n']} employer responses and {info['job_ads_n']} job ads.\n"
                     "- Final-year students are never used for training; they receive predictions only.")
         st.markdown("**The model**")

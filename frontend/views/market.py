@@ -1,6 +1,7 @@
 """Job market: the study of real entry-level IT job ads (core/market_study.py, served by GET /job-market)."""
 from __future__ import annotations
 
+import base64
 import math
 
 import pandas as pd
@@ -9,15 +10,61 @@ import streamlit as st
 from frontend import charts_study as cs
 from frontend import ui
 
+
+MARKET_HERO_ART = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240">
+  <circle cx="145" cy="126" r="108" fill="#fff" opacity=".09"/>
+  <circle cx="229" cy="132" r="5" fill="#3ee0c0"/>
+  <circle cx="43" cy="69" r="4" fill="#ffc86b"/>
+  <path d="M47 188h82l-9 8H57z" fill="#dce7ff"/>
+  <rect x="54" y="121" width="76" height="66" rx="8" fill="#fff"/>
+  <rect x="63" y="131" width="33" height="5" rx="2.5" fill="#3b66e0"/>
+  <rect x="63" y="142" width="53" height="4" rx="2" fill="#d5def3"/>
+  <rect x="63" y="151" width="45" height="4" rx="2" fill="#d5def3"/>
+  <rect x="63" y="164" width="15" height="13" rx="3" fill="#e3f6f1"/>
+  <path d="m67 170 3 3 5-6" fill="none" stroke="#0b7d6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="83" y="166" width="33" height="4" rx="2" fill="#d5def3"/>
+  <path d="M135 63c-8-10-2-22 9-22 3-13 20-15 27-5 12-3 21 5 19 16 11 6 7 21-5 22h-36c-8 0-13-4-14-11z" fill="#fff" opacity=".97"/>
+  <rect x="152" y="52" width="34" height="23" rx="4" fill="#ffa62b"/>
+  <path d="M160 52v-5a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v5" fill="none" stroke="#fff5df" stroke-width="3"/>
+  <path d="M152 60h34M166 58v5h6v-5" fill="none" stroke="#fff5df" stroke-width="2"/>
+  <circle cx="147" cy="82" r="3.5" fill="#fff"/>
+  <circle cx="155" cy="88" r="2.5" fill="#fff"/>
+  <circle cx="166" cy="121" r="27" fill="#f3c6a3"/>
+  <path d="M139 119c-2-18 9-33 27-33 13 0 24 9 27 23-8-2-13-9-15-15-7 9-20 13-39 12z" fill="#24345a"/>
+  <path d="M157 124h2M173 124h2" stroke="#24345a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M163 135q4 3 8 0" fill="none" stroke="#a85f54" stroke-width="2" stroke-linecap="round"/>
+  <path d="M157 146v13h18v-13" fill="#e8a982"/>
+  <path d="M128 222v-41c0-17 13-29 30-29h17c18 0 30 12 30 29v41z" fill="#7da2ff"/>
+  <path d="M143 160c7 8 17 12 26 12s17-4 23-12" fill="none" stroke="#dbe5ff" stroke-width="3"/>
+  <path d="M191 162c-4-9-9-14-14-20l-3-4c-2-3 1-7 4-6 5 1 8 6 12 10l8 8c5 5 7 11 7 18v6h-14z" fill="#f3c6a3"/>
+  <path d="M118 222h99" stroke="#24345a" stroke-opacity=".3" stroke-width="4" stroke-linecap="round"/>
+  <path d="m214 47 5 5 9-11" fill="none" stroke="#3ee0c0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m112 94 2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffe29a"/>
+</svg>"""
+MARKET_HERO_IMAGE = base64.b64encode(MARKET_HERO_ART.encode("utf-8")).decode("ascii")
+
 m = ui.fetch("/job-market")
 if not m:
     st.stop()
 
-ui.hero("Job market · real data",
-        "What Sri Lankan employers ask of entry-level IT graduates",
-        f"{m['n_ads']} real internship, trainee, junior and associate IT vacancies from {m['n_companies']} companies, "
-        f"posted {pd.Timestamp(m['date_from']):%d %b} - {pd.Timestamp(m['date_to']):%d %b %Y}, coded against the same "
-        "26-skill vocabulary the predictor uses.", compact=True)
+hero_summary = (f"{m['n_ads']} real internship, trainee, junior and associate IT vacancies from "
+                f"{m['n_companies']} companies, posted {pd.Timestamp(m['date_from']):%d %b} - "
+                f"{pd.Timestamp(m['date_to']):%d %b %Y}, coded against the same 26-skill vocabulary the predictor uses.")
+st.markdown(
+    "<style>"
+    ".market-hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:1rem}"
+    ".market-hero-copy{min-width:0}.market-hero-art{display:block;width:100%;max-width:220px;margin:auto}"
+    "@media(max-width:640px){.market-hero{grid-template-columns:minmax(0,1fr) 100px;gap:.2rem;padding:1.2rem 1rem}"
+    ".market-hero-art{width:100px}.market-hero h1{font-size:1.45rem}.market-hero p{font-size:.88rem}}"
+    "</style>"
+    "<section class='hero compact market-hero'><div class='market-hero-copy'>"
+    f"<div class='kicker'>{ui.esc('Job market · real data')}</div>"
+    f"<h1>{ui.esc('What Sri Lankan employers ask of entry-level IT graduates')}</h1>"
+    f"<p>{ui.esc(hero_summary)}</p></div>"
+    f"<img class='market-hero-art' src='data:image/svg+xml;base64,{MARKET_HERO_IMAGE}' "
+    "alt='A graduate thinking about job opportunities, with a briefcase and job listing'></section>",
+    unsafe_allow_html=True,
+)
 
 prev = m["prevalence"]
 tech = [p for p in prev if p["kind"] == "technical"]
