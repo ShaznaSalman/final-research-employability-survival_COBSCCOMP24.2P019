@@ -54,17 +54,17 @@ if pending:
 
 sg, _ = call("/suggestions", profile)
 if sg:
-    with st.container(border=True):
-        st.markdown("**:material/lightbulb: Combinations to explore** <span class='muted'>(small changes linked "
-                    "with finding work sooner in profiles like yours)</span>", unsafe_allow_html=True)
-        if not sg["suggestions"]:
-            st.caption(sg["message"])
-        for i, sug in enumerate(sg["suggestions"]):
+    st.markdown("**:material/lightbulb: Combinations to explore** <span class='muted'>(small changes linked "
+                "with finding work sooner in profiles like yours)</span>", unsafe_allow_html=True)
+    if not sg["suggestions"]:
+        st.caption(sg["message"])
+    for i, sug in enumerate(sg["suggestions"]):
+        with st.container(border=True):
             t, b = st.columns([5, 1], vertical_alignment="center")
             t.markdown(f"<div class='item'>{sug['text']}</div>", unsafe_allow_html=True)
-            b.button("Try this", key=f"try_{i}", on_click=try_suggestion, args=(sug["changes"],),
+            b.button("Try this", type="primary", key=f"try_{i}", on_click=try_suggestion, args=(sug["changes"],),
                      help="Sets the what-if sliders below to this combination.")
-        st.caption(sg["note"])
+    st.caption(sg["note"])
 
 with st.container(border=True):
     st.markdown("**:material/tune: What if…** <span class='muted'>(things you can change)</span>",

@@ -22,6 +22,9 @@ NIBM-4th year Research-*/
 data/processed/*
 !data/processed/.gitkeep
 data/reference/*.db
+data/profile_store.sqlite3
+data/profile_store.sqlite3-shm
+data/profile_store.sqlite3-wal
 artifacts/oof_predictions.csv
 artifacts/calibration_table.csv
 artifacts/fairness_report.csv

@@ -20,6 +20,9 @@ from core.whatif import WhatIfError, what_if
 MAX_MESSAGE_CHARS = 500
 FOLLOW_UPS = ["How long will it take me?", "Why is my estimate like this?", "What if I do a 6-month internship?",
               "Which skills should I learn?", "How can I find work sooner?", "Can I trust this estimate?"]
+PROFILE_FREE_INTENTS = {"greeting", "help", "method", "privacy", "trust", "factor", "unknown"}
+GENERAL_FOLLOW_UPS = ["What can I ask?", "How does the model work?", "Can I trust this estimate?",
+                      "Do you store my data?", "Is GPA important?"]
 
 # ---------------------------------------------------------------------------------------------- what-if parsing
 WORD_NUMBERS = {"a": 1, "an": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
@@ -39,6 +42,84 @@ AREA_WORDS = {
 WHATIF_TRIGGER = re.compile(r"\b(what if|if i|if i'd|suppose|would .* (help|change)|what happens|should i (do|get|"
                             r"take)|will .* (help|change)|how much (sooner|faster|quicker))\b")
 
+CHAT_TERMS = (
+    "what", "why", "estimate", "estimates", "predict", "prediction", "chance", "probability", "likely",
+    "intern", "interns", "internship", "internships", "cert", "certs", "certification", "certifications",
+    "project", "projects", "skill", "skills", "learn", "learning", "improve", "improvement", "faster", "sooner",
+    "quicker", "suggest", "suggestion", "suggestions", "advice", "recommend", "recommendation", "recommendations",
+    "employer", "employers", "graduate", "graduates", "graduated", "university", "universities", "institution",
+    "institutions", "campus", "degree", "course", "programme", "program", "portfolio", "github", "hackathon",
+    "hackathons", "competition", "competitions", "opensource", "gpa", "grade", "grades", "class", "technical",
+    "programming", "confidence", "confident", "accuracy", "accurate", "reliable", "reliability", "trust", "valid",
+    "average", "compare", "comparison", "peer", "peers", "similar", "factor", "factors", "important", "matter",
+    "affect", "effect", "help", "helping", "holding", "back", "explain", "reason", "reasons", "data", "model",
+    "algorithm", "survival", "trained", "privacy", "store", "stored", "saving", "save", "track", "tracked",
+    "months", "month", "softer", "soft", "find", "finding", "work", "job", "jobs", "increase", "chance",
+)
+
+
+def _edit_distance(left: str, right: str, limit: int) -> int:
+    """Damerau-Levenshtein distance, stopping once a token is beyond the small correction limit."""
+    if abs(len(left) - len(right)) > limit:
+        return limit + 1
+    previous_previous = None
+    previous = list(range(len(right) + 1))
+    for row, left_char in enumerate(left, 1):
+        current = [row]
+        for column, right_char in enumerate(right, 1):
+            cost = left_char != right_char
+            value = min(
+                previous[column] + 1,
+                current[column - 1] + 1,
+                previous[column - 1] + cost,
+            )
+            if (previous_previous is not None and row > 1 and column > 1
+                    and left_char == right[column - 2] and left[row - 2] == right_char):
+                value = min(value, previous_previous[column - 2] + 1)
+            current.append(value)
+        if min(current) > limit:
+            return limit + 1
+        previous_previous, previous = previous, current
+    return previous[-1]
+
+
+def normalize_chat_text(message: str) -> str:
+    """Correct only clear, one/two-edit misspellings of known chat keywords."""
+    message = re.sub(r"\bthank(?:you|u|yuo)\b", "thank you", message, flags=re.IGNORECASE)
+    terms_by_length: dict[int, list[str]] = {}
+    for term in set(CHAT_TERMS):
+        terms_by_length.setdefault(len(term), []).append(term)
+
+    def correct(match: re.Match) -> str:
+        token = match.group(0)
+        lower = token.lower()
+        if len(lower) < 4 or lower in CHAT_TERMS:
+            return token
+        limit = 1 if len(lower) < 8 else 2
+        candidates = []
+        for length in range(max(4, len(lower) - limit), len(lower) + limit + 1):
+            for term in terms_by_length.get(length, ()):
+                distance = _edit_distance(lower, term, limit)
+                if distance <= limit:
+                    candidates.append((distance, term))
+        if not candidates:
+            return token
+        best_distance = min(distance for distance, _ in candidates)
+        closest = {term for distance, term in candidates if distance == best_distance}
+        if len(closest) > 1:
+            suffixes = ("ies", "ing", "ed", "s")
+            suffix = next((ending for ending in suffixes if lower.endswith(ending)), None)
+            if suffix:
+                matching_suffix = {term for term in closest if term.endswith(suffix)}
+                if len(matching_suffix) == 1:
+                    closest = matching_suffix
+        if len(closest) != 1:
+            return token
+        replacement = next(iter(closest))
+        return replacement.capitalize() if token[0].isupper() else replacement
+
+    return re.sub(r"[A-Za-z]+", correct, message)
+
 
 def _num(token: str | None, default: float | None = None) -> float | None:
     if token is None:
@@ -49,7 +130,7 @@ def _num(token: str | None, default: float | None = None) -> float | None:
 
 def parse_changes(text: str, current: dict, status: str) -> tuple[dict, list[str]]:
     """Turn a what-if question into actionable changes. Returns (changes, assumptions stated in the reply)."""
-    t = text.lower()
+    t = normalize_chat_text(text).lower()
     changes, notes = {}, []
     additive = bool(ADD_WORDS.search(t)) or not SET_WORDS.search(t)
 
@@ -112,13 +193,13 @@ INTENTS = [  # checked in order; the first match wins
     ("method", r"how does (it|this|the (app|system|model)) work|survival|which model|what model|algorithm|"
                r"where.*data|what data|trained|how was"),
     ("privacy", r"stor(e|ed|ing)|save|privacy|my data|track|log"),
-    ("greeting", r"^(hi|hello|hey|good (morning|afternoon|evening)|thanks|thank you)\b"),
+    ("greeting", r"^(h+i+o?|hello|hey|good (morning|afternoon|evening)|thanks|thank you)\b"),
     ("help", r"help|what can (you|i) (do|ask)|options"),
 ]
 
 
 def classify(message: str) -> str:
-    t = message.lower().strip()
+    t = normalize_chat_text(message).lower().strip()
     if WHATIF_TRIGGER.search(t):
         return "whatif"
     for name, pattern in INTENTS:
@@ -140,16 +221,20 @@ class Assistant:
     def __init__(self, predictor: Predictor, explainer: Explainer, reference=None):
         self.predictor, self.explainer, self.reference = predictor, explainer, reference
 
-    def respond(self, message: str, profile: dict) -> dict:
-        message = (message or "").strip()[:MAX_MESSAGE_CHARS]
+    def respond(self, message: str, profile: dict | None) -> dict:
+        message = normalize_chat_text((message or "").strip()[:MAX_MESSAGE_CHARS])
         intent = classify(message)
-        handler = getattr(self, f"_{intent}")
-        try:
-            reply, sources = handler(message, profile)
-        except (WhatIfError, ValueError) as e:
-            reply, sources = f"I couldn't work that out: {e}", []
+        if profile is None and intent not in PROFILE_FREE_INTENTS:
+            reply, sources = ("Complete your profile first so I can answer based on your own estimate.", [])
+        else:
+            handler = getattr(self, f"_{intent}")
+            try:
+                reply, sources = handler(message, profile)
+            except (WhatIfError, ValueError) as e:
+                reply, sources = f"I couldn't work that out: {e}", []
         return {"intent": intent, "reply": reply, "sources": sources,
-                "follow_ups": [q for q in FOLLOW_UPS if q.lower() != message.lower()][:4]}
+                "follow_ups": [q for q in (GENERAL_FOLLOW_UPS if profile is None else FOLLOW_UPS)
+                               if q.lower() != message.lower()][:4]}
 
     # -- intents -------------------------------------------------------------------------------------
     def _estimate(self, message, profile):
@@ -170,15 +255,19 @@ class Assistant:
         if e["hurting"]:
             lines += ([""] if lines else []) + ["**What's holding the estimate back:**",
                                                  _bullets([i["text"] for i in e["hurting"]])]
+        elif e["helping"]:
+            lines += ([""] if lines else []) + [wording.LOCAL_NO_HURTING]
         if not lines:
-            lines = ["Nothing in your profile stands out much from the typical graduate."]
+            lines = [wording.LOCAL_NO_HURTING]
         lines += ["", e["note"]]
         return "\n".join(lines), ["explanation"]
 
     def _factor(self, message, profile):
         t = message.lower()
         feats = [f for f, p in FEATURE_WORDS.items() if re.search(p, t)]
-        effects = [g for g in self.explainer.explain(profile)["global"] if g["feature"] in feats]
+        global_effects = (self.explainer.global_effects() if profile is None
+                          else self.explainer.explain(profile)["global"])
+        effects = [g for g in global_effects if g["feature"] in feats]
         if not effects:
             return self._help(message, profile)
         return ("Across all graduates in the training data:\n" + _bullets([g["text"] for g in effects]) +
@@ -238,39 +327,53 @@ class Assistant:
     def _trust(self, message, profile):
         b = self.predictor.bundle
         test = b.get("test_metrics")
+        if profile is None:
+            if test:
+                return ("The model was tested on graduates it had not learned from. Its results are estimates, not "
+                        "guarantees. Complete your profile to see the confidence for your own estimate."), [
+                            "model evaluation"]
+            return ("The model gives an estimate, not a guarantee. Complete your profile to see the confidence for "
+                    "your own result."), ["model evaluation"]
         lines = []
         if test:
             from core.evaluate import plain_language_metrics
             lines += ["**How accurate the model was on graduates it had never seen:**",
                       _bullets(plain_language_metrics(test["uno_c"], {h: test[f"cal_err_{h}m"] for h in (3, 6, 12)}))]
         p = self.predictor.predict(profile)
-        lines += ["", f"For your profile the confidence is **{p['confidence']}**: {p['confidence_reason']}",
-                  "", "**Limits to keep in mind:**", _bullets(wording.limitations(self.predictor.bundle.get("dataset_info", {})))]
+        lines += ["", f"For your profile the confidence is **{p['confidence']}**: {p['confidence_reason']}"]
+        lines += ["", "**Limits to keep in mind:**",
+                  _bullets(wording.limitations(self.predictor.bundle.get("dataset_info", {})))]
         return "\n".join(lines), ["model evaluation"]
 
     def _method(self, message, profile):
-        info = self.predictor.bundle.get("dataset_info", {})
-        label = self.predictor.bundle.get("label") or self.predictor.bundle.get("name", "the selected model")
-        return (f"The estimate comes from a survival-analysis model (**{label}**) trained on "
-                f"{info.get('training_n', 'the')} graduates' answers about when they completed their degree and "
-                "when they started their first IT job. Survival analysis also learns from graduates who were still "
-                "looking when surveyed, instead of ignoring them. Several models were compared on separate "
-                "graduates and the chosen one was tested once on graduates it had never seen. Explanations show how "
-                "each factor in your profile compares with the average graduate.\n\n" + wording.ASSOCIATIONAL_NOTE,
-                ["model information"])
+        return ("JobSpark uses survey data from past IT graduates to estimate how long finding a first IT job may "
+                "take. It gives an estimate, not a guarantee."), ["model information"]
 
     def _privacy(self, message, profile):
-        return wording.PRIVACY + " This chat works the same way: your questions are answered and then discarded.", []
+        return ("Your profile answers are used to calculate your results. Your chat messages are not saved to your "
+                "account."), []
 
     def _greeting(self, message, profile):
-        return ("Hello! Ask me about your estimate - for example how long it may take, why, what could change it, "
-                "or which skills employers want."), []
+        time_greeting = re.search(r"\bgood (morning|afternoon|evening)\b", message, re.IGNORECASE)
+        salutation = f"Good {time_greeting.group(1).lower()}!" if time_greeting else "Hi!"
+        if re.match(r"^(thanks|thank you)\b", message, re.IGNORECASE):
+            salutation = "You're welcome!"
+        if profile is None:
+            return (f"{salutation} I'm Spark. Ask me how JobSpark works or how your data is used. Complete your "
+                    "profile for answers about your own estimate."), []
+        return (f"{salutation} I'm here to help with your estimate, what affects it, or what you could try."), []
 
     def _help(self, message, profile):
+        if profile is None:
+            return ("Try asking how JobSpark works or whether your chat is saved. Complete your profile for personal "
+                    "estimates and suggestions."), []
         return ("I answer questions about your estimate using this system's own results. You can ask:\n" +
                 _bullets(FOLLOW_UPS + ["Is GPA important?", "How do I compare with similar graduates?"])), []
 
     def _unknown(self, message, profile):
+        if profile is None:
+            return ("I'm Spark, JobSpark's helper. I can answer questions about the model, privacy, and your "
+                    "employment estimate. Try asking, *\"How does JobSpark work?\"*"), []
         return ("I can only answer questions about your time-to-job estimate, the factors behind it, what-if "
                 "changes, skills employers want, and how reliable the model is. I'm not a general chatbot, so I "
                 "won't guess about anything outside the data.\n\n" + self._help(message, profile)[0]), []

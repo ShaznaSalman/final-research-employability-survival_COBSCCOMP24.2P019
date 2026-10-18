@@ -4,10 +4,11 @@
 - tab handoff: keeps the answers in sessionStorage (this tab only, cleared when it closes) so a page reload, such as
   the one the theme switch needs, does not lose a profile that is half filled in;
 - theme: reports the theme the browser is really showing, and sets it as data-js-theme for the colour tokens;
-- top bar: adds the light/dark switch and the profile avatar next to Streamlit's own toolbar buttons;
+- top bar: adds the light/dark switch and profile avatar; the avatar menu sends selected identity changes back to Python;
 - phone menu: closes the side menu after a page is chosen.
 
-Nothing is kept on the server. All markup the script creates is fixed text written here, never user input.
+Profile answers and tab handoff remain browser-side; account identity is persisted separately through the profile service.
+All menu markup is fixed text, and user-provided names are assigned through input values rather than HTML.
 """
 from __future__ import annotations
 
@@ -15,14 +16,17 @@ import streamlit as st
 
 KEY = "jobspark.profile.v1"
 SESSION_KEY = "jobspark.session.v1"
+AUTH_KEY = "jobspark.profile.auth.v1"
 
 JS = """
 export default function (component) {
   const { data, setStateValue } = component;
   const KEY = "%(key)s";
   const SESSION_KEY = "%(session)s";
+  const AUTH_KEY = "%(auth)s";
   const w = window;
   w.__jobsparkSetState = setStateValue;
+  w.__jobsparkSetTriggerValue = component.setTriggerValue;
   w.__jobsparkData = data || {};
 
   // --- saved profile on this device (localStorage) ---------------------------------------------------------------
@@ -58,6 +62,21 @@ export default function (component) {
   if (data && data.session) {
     try { w.sessionStorage.setItem(SESSION_KEY, JSON.stringify(data.session)); } catch (e) { /* ignore */ }
   }
+  if (!w.__jobsparkAuthSent) {
+    w.__jobsparkAuthSent = true;
+    let token = null;
+    try { token = w.sessionStorage.getItem(AUTH_KEY); } catch (e) { /* storage can be blocked */ }
+    setStateValue("auth_token", token);
+  }
+  const authSync = data && data.auth_sync;
+  if (authSync && authSync.n !== w.__jobsparkLastAuthSync) {
+    w.__jobsparkLastAuthSync = authSync.n;
+    setStateValue("auth_token", authSync.token || null);
+    try {
+      if (authSync.token) w.sessionStorage.setItem(AUTH_KEY, authSync.token);
+      else w.sessionStorage.removeItem(AUTH_KEY);
+    } catch (e) { /* sign-in remains available for this Streamlit session */ }
+  }
 
   // --- phone: close the side menu after a page is chosen ------------------------------------------------------------
   if (!w.__jobsparkNavClose) {
@@ -91,14 +110,104 @@ export default function (component) {
   const switchTheme = () => {
     // Streamlit keeps its theme choice as "Light" or "Dark" under a key that includes the page path.
     const next = w.__jobsparkTheme === "dark" ? "Light" : "Dark";
-    const paths = new Set(["/", "/predict", "/dashboard", "/compare", "/improve", "/ask", "/market", "/research",
+    const paths = new Set(["/", "/predict", "/dashboard", "/compare", "/career_path", "/account", "/improve", "/ask", "/market", "/research",
                            w.location.pathname]);
     try { paths.forEach((p) => w.localStorage.setItem("stActiveTheme-" + p + "-v2", JSON.stringify(next))); } catch (e) { /* ignore */ }
     w.location.reload();
   };
-  const openProfile = () => {
-    const link = document.querySelector('[data-testid="stSidebarNavLink"][href$="/predict"]');
-    if (link) link.click(); else w.location.assign("/predict");
+  const closeProfileMenu = () => {
+    const menu = document.getElementById("js-profile-menu");
+    if (menu) menu.remove();
+  };
+  const addProfileMenuStyles = () => {
+    if (document.getElementById("js-profile-menu-styles")) return;
+    const style = document.createElement("style");
+    style.id = "js-profile-menu-styles";
+    style.textContent = `
+      #js-profile-menu { position:fixed; z-index:99999; top:68px; right:18px; width:min(320px,calc(100vw - 28px));
+        padding:18px; border:1px solid rgba(130,150,190,.35); border-radius:16px;
+        background:var(--panel,#fff); color:var(--ink,#1d2940); box-shadow:0 16px 42px rgba(15,23,42,.28);
+        font:14px/1.45 system-ui,sans-serif; }
+      #js-profile-menu h2 { margin:0 0 14px; font-size:18px; }
+      #js-profile-menu label,#js-profile-menu .js-profile-label { display:block; margin:10px 0 6px; font-weight:600; }
+      #js-profile-menu input { box-sizing:border-box; width:100%%; padding:9px 10px; border:1px solid #9aa8be;
+        border-radius:8px; background:var(--panel,#fff); color:inherit; font:inherit; }
+      #js-profile-menu .js-profile-avatars { display:grid; grid-template-columns:repeat(6,1fr); gap:7px; }
+      #js-profile-menu .js-profile-avatars button { min-height:38px; border:1px solid rgba(130,150,190,.4);
+        border-radius:9px; background:transparent; font-size:21px; cursor:pointer; }
+      #js-profile-menu .js-profile-avatars button.selected { outline:2px solid #6c8fff; background:rgba(108,143,255,.16); }
+      #js-profile-menu .js-profile-note { min-height:20px; margin:10px 0; color:inherit; opacity:.8; }
+      #js-profile-menu .js-profile-save { width:100%%; padding:10px 12px; border:0; border-radius:9px;
+        background:var(--brand,#4263eb); color:var(--on-brand,#fff); font:600 14px system-ui,sans-serif; cursor:pointer; }
+      #js-profile-menu .js-profile-save:hover { filter:brightness(1.08); }
+    `;
+    document.head.appendChild(style);
+  };
+  const openProfileMenu = () => {
+    const existing = document.getElementById("js-profile-menu");
+    if (existing) {
+      closeProfileMenu();
+      return;
+    }
+    const menu = document.createElement("section");
+    addProfileMenuStyles();
+    menu.id = "js-profile-menu";
+    menu.setAttribute("role", "dialog");
+    menu.setAttribute("aria-label", "Profile settings");
+    menu.innerHTML = `
+      <h2>Profile settings</h2>
+      <label for="js-profile-name">Name or username</label>
+      <input id="js-profile-name" maxlength="40" autocomplete="nickname">
+      <p class="js-profile-label">Choose an avatar</p>
+      <div class="js-profile-avatars" role="group" aria-label="Choose an avatar"></div>
+      <p class="js-profile-note"></p>
+      <button class="js-profile-save" type="button"></button>
+    `;
+    const nameInput = menu.querySelector("#js-profile-name");
+    nameInput.value = (w.__jobsparkData && w.__jobsparkData.display_name) || "";
+    const selectedEmoji = {value: (w.__jobsparkData && w.__jobsparkData.avatar_emoji) || "🙂"};
+    const avatars = ["🙂", "😀", "😎", "🤓", "🧑‍💻", "👩‍💻", "👨‍💻", "🚀", "🌱", "⭐", "🐼", "🦊"];
+    const avatarList = menu.querySelector(".js-profile-avatars");
+    avatars.forEach((emoji) => {
+      const option = document.createElement("button");
+      option.type = "button";
+      option.textContent = emoji;
+      option.setAttribute("aria-label", `Choose ${emoji}`);
+      option.setAttribute("aria-pressed", String(emoji === selectedEmoji.value));
+      option.className = emoji === selectedEmoji.value ? "selected" : "";
+      option.addEventListener("click", () => {
+        selectedEmoji.value = emoji;
+        avatarList.querySelectorAll("button").forEach((item) => {
+          const selected = item.textContent === emoji;
+          item.classList.toggle("selected", selected);
+          item.setAttribute("aria-pressed", String(selected));
+        });
+      });
+      avatarList.appendChild(option);
+    });
+    const save = menu.querySelector(".js-profile-save");
+    const signedIn = !!(w.__jobsparkData && w.__jobsparkData.signed_in);
+    const note = menu.querySelector(".js-profile-note");
+    if (signedIn) {
+      save.textContent = "Save profile appearance";
+      save.addEventListener("click", () => {
+        w.__jobsparkSetTriggerValue("identity_update", {
+          display_name: nameInput.value.trim(),
+          avatar_emoji: selectedEmoji.value,
+          nonce: Date.now(),
+        });
+        closeProfileMenu();
+      });
+    } else {
+      note.textContent = "Sign in to save profile appearance across devices.";
+      save.textContent = "Sign in to save";
+      save.addEventListener("click", () => {
+        const link = document.querySelector('[data-testid="stSidebarNavLink"][href$="/account"]');
+        if (link) link.click(); else w.location.assign("/account");
+      });
+    }
+    document.body.appendChild(menu);
+    nameInput.focus();
   };
   const ensureTopbar = () => {
     const host = document.querySelector('[data-testid="stToolbar"]');
@@ -117,7 +226,9 @@ export default function (component) {
       avatar.id = "js-avatar";
       avatar.type = "button";
       avatar.className = "js-avatar";
-      avatar.addEventListener("click", openProfile);
+      avatar.setAttribute("aria-haspopup", "dialog");
+      avatar.setAttribute("aria-expanded", "false");
+      avatar.addEventListener("click", openProfileMenu);
       bar.appendChild(theme);
       bar.appendChild(avatar);
     }
@@ -134,10 +245,12 @@ export default function (component) {
     t.setAttribute("aria-label", t.title);
     const ready = !!(w.__jobsparkData && w.__jobsparkData.profile_done);
     const a = document.getElementById("js-avatar");
-    a.innerHTML = ICONS.person;
+    a.textContent = (w.__jobsparkData && w.__jobsparkData.avatar_emoji) || "🙂";
     a.classList.toggle("ready", ready);
-    a.title = ready ? "My profile (complete)" : "Build my profile";
+    const name = w.__jobsparkData && w.__jobsparkData.display_name;
+    a.title = name ? `Profile settings for ${name}` : "Profile settings";
     a.setAttribute("aria-label", a.title);
+    a.setAttribute("aria-expanded", String(!!document.getElementById("js-profile-menu")));
   };
 
   const applyTheme = () => {
@@ -150,14 +263,25 @@ export default function (component) {
     ensureTopbar();
   };
   applyTheme();
+  if (!w.__jobsparkProfileMenuEvents) {
+    w.__jobsparkProfileMenuEvents = true;
+    document.addEventListener("click", (event) => {
+      const menu = document.getElementById("js-profile-menu");
+      if (menu && !menu.contains(event.target) && event.target.id !== "js-avatar") menu.remove();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeProfileMenu();
+    });
+  }
   if (!w.__jobsparkThemeTimer) w.__jobsparkThemeTimer = setInterval(applyTheme, 1200);   // re-adds the bar if Streamlit redraws the header
 }
-""" % {"key": KEY, "session": SESSION_KEY}
+""" % {"key": KEY, "session": SESSION_KEY, "auth": AUTH_KEY}
 
 _component = st.components.v2.component("jobspark_device_store", js=JS)
 
 
-def mount(session: dict | None = None, profile_done: bool = False):
+def mount(session: dict | None = None, profile_done: bool = False, display_name: str = "",
+          avatar_emoji: str = "🙂", signed_in: bool = False, auth_sync: dict | None = None):
     """Mount the component (call once per run, at the very top of the app).
 
     session: the answers to keep for this tab (or None); profile_done: whether the profile is complete (the avatar shows it).
@@ -165,5 +289,15 @@ def mount(session: dict | None = None, profile_done: bool = False):
     until the browser has reported) and .session (what this tab had kept before a reload, or None)."""
     return _component(
         key="jobspark_device_store",
-        data={"command": st.session_state.get("_store_cmd"), "session": session, "profile_done": profile_done},
-        on_stored_change=lambda: None, on_theme_change=lambda: None, on_session_change=lambda: None)
+        data={"command": st.session_state.get("_store_cmd"), "session": session, "profile_done": profile_done,
+              "display_name": display_name, "avatar_emoji": avatar_emoji, "signed_in": signed_in,
+              "auth_sync": auth_sync},
+        on_stored_change=lambda: None, on_theme_change=lambda: None, on_session_change=lambda: None,
+        on_identity_update_change=lambda: None, on_auth_token_change=lambda: None)
+
+
+def sync_auth_token(token: str | None) -> None:
+    """Queue a browser-tab auth storage update after sign-in, sign-out, or session expiry."""
+    nonce = st.session_state.get("_auth_sync_nonce", 0) + 1
+    st.session_state["_auth_sync_nonce"] = nonce
+    st.session_state["_auth_sync"] = {"n": nonce, "token": token or ""}

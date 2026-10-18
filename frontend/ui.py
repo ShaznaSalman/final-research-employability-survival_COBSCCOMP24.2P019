@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import base64
 
 import streamlit as st
 
@@ -66,10 +67,20 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .st-key-homehero a[data-testid="stPageLink-NavLink"]:hover { background:rgba(255,255,255,.16); }
 .st-key-homehero [data-testid="stHeaderActionElements"], .st-key-homehero h1 a { display:none !important; }
 .st-key-homehero [data-testid="stPageLink"], .st-key-homehero [data-testid="stPageLink"] a { width:100% !important; }
+.hero.has-art { display:grid; grid-template-columns:minmax(0,1fr) minmax(150px,240px); align-items:center; gap:1rem; }
 .hero-art { width:100%; max-width:340px; display:block; margin:0 auto; }
+.hero.has-art .hero-art { max-width:220px; }
 .hero-art .float { animation:jsfloat 6s ease-in-out infinite; transform-origin:center; }
 @keyframes jsfloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
-@media (max-width: 640px) { .hero, .st-key-homehero { padding:1.4rem 1.3rem; border-radius:18px; } .hero h1, .st-key-homehero h1 { font-size:1.7rem; } .hero.compact h1 { font-size:1.5rem; } .hero-art { display:none; } }
+@media (max-width: 640px) {
+  .hero, .st-key-homehero { padding:1.4rem 1.3rem; border-radius:18px; }
+  .hero h1, .st-key-homehero h1 { font-size:1.7rem; }
+  .hero.compact h1 { font-size:1.5rem; }
+  .hero-art { display:none; }
+  .hero.has-art { grid-template-columns:1fr; }
+  .hero.has-art .hero-art { display:block; grid-row:1; width:180px; max-width:100%; margin:0 auto .5rem; }
+  .hero.has-art > div:first-child { grid-row:2; }
+}
 
 /* stat tiles */
 .kpis { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:14px; margin:.2rem 0 1.4rem; }
@@ -93,29 +104,69 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.25rem; height:100%; box-shadow:var(--shadow); }
 .card h4 { margin:0 0 .35rem; font-size:1rem; }
 .card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.5; }
+.best-match-badge { display:inline-flex; align-items:center; gap:.3rem; margin:0 0 .55rem;
+  padding:.28rem .62rem; border:1.5px solid #f5bd16; border-radius:999px;
+  background:linear-gradient(135deg,#fff5c2,#ffe36b); color:#553b00;
+  font-size:.76rem; font-weight:700; letter-spacing:.02em; box-shadow:0 2px 8px rgba(245,189,22,.22); }
+.best-match-star { color:#e0a800; font-size:1.02rem; line-height:1; text-shadow:0 1px 0 #fff4bf; }
 .finding { border-left:4px solid var(--brand); background:var(--panel); border-radius:12px; padding:.85rem 1rem;
   margin-bottom:.6rem; border-top:1px solid var(--line); border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
 .finding b { color:var(--ink); }
 .finding span { color:var(--muted); font-size:.88rem; }
 
 /* prediction result */
-.result { border-radius:20px; padding:1.5rem 1.7rem; margin-bottom:.8rem; box-shadow:0 12px 30px rgba(11,58,140,.22); }
-.result .lbl { text-transform:uppercase; font-size:.72rem; letter-spacing:.1em; color:var(--hero-kicker); font-weight:700; }
-.result .big { font-size:3.1rem; font-weight:800; letter-spacing:-0.03em; line-height:1; margin:.35rem 0 .2rem; font-variant-numeric:tabular-nums; }
-.result .big small { font-size:1.1rem; font-weight:600; color:var(--hero-muted); letter-spacing:0; }
-.result .rng { font-size:.98rem; color:var(--hero-muted); }
-.result .hl { font-size:1.02rem; line-height:1.5; margin-top:.8rem; }
+.result-grid { display:grid; grid-template-columns:minmax(150px,.78fr) minmax(0,1.22fr); gap:.8rem; margin-bottom:.8rem; }
+.result-months, .result-details { border-radius:20px; padding:1.35rem 1.5rem; box-shadow:var(--shadow); }
+.result-months { background:radial-gradient(420px 220px at 100% 100%, rgba(255,184,77,.5), transparent 62%),
+                 linear-gradient(135deg, var(--hero-a), var(--hero-b)); color:var(--hero-ink); }
+.result-details { background:var(--panel); border:1px solid var(--line); color:var(--ink); }
+.result-grid .lbl { text-transform:uppercase; font-size:.72rem; letter-spacing:.1em; color:var(--hero-kicker); font-weight:700; }
+.result-grid .big { font-size:3.1rem; font-weight:800; letter-spacing:-0.03em; line-height:1; margin:.5rem 0 .15rem;
+                    font-variant-numeric:tabular-nums; font-family:'Plus Jakarta Sans','Inter','Segoe UI',sans-serif; }
+.result-grid .big small { font-size:1.1rem; font-weight:600; color:var(--hero-muted); letter-spacing:0; }
+.result-grid .range-label { font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--muted); }
+.result-grid .rng { font-size:1.15rem; font-weight:700; color:var(--ink); margin-top:.3rem; }
+.result-grid .confidence { display:inline-flex; align-items:center; border-radius:999px; padding:.25rem .65rem;
+                           margin-top:.65rem; background:var(--blue-soft); color:var(--brand-ink); font-size:.82rem; font-weight:600; }
+.result-grid .hl { font-size:.96rem; line-height:1.5; color:var(--muted); margin-top:.75rem; }
+@media (max-width: 640px) { .result-grid { grid-template-columns:1fr; } .result-months, .result-details { padding:1.15rem 1.25rem; } }
 .muted { color:var(--muted); font-size:.88rem; }
 .item { margin:.25rem 0 .55rem 0; line-height:1.45; }
 .notice { display:flex; gap:.6rem; align-items:flex-start; background:var(--amber-soft); border:1px solid var(--line); color:var(--amber-ink);
   border-radius:12px; padding:.6rem .9rem; font-size:.86rem; margin-bottom:1rem; }
 div[data-testid="stVerticalBlockBorderWrapper"] { border-radius:var(--radius); }
 /* sidebar navigation */
-[data-testid="stSidebarNavLink"] { min-height:44px; border-radius:12px; font-weight:500; }
-[data-testid="stSidebarNavLink"]:hover { background:var(--blue-soft); }
-[data-testid="stSidebarNavLink"][aria-current="page"] { background:var(--blue-soft); color:var(--brand-ink); font-weight:600;
-  box-shadow:inset 3px 0 0 var(--brand); }
-[data-testid="stNavSectionHeader"] { text-transform:uppercase; letter-spacing:.1em; font-size:.68rem !important; font-weight:700; color:var(--brand-ink) !important; }
+[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+  background-image:radial-gradient(380px 260px at 0 0, var(--blue-soft), transparent 72%) !important;
+  background-color:var(--wash) !important; border-right:1px solid var(--line);
+}
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] { padding:0 .8rem 1rem !important; }
+[data-testid="stSidebar"] [data-testid="stSidebarNavLink"] {
+  min-height:46px !important; margin:.2rem 0 !important; padding:.55rem .8rem !important;
+  border:1px solid transparent !important; border-radius:14px !important;
+  font-weight:500 !important; transition:background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+[data-testid="stSidebar"] [data-testid="stSidebarNavLink"] span[data-testid="stIconMaterial"] {
+  color:var(--brand) !important; transition:transform .18s ease;
+}
+[data-testid="stSidebar"] [data-testid="stSidebarNavLink"]:hover {
+  background:var(--panel) !important; border-color:var(--line) !important;
+  box-shadow:var(--shadow) !important; transform:translateX(2px);
+}
+[data-testid="stSidebar"] [data-testid="stSidebarNavLink"]:hover span[data-testid="stIconMaterial"] { transform:scale(1.08); }
+[data-testid="stSidebar"] [data-testid="stSidebarNavLink"][aria-current="page"] {
+  background-image:linear-gradient(110deg, var(--blue-soft), var(--mint-soft)) !important;
+  color:var(--brand-ink) !important; font-weight:700 !important;
+  border-color:var(--line) !important; box-shadow:inset 3px 0 0 var(--brand), 0 5px 14px rgba(21,32,58,.08) !important;
+}
+[data-testid="stSidebar"] [data-testid="stNavSectionHeader"] {
+  display:flex; align-items:center; gap:.55rem; margin-top:1rem !important; padding:.5rem .1rem .35rem !important;
+  text-transform:uppercase; letter-spacing:.12em; font-size:.66rem !important; font-weight:800 !important;
+  color:var(--brand-ink) !important;
+}
+[data-testid="stSidebar"] [data-testid="stNavSectionHeader"]::after {
+  content:""; height:1px; flex:1; background:linear-gradient(90deg, var(--brand), transparent); opacity:.45;
+}
 [data-testid="stSidebarNavSeparator"], [data-testid="stSidebarNav"] span[data-testid="stHeadingWithActionElements"] { color:var(--muted); }
 
 /* fact tile: one number and what it means */
@@ -242,7 +293,6 @@ def inject() -> None:
     st.markdown(CSS.replace("/*TOKENS*/", TOKENS_LIGHT + _dark_tokens_css()), unsafe_allow_html=True)
 
 
-@st.cache_data(ttl=300, show_spinner=False)
 def model_info() -> dict:
     return get("/model-info")
 
@@ -264,9 +314,55 @@ def esc(x) -> str:
     return html.escape(str(x))
 
 
-def hero(kicker: str, title: str, text: str, compact: bool = False) -> None:
-    st.markdown(f"<div class='hero{' compact' if compact else ''}'><div class='kicker'>{esc(kicker)}</div>"
-                f"<h1>{esc(title)}</h1><p>{text}</p></div>", unsafe_allow_html=True)
+def hero(kicker: str, title: str, text: str, compact: bool = False, art: str | None = None) -> None:
+    """Show a page banner, optionally with a decorative, accessible illustration."""
+    classes = "hero" + (" compact" if compact else "") + (" has-art" if art else "")
+    copy = f"<div><div class='kicker'>{esc(kicker)}</div><h1>{esc(title)}</h1><p>{text}</p></div>"
+    image = (f"<img class='hero-art' src='{html.escape(art, quote=True)}' "
+             f"alt='Illustration of a graduate choosing a career path among IT roles'>") if art else ""
+    st.markdown(f"<div class='{classes}'>{copy}{image}</div>", unsafe_allow_html=True)
+
+
+def career_path_art() -> str:
+    """Return original artwork showing a graduate considering several IT career paths."""
+    svg = (
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 260'>"
+        "<style>"
+        "@keyframes careerOrbit{to{transform:rotate(360deg)}}"
+        ".career-orbit{transform-box:view-box;transform-origin:center;"
+        "animation:careerOrbit 36s linear infinite}"
+        "@media(prefers-reduced-motion:reduce){.career-orbit{animation:none}}"
+        "</style>"
+        "<circle cx='160' cy='130' r='120' fill='#fff' opacity='.12'/>"
+        "<g class='career-orbit'>"
+        "<path d='M162 170V124M162 124L86 72M162 124l76-52M162 124v102' fill='none' "
+        "stroke='#fff' stroke-width='5' stroke-linecap='round' opacity='.85'/>"
+        "<g fill='#fff' stroke='#ffa62b' stroke-width='5'><circle cx='86' cy='72' r='31'/>"
+        "<circle cx='238' cy='72' r='31'/><circle cx='162' cy='226' r='24'/></g>"
+        "<g fill='#315ed4'><path d='M72 77h28v18H72zM79 67h14v10H79z'/>"
+        "<path d='M224 64h28v22h-28zM231 70h14M231 77h14' fill='none' stroke='#315ed4' "
+        "stroke-width='3' stroke-linecap='round'/><path d='M149 229c2-14 24-14 26 0v7h-26z'/>"
+        "<circle cx='162' cy='218' r='7'/></g>"
+        "</g>"
+        "<g class='career-person'>"
+        "<path d='M146 117v11h28v-11' fill='#e9a987'/>"
+        "<path d='M124 171v-25c0-19 13-32 31-35l7 10 8-10c17 4 29 17 29 35v25z' fill='#7da2ff'/>"
+        "<path d='M139 122l-14 13-5 27 12 2 7-20M181 122l14 13 5 27-12 2-7-20' "
+        "fill='#ffc6a4' stroke='#e9a987' stroke-width='2' stroke-linejoin='round'/>"
+        "<path d='M147 126l15 13 15-13-4-10h-22z' fill='#fff' opacity='.92'/>"
+        "<path d='M145 103c-8-15-2-31 12-35 15-5 29 5 30 20l-3 27-7 9h-29l-7-10z' fill='#302a3f'/>"
+        "<circle cx='162' cy='99' r='18' fill='#ffc6a4'/>"
+        "<path d='M144 94c9-2 15-7 19-14 5 7 12 11 23 13l1-5c-2-12-11-20-22-20-14 0-23 10-21 26z' fill='#302a3f'/>"
+        "<circle cx='155' cy='101' r='1.7' fill='#302a3f'/><circle cx='169' cy='101' r='1.7' fill='#302a3f'/>"
+        "<path d='M162 102l-1 5h3M157 112q5 4 10 0' fill='none' stroke='#a85855' "
+        "stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/>"
+        "<path d='M139 145l-3 26M183 145l3 26' stroke='#5d83e5' stroke-width='3' stroke-linecap='round'/>"
+        "<path d='M156 145h12' stroke='#fff' stroke-width='2' stroke-linecap='round' opacity='.8'/>"
+        "</g>"
+        "<circle cx='51' cy='147' r='5' fill='#3ee0c0'/><circle cx='275' cy='144' r='5' fill='#ffc86b'/>"
+        "</svg>"
+    )
+    return "data:image/svg+xml;base64," + base64.b64encode(svg.encode("utf-8")).decode("ascii")
 
 
 def kpis(items: list[tuple]) -> None:
@@ -321,11 +417,15 @@ def progress(labels: list[str], current: int) -> None:
 
 
 def estimate_card(median: str, low: str, high: str, confidence: str, headline: str) -> None:
-    """The main answer: one big number, the typical range, a confidence label and the API's plain-language headline."""
-    st.markdown(f"<div class='result'><div class='lbl'>Most likely time to a first IT job</div>"
-                f"<div class='big'>{esc(median)} <small>months</small></div>"
-                f"<div class='rng'>Typical range {esc(low)} - {esc(high)} months · {esc(confidence)}</div>"
-                f"<div class='hl'>{headline}</div></div>", unsafe_allow_html=True)
+    """Show the most-likely time separately from its range, confidence and explanation."""
+    st.markdown(
+        f"<div class='result-grid'>"
+        f"<div class='result-months'><div class='lbl'>Most likely time to a first IT job</div>"
+        f"<div class='big'>{esc(median)} <small>months</small></div></div>"
+        f"<div class='result-details'><div class='range-label'>Typical range</div>"
+        f"<div class='rng'>{esc(low)} - {esc(high)} months</div>"
+        f"<div class='confidence'>{esc(confidence)}</div>"
+        f"<div class='hl'>{headline}</div></div></div>", unsafe_allow_html=True)
 
 
 GLOSSARY = {

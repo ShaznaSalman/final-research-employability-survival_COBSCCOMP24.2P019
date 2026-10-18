@@ -15,6 +15,7 @@ from pathlib import Path
 import pandas as pd
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import Response
 
 from api.schemas import (ChatRequest, ChatResponse, ExplainResponse, HealthResponse, InsightsRequest,
                          MarketResponse, ModelInfoResponse, ModelProfile, PeerResponse, PredictionResponse, Profile,
@@ -23,8 +24,10 @@ from core import evaluate, insights, predict, wording
 from core.chat import Assistant
 from core.explain import Explainer
 from core.market import ReferenceData
+from core.pathways import role_pathways
 from core.suggest import suggest
 from core.whatif import WhatIfError, what_if
+from api.report import build_report
 
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
@@ -84,6 +87,32 @@ def predict_endpoint(profile: ModelProfile, request: Request):
         raise HTTPException(status_code=422, detail=str(e)) from None
 
 
+@app.post("/report")
+def report_endpoint(profile: ModelProfile, request: Request):
+    """Generate a one-time PDF report. The submitted profile is processed in memory and never stored."""
+    s = _core(request)
+    try:
+        core_profile = profile.to_core()
+        prediction = s["predictor"].predict(core_profile)
+        explanation = s["explainer"].explain(core_profile)
+        explanation["global_effects"] = explanation.pop("global")
+        suggestions = suggest(s["predictor"], core_profile)
+        market_alignment = s["reference"].alignment(profile.to_core())
+        job_market_path = _artifacts(request) / "job_market_study.json"
+        pathways = None
+        if job_market_path.exists():
+            pathways = role_pathways(core_profile, json.loads(job_market_path.read_text(encoding="utf-8")))
+        pdf = build_report(core_profile, prediction, explanation, suggestions, market_alignment,
+                           s["info"], wording.DISCLAIMER,
+                           wording.ASSOCIATIONAL_NOTE, pathways)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e)) from None
+    return Response(pdf, media_type="application/pdf", headers={
+        "Content-Disposition": 'attachment; filename="jobspark-report.pdf"',
+        "Cache-Control": "no-store",
+    })
+
+
 @app.post("/explain", response_model=ExplainResponse)
 def explain_endpoint(profile: ModelProfile, request: Request):
     out = _core(request)["explainer"].explain(profile.to_core())
@@ -118,10 +147,11 @@ def market_endpoint(profile: Profile, request: Request):
 
 @app.post("/chat", response_model=ChatResponse)
 def chat_endpoint(req: ChatRequest, request: Request):
-    """Grounded assistant: answers a question about this profile from the system's own results (no language model).
-    Neither the message nor the profile is stored."""
+    """Grounded assistant: answers general questions without a profile and personal questions from profile results.
+    No language model is used; neither the message nor the profile is stored."""
     s = _core(request)
-    return Assistant(s["predictor"], s["explainer"], s["reference"]).respond(req.message, req.profile.to_core())
+    profile = req.profile.to_core() if req.profile is not None else None
+    return Assistant(s["predictor"], s["explainer"], s["reference"]).respond(req.message, profile)
 
 
 @app.post("/insights")
@@ -168,7 +198,7 @@ def model_info(request: Request):
         "modelling_n": info.get("modelling_n", info.get("training_n", 0)),
         "validation_n": info.get("validation_n", 0), "test_n": info.get("test_n", 0),
         "confidence_thresholds_months": predict.CONFIDENCE_THRESHOLDS,
-        "disclaimer": wording.DISCLAIMER.format(n=info.get("training_n", 0)),
+        "disclaimer": wording.DISCLAIMER,
         "synthetic_banner": wording.SYNTHETIC_BANNER if synthetic else None,
         "associational_note": wording.ASSOCIATIONAL_NOTE, "privacy": wording.PRIVACY,
         "limitations": wording.limitations(info),
