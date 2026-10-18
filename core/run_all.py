@@ -3,6 +3,7 @@
   python -m core.run_all                    real data if present, otherwise the *_SYNTHETIC files
   python -m core.run_all --synthetic        (re)generate the synthetic data first
   python -m core.run_all --quick            1 CV repeat instead of 3 (for a fast check; not for the thesis)
+  python -m core.run_all --track local      also log the run as a reproducibility log (core/tracking.py)
 
 Steps: data dictionary -> clean (+ fixed train/validation/test split) -> fit on train, compare on validation,
        select, final fit on train, ONE evaluation on the locked test set, bootstrap -> fairness
@@ -128,6 +129,11 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--synthetic", action="store_true", help="regenerate the synthetic data first")
     ap.add_argument("--quick", action="store_true", help="1 CV repeat instead of 3 (fast check only)")
+    ap.add_argument("--track", choices=["local", "wandb"], default=None,
+                    help="log the run to artifacts/runs/ or W&B (off by default)")
     a = ap.parse_args()
     out = run(make_synthetic=a.synthetic, quick=a.quick)
     (ROOT / "artifacts" / "run_summary.json").write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
+    if a.track:
+        from core import tracking
+        _step(f"Experiment tracking ({a.track})", lambda: tracking.log_pipeline_run(tracking.make(a.track)))

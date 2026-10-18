@@ -1,7 +1,6 @@
 # Time-to-Employment Decision Support (Research Prototype)
 
-Research prototype for the dissertation **"A Survival-Analysis Framework for Predicting and Explaining
-Time-to-Employment for Final-Year IT Undergraduates in Sri Lanka"**.
+Research prototype for the dissertation **"A Survival-Analysis Framework for Predicting and Explaining Time-to-Employment for Final-Year Information Technology Undergraduates and Graduates in Sri Lanka"**.
 
 Given a graduate's (or final-year student's) profile, the app estimates how many months after graduating
 graduates with similar profiles took to find their first IT job, explains which parts of the profile were
@@ -112,7 +111,7 @@ After sign-in, the profile-service session token is kept in this browser tab's `
 pytest
 ```
 
-295 tests, about 2 minutes. See `docs/testing.md` for the
+412 tests, about 2 minutes. See `docs/testing.md` for the
 requirement-to-test map.
 
 ---
@@ -314,6 +313,20 @@ pip install -r requirements-notebook.txt
 python notebooks/build_walkthrough.py          # rebuilds the notebook from its source
 jupyter nbconvert --to notebook --execute --inplace notebooks/research_walkthrough.ipynb --ExecutePreprocessor.timeout=1800
 ```
+
+### Experiment tracking (reproducibility log)
+
+```powershell
+python -m core.tracking --track local     # writes artifacts/runs/<timestamp>/ (no account needed)
+python -m core.tracking --track wandb     # Weights & Biases, offline by default (pip install -r requirements-tracking.txt)
+python -m core.run_all --track local      # run the pipeline, then log it
+```
+
+A run records the data fingerprint, the split sizes, each candidate model's settings and validation metrics, the
+selection, DeepSurv's loss per epoch, the learning curve and the figures. It reads the saved artifacts only: nothing is
+refitted, the locked test result is loaded (never re-evaluated), and no survey answers are logged. Runs are dated when
+they are logged, so they are a reproducibility log rather than records of the original development. Tracking is off by
+default.
 
 ## 8. Privacy
 
