@@ -65,3 +65,10 @@ proof/
 
 # Experiment-tracking runs (regenerate with python -m core.tracking; figures duplicate artifacts/figures)
 artifacts/runs/
+
+# Local working files (not part of the project)
+Thesis manual update.pdf
+research_dummy_1_to_1_day_updated fully for miss.pdf
+thesis finetuning/
+thesis fixes/
+docs/thesis_figures/*_backup.png
