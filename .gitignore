@@ -62,3 +62,6 @@ current thesis.pdf
 
 # Evidence pack for the supervisor (contains participant responses - never publish)
 proof/
+
+# Experiment-tracking runs (regenerate with python -m core.tracking; figures duplicate artifacts/figures)
+artifacts/runs/
